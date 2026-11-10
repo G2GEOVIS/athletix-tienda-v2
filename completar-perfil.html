@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0B1F3A">
+  <meta name="description" content="Completa tus datos para poder comprar.">
+  <title>Completa tu perfil | ATHLETIX</title>
+  <meta name="version-sitio" content="8d3fcd346a">
+  <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,700;0,800;1,800&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/estilos.css?v=d38f0c02">
+</head>
+<!-- Página generada desde plantilla.html (herramientas/generar_paginas.py) -->
+<body data-pagina="completar-perfil">
+  <a class="saltar" href="#contenido">Saltar al contenido principal</a>
+
+  <header class="encabezado">
+    <div class="encabezado__barra contenedor">
+      <a class="logo" href="index.html" aria-label="ATHLETIX, ir al inicio">
+        <svg class="logo__icono" viewBox="0 0 40 40" aria-hidden="true" focusable="false">
+          <path d="M8 34 20 6 32 34" fill="none" stroke="currentColor" stroke-width="5.5" stroke-linejoin="round" stroke-linecap="round"/>
+          <path d="M4 25h24" stroke="#FF7A00" stroke-width="4" stroke-linecap="round"/>
+        </svg>
+        <span class="logo__texto" aria-hidden="true">ATHLETIX</span>
+      </a>
+
+      <button class="boton-menu" type="button" aria-expanded="false" aria-controls="menu-principal">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        <span>Menú</span>
+      </button>
+
+      <nav class="navegacion" id="menu-principal" aria-label="Principal">
+        <ul class="navegacion__lista">
+          <li><a class="navegacion__enlace" href="index.html" data-ruta="inicio">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 11 12 4l9 7v9h-6v-6H9v6H3z"/></svg>Inicio</a></li>
+          <li><a class="navegacion__enlace" href="productos.html" data-ruta="productos">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z"/></svg>Productos</a></li>
+          <li><a class="navegacion__enlace" href="favoritos.html" data-ruta="favoritos">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20z"/></svg>Favoritos<span class="navegacion__cantidad" id="contador-favoritos" aria-hidden="true" hidden>0</span><span class="solo-lector" id="contador-favoritos-texto"></span></a></li>
+          <li><a class="navegacion__enlace" href="ayuda.html" data-ruta="ayuda">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6V14M12 17.5v.01"/></svg>Ayuda</a></li>
+        </ul>
+      </nav>
+
+      <form class="buscador" role="search" action="productos.html">
+        <label class="solo-lector" for="buscar-texto">Buscar productos</label>
+        <input class="buscador__campo" id="buscar-texto" name="q" type="search" maxlength="100" placeholder="Buscar productos" autocomplete="off" enterkeyhint="search">
+        <button class="buscador__boton" type="submit">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>
+          <span class="solo-lector">Buscar</span>
+        </button>
+      </form>
+
+      <div class="cuenta" id="zona-cuenta"></div>
+
+      <a class="boton-carrito" href="carrito.html" data-ruta="carrito">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 4h2l2.4 11h11L21 7H6.2"/><circle cx="9" cy="19.5" r="1.5"/><circle cx="17" cy="19.5" r="1.5"/></svg>
+        <span class="boton-carrito__texto">Carrito</span>
+        <span class="boton-carrito__cantidad" id="contador-carrito" aria-hidden="true">0</span>
+        <span class="solo-lector" id="contador-carrito-texto">, 0 productos</span>
+      </a>
+    </div>
+  </header>
+
+  <main id="contenido" tabindex="-1"></main>
+
+  <footer class="pie">
+    <div class="contenedor pie__grilla">
+      <div class="pie__marca">
+        <span class="logo logo--claro" aria-hidden="true">
+          <svg class="logo__icono" viewBox="0 0 40 40" aria-hidden="true" focusable="false">
+            <path d="M8 34 20 6 32 34" fill="none" stroke="currentColor" stroke-width="5.5" stroke-linejoin="round" stroke-linecap="round"/>
+            <path d="M4 25h24" stroke="#FF7A00" stroke-width="4" stroke-linecap="round"/>
+          </svg>
+          <span class="logo__texto">ATHLETIX</span>
+        </span>
+        <p class="pie__lema">Entrena. Compite. Supera.</p>
+      </div>
+      <section aria-labelledby="pie-atencion">
+        <h2 class="pie__titulo" id="pie-atencion">Atención al cliente</h2>
+        <p>Lunes a sábado<br>09:00 a 18:00</p><p><a href="ayuda.html">Centro de ayuda</a></p>
+      </section>
+      <section aria-labelledby="pie-contacto">
+        <h2 class="pie__titulo" id="pie-contacto">Contacto</h2>
+        <p><a href="mailto:geovannymorocho621@gmail.com?subject=Consulta%20ATHLETIX">geovannymorocho621@gmail.com</a></p>
+      </section>
+      <section aria-labelledby="pie-sobre">
+        <h2 class="pie__titulo" id="pie-sobre">Sobre ATHLETIX</h2>
+        <p>Marca deportiva para entrenar, competir y superar tus marcas.</p>
+        <p><a href="quienes-somos.html" data-ruta="quienes-somos">Quiénes somos</a></p>
+      </section>
+    </div>
+    <div class="contenedor pie__legal">
+      <p>© 2026 ATHLETIX</p>
+    </div>
+  </footer>
+
+  <div class="anuncio solo-lector" id="anuncio" role="status" aria-live="polite"></div>
+  <div class="aviso-flotante" id="aviso-flotante" role="status" aria-live="polite" hidden></div>
+  <div class="aviso-sesion" id="aviso-sesion" role="status" aria-live="polite" hidden></div>
+
+  <dialog class="dialogo" id="dialogo" aria-labelledby="dialogo-titulo">
+    <div class="dialogo__contenido" id="dialogo-contenido"><h2 class="dialogo__titulo" id="dialogo-titulo">Aviso</h2></div>
+  </dialog>
+
+  <noscript>
+    <p class="noscript">Para comprar en ATHLETIX necesitas activar JavaScript en tu navegador.</p>
+  </noscript>
+
+  <script src="js/version.js?v=ea21d29d"></script>
+  <script src="js/config.js?v=108a2af5"></script>
+  <script src="js/vendor/supabase.min.js?v=34035ac7"></script>
+  <script src="js/vendor/emailjs.min.js?v=4204eb12"></script>
+  <script src="js/validaciones.js?v=ffb9e1b4"></script>
+  <script src="js/datos.js?v=f44a856c"></script>
+  <script src="js/api.js?v=f1802810"></script>
+  <script src="js/core.js?v=b5c53be5"></script>
+  <script src="js/vistas-tienda.js?v=84178a4e"></script>
+  <script src="js/vistas-cuenta.js?v=f655af8f"></script>
+  <script src="js/vistas-compra.js?v=d852a7ea"></script>
+  <script src="js/vistas-admin.js?v=2e656a43"></script>
+  <script src="js/factura.js?v=84ce186e"></script>
+  <script src="js/app.js?v=e922796d"></script>
+</body>
+</html>

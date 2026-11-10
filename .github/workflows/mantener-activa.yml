@@ -1,0 +1,17 @@
+# Mantiene activa la base de datos gratuita de Supabase (se pausa tras 7 días sin uso)
+# y comprueba que la tienda publicada responda. Corre todos los días y se puede lanzar a mano.
+name: Mantener la tienda v2 activa
+on:
+  schedule:
+    - cron: '17 11 * * *'
+  workflow_dispatch:
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Consultar la base de datos
+        run: |
+          curl -fsS "https://umujfngetzifneqerirl.supabase.co/rest/v1/producto?select=prd_codigo&limit=1" \
+            -H "apikey: sb_publishable_tdCRRgSHKJO6ADcmyeuFeQ_xuGIuhXd" > /dev/null && echo "Base de datos activa"
+      - name: Comprobar la página publicada
+        run: curl -fsS -o /dev/null "https://g2geovis.github.io/athletix-tienda-v2/" && echo "Tienda en línea"
