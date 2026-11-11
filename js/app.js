@@ -94,7 +94,20 @@ function pintarBannerConexion() {
 }
 
 /* ======================= Sesión ======================= */
-async function alIniciarSesion(sesion) {
+/* Al iniciar sesión, Supabase avisa (evento SIGNED_IN) y el formulario de ingreso también carga la cuenta.
+   Si las dos cargas corren a la vez, la segunda borraba el perfil que la primera estaba leyendo y el cliente
+   veía "Antes de tu primera compra te pediremos tu cédula y celular" aunque ya tenía perfil (por ejemplo, el administrador).
+   Ahora la segunda espera a la primera, y si la cuenta de ese usuario ya está cargada no se vuelve a pedir. */
+let cargaDeCuenta = null;
+function alIniciarSesion(sesion) {
+  const id = sesion && sesion.user ? sesion.user.id : null;
+  if (id && cargaDeCuenta && cargaDeCuenta.id === id) return cargaDeCuenta.promesa;
+  if (id && estado.sesion && estado.sesion.user.id === id && estado.cliente) { estado.sesion = sesion; return Promise.resolve(); }
+  const promesa = cargarCuenta(sesion).finally(() => { if (cargaDeCuenta && cargaDeCuenta.promesa === promesa) cargaDeCuenta = null; });
+  cargaDeCuenta = id ? { id, promesa } : null;
+  return promesa;
+}
+async function cargarCuenta(sesion) {
   estado.sesion = sesion;
   estado.cliente = null;
   estado.esAdmin = false;
