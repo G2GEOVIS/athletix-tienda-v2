@@ -72,7 +72,7 @@ quienes-somos.html       Quiénes somos: historia, misión, visión, valores y t
 404.html                 Página no encontrada
 
 plantilla.html           Base común de todas las páginas
-herramientas/generar_paginas.py  Crea los HTML desde la plantilla y les pone la versión de cada JS y CSS (ejecutarlo después de cambiar el encabezado, el pie, un JS o el CSS)
+herramientas/generar_paginas.py  Crea los HTML desde la plantilla, con los grupos de JS de cada página y su versión (usar npm run construir)
 
 css/estilos.css          Estilos (primero celular)
 img/                     Logo y fotos de productos: img/productos/<código>-<vista>.jpg (1600 px) e img/productos/w/<código>-<vista>-600|1000|1600.webp
@@ -125,9 +125,32 @@ bd/historial/             Scripts anteriores de la base (se conservan como respa
 bd/modelo_powerdesigner.sql      Modelo actual (15 tablas) para File > Reverse Engineer > Database en PowerDesigner (DBMS PostgreSQL)
 ```
 
+## Optimización de recursos (versión 2)
+
+Lo que se cambió para que la tienda cargue más rápido en celular y en PC, sin cambiar lo que hace:
+
+- **Fotos**: AVIF (calidad 55) y WebP (calidad 75) en 6 anchos (400 a 1600 px) con `<picture>`, `srcset` y `sizes`
+  medidos para cada tipo de foto. Una sola función arma todas las fotos (`foto()` en `js/core.js`), así no se baja
+  el JPG y luego el WebP. La foto principal se precarga desde el `<head>` con prioridad alta; las que están fuera
+  de pantalla usan carga diferida (`loading="lazy"`). Los correos usan una miniatura JPG de 112 px.
+- **JavaScript y CSS**: minificados con esbuild y separados por grupo de páginas (`js/min/`): cada página baja la
+  base y solo las vistas que usa (por ejemplo, el inicio ya no baja el panel de administrador). Todos con `defer`.
+  EmailJS (respaldo del correo) se descarga solo si hace falta.
+- **Fuentes**: alojadas en `fuentes/` en WOFF2, solo los 5 pesos que se usan, con `font-display: swap` y precarga
+  de las dos principales (antes 7 pesos desde Google Fonts, que bloqueaban la primera pintura).
+- **Datos**: el catálogo de la base se guarda en el navegador; la página se muestra al instante y se actualiza si la
+  base responde algo distinto. Las páginas que no muestran productos no piden el catálogo.
+- **Flujo de compra**: se adelanta (prefetch) la página y el código del paso siguiente.
+- **Caché**: `sw.js` (Service Worker) guarda JS, CSS, fuentes y fotos para las siguientes visitas
+  (GitHub Pages solo permite 10 minutos de caché).
+- **Estabilidad visual**: el espacio del contenido se reserva desde el inicio para que el pie de página no salte.
+
 ## Herramientas
 
 ```
+npm run construir                 Minifica y separa el JS y el CSS (herramientas/construir.mjs) y genera las páginas
+herramientas/construir.mjs        Junta y minifica el JS por grupo (base, tienda, cuenta, compra, admin) y el CSS
+herramientas/fotos_web.py         Genera las fotos AVIF y WebP (400-1600 px) y las miniaturas para correos
 herramientas/generar_paginas.py   Crea cada página desde plantilla.html, agrega ?v=<huella> a cada JS/CSS y escribe
                                   js/version.js con la versión del sitio (si el navegador mezcla una página guardada
                                   con archivos nuevos, la página se recarga una sola vez con la versión al día)

@@ -6,12 +6,20 @@
   <meta name="theme-color" content="#0B1F3A">
   <meta name="description" content="Confirma tu correo para activar tu cuenta.">
   <title>Confirma tu correo | ATHLETIX</title>
-  <meta name="version-sitio" content="8d3fcd346a">
+  <meta name="version-sitio" content="0fd2c5c69a">
   <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,700;0,800;1,800&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/estilos.css?v=d38f0c02">
+  <!-- Conexión anticipada con la base de datos (catálogo, sesión) -->
+  <link rel="preconnect" href="https://umujfngetzifneqerirl.supabase.co" crossorigin>
+  <!-- Fuentes propias: se piden de inmediato las dos que se ven primero -->
+  <link rel="preload" href="fuentes/barlow-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fuentes/barlow-condensed-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="css/estilos.min.css?v=9b034bb5">
+  <!-- defer: los scripts se descargan en paralelo y se ejecutan después de leer la página (no la bloquean) -->
+  <script src="js/version.js?v=14469d77" defer></script>
+  <script src="js/vendor/supabase.min.js?v=34035ac7" defer></script>
+  <script src="js/min/base.min.js?v=47a1c1c2" defer></script>
+  <script src="js/min/tienda.min.js?v=98a13768" defer></script>
+  <script src="js/min/cuenta.min.js?v=d30faef5" defer></script>
 </head>
 <!-- Página generada desde plantilla.html (herramientas/generar_paginas.py) -->
 <body data-pagina="verifica-correo">
@@ -110,19 +118,5 @@
     <p class="noscript">Para comprar en ATHLETIX necesitas activar JavaScript en tu navegador.</p>
   </noscript>
 
-  <script src="js/version.js?v=ea21d29d"></script>
-  <script src="js/config.js?v=108a2af5"></script>
-  <script src="js/vendor/supabase.min.js?v=34035ac7"></script>
-  <script src="js/vendor/emailjs.min.js?v=4204eb12"></script>
-  <script src="js/validaciones.js?v=ffb9e1b4"></script>
-  <script src="js/datos.js?v=f44a856c"></script>
-  <script src="js/api.js?v=f1802810"></script>
-  <script src="js/core.js?v=b5c53be5"></script>
-  <script src="js/vistas-tienda.js?v=84178a4e"></script>
-  <script src="js/vistas-cuenta.js?v=f655af8f"></script>
-  <script src="js/vistas-compra.js?v=d852a7ea"></script>
-  <script src="js/vistas-admin.js?v=2e656a43"></script>
-  <script src="js/factura.js?v=84ce186e"></script>
-  <script src="js/app.js?v=e922796d"></script>
 </body>
 </html>

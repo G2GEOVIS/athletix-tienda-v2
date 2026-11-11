@@ -394,9 +394,25 @@ const Api = (() => {
   };
 
   /* ---------- Correos (EmailJS) ---------- */
+  // EmailJS solo es el respaldo si falla el correo por Gmail: su archivo se descarga recién cuando hace falta enviar
+  let cargandoEmailjs = null;
+  const cargarEmailjs = () => {
+    if (window.emailjs) return Promise.resolve(window.emailjs);
+    if (!cargandoEmailjs) {
+      cargandoEmailjs = new Promise((ok, mal) => {
+        const s = document.createElement('script');
+        s.src = 'js/vendor/emailjs.min.js';
+        s.onload = () => ok(window.emailjs);
+        s.onerror = () => { cargandoEmailjs = null; mal(new Error('No se pudo cargar EmailJS.')); };
+        document.head.appendChild(s);
+      });
+    }
+    return cargandoEmailjs;
+  };
   const enviar = async (plantilla, datos) => {
-    if (!(window.emailjs && CONFIG.emailjs.servicio && plantilla && CONFIG.emailjs.clavePublica)) return { error: 'El envío de correos no está configurado.' };
+    if (!(CONFIG.emailjs.servicio && plantilla && CONFIG.emailjs.clavePublica)) return { error: 'El envío de correos no está configurado.' };
     try {
+      await cargarEmailjs();
       await window.emailjs.send(CONFIG.emailjs.servicio, plantilla, datos, { publicKey: CONFIG.emailjs.clavePublica });
       return { datos: true };
     } catch (e) {
@@ -483,7 +499,7 @@ const Api = (() => {
       tienda: { nombre: t.tie_nombre || '', direccion: t.tie_direccion || '', ciudad: t.tie_ciudad || '', horario: t.tie_horario || '' },
       items: (rd.datos || []).map((d) => {
         const pr = typeof productoPorDbId === 'function' ? productoPorDbId(d.prd_codigo) : null;
-        return { id: pr ? pr.id : d.prd_codigo, nombre: pr ? pr.nombre : d.prd_codigo, foto: pr ? absoluta(img(pr)) : '', talla: d.dpe_talla === 'U' ? '' : d.dpe_talla, cantidad: d.dpe_cantidad, precio: Number(d.dpe_precio) };
+        return { id: pr ? pr.id : d.prd_codigo, nombre: pr ? pr.nombre : d.prd_codigo, foto: pr ? absoluta(fotoCorreo(img(pr))) : '', talla: d.dpe_talla === 'U' ? '' : d.dpe_talla, cantidad: d.dpe_cantidad, precio: Number(d.dpe_precio) };
       })
     };
   }
@@ -502,14 +518,14 @@ const Api = (() => {
   const detalleRespaldo = (items, t) => tablaDetalle(items.map((x) => ({ ...x, foto: '' })), t);
 
   const correo = {
-    configurado() { return !!(window.emailjs && CONFIG.emailjs.servicio && CONFIG.emailjs.plantillaCliente && CONFIG.emailjs.clavePublica); },
+    configurado() { return !!(CONFIG.emailjs.servicio && CONFIG.emailjs.plantillaCliente && CONFIG.emailjs.clavePublica); },
     /* Al cliente, apenas paga: detalle de lo que pidió, datos del retiro y la factura en PDF adjunta.
        Sale desde el Gmail de la tienda con la función "correo-compra" de Supabase (EmailJS gratis no adjunta archivos);
        si la función falla, se envía igual por EmailJS con el detalle, pero sin el PDF. */
     async compraConfirmada(p) {
       const enlace = enlaceOrden(p.id);
       const d = await datosPedidoCorreo(p.id);
-      const items = (p.items || []).map((it) => { const pr = typeof productoPorDbId === 'function' ? productoPorDbId(it.codigo) : null; return { ...it, foto: pr ? absoluta(img(pr)) : '' }; });
+      const items = (p.items || []).map((it) => { const pr = typeof productoPorDbId === 'function' ? productoPorDbId(it.codigo) : null; return { ...it, foto: pr ? absoluta(fotoCorreo(img(pr))) : '' }; });
       const totales = { subtotal: p.subtotal, iva: p.iva, total: p.total, pendiente: !!p.enTienda };
       const tienda = d.tienda.nombre ? d.tienda : { nombre: p.tienda, horario: p.horario };
       const listo = d.horaEstimada ? ` aprox. a las ${horaCorta(d.horaEstimada)}` : '';
@@ -598,7 +614,7 @@ const Api = (() => {
        con el detalle y las fotos, los datos del cliente, el pago y la hora en que debe estar listo. */
     async nuevoPedido(p) {
       const d = await datosPedidoCorreo(p.id);
-      const items = (p.items || []).map((it) => { const pr = typeof productoPorDbId === 'function' ? productoPorDbId(it.codigo) : null; return { ...it, foto: pr ? absoluta(img(pr)) : '' }; });
+      const items = (p.items || []).map((it) => { const pr = typeof productoPorDbId === 'function' ? productoPorDbId(it.codigo) : null; return { ...it, foto: pr ? absoluta(fotoCorreo(img(pr))) : '' }; });
       const tienda = d.tienda.nombre ? d.tienda : { nombre: p.tienda };
       const hora = horaCorta(d.horaEstimada);
       const fila = (k, v) => `<tr><td style="padding:3px 10px 3px 0;color:${SUAVE};white-space:nowrap;vertical-align:top">${k}</td><td style="padding:3px 0"><b>${v}</b></td></tr>`;

@@ -3,6 +3,14 @@
    Paleta: primarios azul marino, verde azulado y naranja;
            secundarios gris claro y blanco.
    ========================================================== */
+/* Fuentes alojadas en la propia tienda (WOFF2, solo caracteres latinos y solo los pesos que se usan):
+   Barlow 400, 600 y 700 para el texto; Barlow Condensed 800 normal y cursiva para los títulos.
+   swap: mientras llega la fuente se ve el texto con la fuente del sistema (nunca texto invisible). */
+@font-face { font-family: 'Barlow'; font-style: normal; font-weight: 400; font-display: swap; src: url('../fuentes/barlow-latin-400-normal.woff2') format('woff2'); }
+@font-face { font-family: 'Barlow'; font-style: normal; font-weight: 600; font-display: swap; src: url('../fuentes/barlow-latin-600-normal.woff2') format('woff2'); }
+@font-face { font-family: 'Barlow'; font-style: normal; font-weight: 700; font-display: swap; src: url('../fuentes/barlow-latin-700-normal.woff2') format('woff2'); }
+@font-face { font-family: 'Barlow Condensed'; font-style: normal; font-weight: 800; font-display: swap; src: url('../fuentes/barlow-condensed-latin-800-normal.woff2') format('woff2'); }
+@font-face { font-family: 'Barlow Condensed'; font-style: italic; font-weight: 800; font-display: swap; src: url('../fuentes/barlow-condensed-latin-800-italic.woff2') format('woff2'); }
 :root {
   --azul: #0B1F3A;
   --verde: #0F766E;
@@ -43,7 +51,9 @@ body {
   display: flex;
   flex-direction: column;
 }
-main { flex: 1; outline: none; min-width: 0; width: 100%; }
+/* El contenido lo dibuja el JavaScript: el espacio de la pantalla queda reservado desde el inicio para que
+   el pie de página no aparezca arriba y luego salte hacia abajo (CLS) */
+main { flex: 1; outline: none; min-width: 0; width: 100%; min-height: calc(100vh - var(--alto-encabezado, 4.5rem)); min-height: calc(100svh - var(--alto-encabezado, 4.5rem)); }
 img { max-width: 100%; height: auto; display: block; }
 h1[tabindex="-1"]:focus, main:focus { outline: none; }
 a { color: var(--verde); }

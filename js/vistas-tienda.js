@@ -21,7 +21,7 @@ function vistaInicio() {
           <p class="hero__texto">${esc(destacado.nombre)}: espuma FF Turbo+ y placa de carbono para tus ritmos más rápidos.</p>
           <a class="boton boton--naranja" href="producto.html?id=vx">Comprar ${esc(destacado.nombre)} ${icono('derecha')}</a>
         </div>
-        <div class="hero__imagen"><img src="${img(destacado)}" alt="Par de zapatillas ${esc(destacado.nombre)} en rojo y naranja" width="800" height="600"></div>
+        <div class="hero__imagen">${foto(img(destacado), { alt: `Par de zapatillas ${esc(destacado.nombre)} en rojo y naranja`, sizes: 'hero', prioridad: true })}</div>
       </div>
     </section>
 
@@ -38,9 +38,9 @@ function vistaInicio() {
       <h2 class="titulo-seccion" id="titulo-categorias">Compra por categoría</h2>
       <p class="subtitulo">Elige qué necesitas para entrenar hoy.</p>
       <div class="categorias__grilla">
-        ${cats.map(([c, t, d, foto, ver, altFoto]) => `
+        ${cats.map(([c, t, d, fotoCat, ver, altFoto]) => `
           <a class="tarjeta-categoria" href="productos.html?cat=${c}">
-            <img src="img/productos/${foto}-1.jpg" alt="${altFoto}" width="800" height="600" loading="lazy">
+            ${foto(`img/productos/${fotoCat}-1.jpg`, { alt: altFoto, sizes: 'categoria' })}
             <div class="tarjeta-categoria__texto"><h3>${t}</h3><p>${d}</p><span class="enlace-flecha">${ver} ${icono('derecha')}</span></div>
           </a>`).join('')}
       </div>
@@ -206,14 +206,14 @@ function filtrar(params) {
   return { lista, cat, pub: usaGenero ? pub : 'todos', precio, orden, q };
 }
 
-function tarjetaProducto(p) {
+function tarjetaProducto(p, i = 99) {
   const agotado = p.stock && Object.values(p.stock).every((s) => s <= 0);
   const total = stockTotal(p);
   const pocas = !agotado && total !== null && total <= POCAS_UNIDADES;
   return `
     <li>
       <article class="tarjeta-producto">
-        <div class="tarjeta-producto__imagen"><img src="${img(p)}" alt="Foto de ${esc(p.nombre)}" width="800" height="600" loading="lazy"></div>
+        <div class="tarjeta-producto__imagen">${foto(img(p), { alt: `Foto de ${esc(p.nombre)}`, sizes: 'tarjeta', prioridad: i < 2, lazy: i >= 6 })}</div>
         ${botonFavorito(p, 'tarjeta-producto__favorito')}
         ${agotado ? '<span class="etiqueta etiqueta--azul tarjeta-producto__etiqueta">Agotado</span>' : pocas ? `<span class="etiqueta etiqueta--naranja tarjeta-producto__etiqueta">${total === 1 ? '¡Última unidad!' : `¡Últimas ${total}!`}</span>` : (p.etiqueta ? `<span class="etiqueta tarjeta-producto__etiqueta">${p.etiqueta}</span>` : '')}
         <div class="tarjeta-producto__cuerpo">
@@ -377,12 +377,12 @@ function vistaProducto(partes) {
       <div class="detalle">
         <section class="galeria" aria-label="Fotos del producto">
           <div class="galeria__principal">
-            <img id="foto-principal" src="${img(p, 1)}" alt="${esc(p.nombre)}, ${p.vistas[0]}" width="800" height="600">
+            ${foto(img(p, 1), { id: 'foto-principal', alt: `${esc(p.nombre)}, ${p.vistas[0]}`, sizes: 'principal', prioridad: true })}
             <button class="galeria__flecha galeria__flecha--anterior" type="button" data-paso="-1" aria-label="Foto anterior">${icono('chevronIzq')}</button>
             <button class="galeria__flecha galeria__flecha--siguiente" type="button" data-paso="1" aria-label="Foto siguiente">${icono('chevronDer')}</button>
           </div>
           <ul class="galeria__miniaturas">
-            ${p.vistas.map((_, i) => i + 1).map((v) => `<li><button class="galeria__miniatura" type="button" data-vista="${v}" aria-label="Ver ${p.vistas[v - 1]}" ${v === 1 ? 'aria-current="true"' : ''}><img src="${img(p, v)}" alt="" width="800" height="600" loading="lazy"></button></li>`).join('')}
+            ${p.vistas.map((_, i) => i + 1).map((v) => `<li><button class="galeria__miniatura" type="button" data-vista="${v}" aria-label="Ver ${p.vistas[v - 1]}" ${v === 1 ? 'aria-current="true"' : ''}>${foto(img(p, v), { sizes: 98 })}</button></li>`).join('')}
           </ul>
         </section>
 
@@ -462,7 +462,7 @@ function vistaProducto(partes) {
       const mostrar = (v) => {
         const n = p.vistas.length;
         vista = ((v - 1 + n) % n) + 1;
-        foto.src = img(p, vista);
+        cambiarFoto(foto, img(p, vista));
         foto.alt = `${p.nombre}, ${p.vistas[vista - 1]}`;
         $$('.galeria__miniatura', main).forEach((b) => {
           if (Number(b.dataset.vista) === vista) b.setAttribute('aria-current', 'true'); else b.removeAttribute('aria-current');
@@ -896,7 +896,7 @@ function itemCarrito(linea, i) {
   const max = stockDe(p, linea.talla);
   return `
     <li class="item-carrito">
-      <a class="item-carrito__imagen" href="producto.html?id=${p.id}" tabindex="-1" aria-hidden="true"><img src="${img(p)}" alt="" width="800" height="600"></a>
+      <a class="item-carrito__imagen" href="producto.html?id=${p.id}" tabindex="-1" aria-hidden="true">${foto(img(p), { sizes: 'carrito' })}</a>
       <div>
         <p class="texto-suave" style="font-size:.85rem">${CATEGORIAS[p.categoria]}</p>
         <h2 class="item-carrito__nombre"><a href="producto.html?id=${p.id}">${esc(p.nombre)}</a></h2>
@@ -1011,7 +1011,7 @@ function agregarFavoritosAlCarrito(lista) {
     <form id="form-tallas-fav" class="formulario" style="margin-top:1rem">
       ${conTalla.map((p, i) => `
       <fieldset class="tallas fav-talla" aria-describedby="fav-elegida-${i}">
-        <div class="fav-talla__producto"><img src="${img(p)}" alt="" width="64" height="64"><div><legend>${esc(p.nombre)}</legend><span class="texto-suave d-bloque">${esc(p.publico || '')} · ${dinero(p.precio)}</span></div></div>
+        <div class="fav-talla__producto">${foto(img(p), { ancho: 64, alto: 64, sizes: 64 })}<div><legend>${esc(p.nombre)}</legend><span class="texto-suave d-bloque">${esc(p.publico || '')} · ${dinero(p.precio)}</span></div></div>
         <div class="tallas__lista">
           <label class="talla talla--no"><input type="radio" name="fav-${i}" value="" data-id="${p.id}" checked><span>No agregar</span></label>
           ${p.tallas.map((t) => { const st = stockDe(p, t); return `<label class="talla ${st <= 0 ? 'talla--agotada' : ''}"><input type="radio" name="fav-${i}" value="${t}" data-id="${p.id}" ${st <= 0 ? 'disabled' : ''}><span>${t}${st <= 0 ? '<span class="solo-lector"> (agotada)</span>' : ''}</span></label>`; }).join('')}

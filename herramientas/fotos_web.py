@@ -4,7 +4,9 @@ Cada foto original (img/productos/<codigo>-<vista>.jpg, 1600 x 1200) se publica 
 (400, 600, 800, 1000, 1200 y 1600 px) y en dos formatos modernos:
   - AVIF (calidad 55): el más liviano; lo usan los navegadores que lo soportan.
   - WebP (calidad 75): respaldo para los navegadores sin AVIF.
-El JPG original se mantiene solo para los correos (muchos clientes de correo no muestran WebP/AVIF).
+Para los correos (muchos clientes de correo no muestran WebP/AVIF) se genera una miniatura JPG de 112 px
+(img/productos/correo/), porque en el correo la foto se ve de 56 px; antes se enviaba el JPG de 1600 px.
+El JPG original de 1600 px queda como fuente para volver a generar todo.
 Las fotos se guardan sin metadatos (EXIF). Uso:  python3 herramientas/fotos_web.py [codigo ...]
 """
 import sys
@@ -31,11 +33,14 @@ def procesar(jpg):
         g.save(w, 'WEBP', quality=CALIDAD_WEBP, method=6)
         g.save(a, 'AVIF', quality=CALIDAD_AVIF, speed=6)
         total += w.stat().st_size + a.stat().st_size
+    mini = CARPETA / 'correo' / f'{base}.jpg'
+    im.resize((112, 84), Image.LANCZOS).save(mini, 'JPEG', quality=82, optimize=True, progressive=True)
     return base, total
 
 
 if __name__ == '__main__':
     (CARPETA / 'w').mkdir(exist_ok=True)
+    (CARPETA / 'correo').mkdir(exist_ok=True)
     codigos = sys.argv[1:]
     fotos = sorted(f for f in CARPETA.glob('*.jpg') if not codigos or f.stem.rsplit('-', 1)[0] in codigos)
     with ProcessPoolExecutor() as ex:

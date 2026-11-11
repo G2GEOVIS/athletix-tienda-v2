@@ -8,11 +8,17 @@
   <title>{{TITULO}}</title>
   <meta name="version-sitio" content="{{VERSION}}">
   <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,700;0,800;1,800&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/estilos.css">
-</head>
+  <!-- Conexión anticipada con la base de datos (catálogo, sesión) -->
+  <link rel="preconnect" href="https://umujfngetzifneqerirl.supabase.co" crossorigin>
+  <!-- Fuentes propias: se piden de inmediato las dos que se ven primero -->
+  <link rel="preload" href="fuentes/barlow-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fuentes/barlow-condensed-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin>
+{{PRECARGA}}  <link rel="stylesheet" href="css/estilos.min.css">
+  <!-- defer: los scripts se descargan en paralelo y se ejecutan después de leer la página (no la bloquean) -->
+  <script src="js/version.js" defer></script>
+  <script src="js/vendor/supabase.min.js" defer></script>
+  <script src="js/min/base.min.js" defer></script>
+{{SCRIPTS}}</head>
 <!-- Página generada desde plantilla.html (herramientas/generar_paginas.py) -->
 <body data-pagina="{{PAGINA}}">
   <a class="saltar" href="#contenido">Saltar al contenido principal</a>
@@ -110,19 +116,5 @@
     <p class="noscript">Para comprar en ATHLETIX necesitas activar JavaScript en tu navegador.</p>
   </noscript>
 
-  <script src="js/version.js"></script>
-  <script src="js/config.js"></script>
-  <script src="js/vendor/supabase.min.js"></script>
-  <script src="js/vendor/emailjs.min.js"></script>
-  <script src="js/validaciones.js"></script>
-  <script src="js/datos.js"></script>
-  <script src="js/api.js"></script>
-  <script src="js/core.js"></script>
-  <script src="js/vistas-tienda.js"></script>
-  <script src="js/vistas-cuenta.js"></script>
-  <script src="js/vistas-compra.js"></script>
-  <script src="js/vistas-admin.js"></script>
-  <script src="js/factura.js"></script>
-  <script src="js/app.js"></script>
 </body>
 </html>

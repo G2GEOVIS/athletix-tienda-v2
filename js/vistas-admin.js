@@ -24,7 +24,7 @@ async function vistaAdmin(partes, params) {
   const productosHtml = (p) => {
     const ds = detalles[p.id];
     if (!ds || !ds.length) return `<dt>Productos</dt><dd>${esc(p.productos)}</dd>`;
-    return `<dt>Productos</dt><dd><ul class="admin-productos">${ds.map((d) => { const pr = productoPorDbId(d.producto_id); return `<li>${pr ? `<img src="${img(pr)}" alt="" width="64" height="64" loading="lazy">` : '<span class="admin-productos__sin"></span>'}<span><strong>${esc(pr ? pr.nombre : d.producto_id)}</strong><span class="texto-suave">${d.cantidad} × ${dinero(d.precio_unitario)}${d.talla ? ` · Talla ${esc(d.talla)}` : ''} · Cód. ${esc(d.producto_id)}</span></span></li>`; }).join('')}</ul></dd>`;
+    return `<dt>Productos</dt><dd><ul class="admin-productos">${ds.map((d) => { const pr = productoPorDbId(d.producto_id); return `<li>${pr ? `${foto(img(pr), { ancho: 64, alto: 64, sizes: 64 })}` : '<span class="admin-productos__sin"></span>'}<span><strong>${esc(pr ? pr.nombre : d.producto_id)}</strong><span class="texto-suave">${d.cantidad} × ${dinero(d.precio_unitario)}${d.talla ? ` · Talla ${esc(d.talla)}` : ''} · Cód. ${esc(d.producto_id)}</span></span></li>`; }).join('')}</ul></dd>`;
   };
   const cuenta = (e) => todos.filter((p) => p.estado === e).length;
   const resaltar = leerTemporal('pedido-resaltado');
@@ -148,7 +148,7 @@ async function vistaAdminProductos(partes, params) {
           <thead><tr><th scope="col">Foto</th><th scope="col">Código</th><th scope="col">Producto</th><th scope="col">Categoría</th><th scope="col" class="num">Precio</th><th scope="col" class="num">Stock</th><th scope="col">Estado</th><th scope="col">Acciones</th></tr></thead>
           <tbody>${lista.map((p) => `
             <tr>
-              <td><img src="${esc(img(p))}" alt="" width="56" height="56" loading="lazy"></td>
+              <td>${foto(img(p), { ancho: 56, alto: 56, sizes: 56 })}</td>
               <td>${esc(p.id)}</td>
               <th scope="row">${esc(p.nombre)}</th>
               <td>${esc(etiquetaCategoria(p))}</td>
@@ -459,7 +459,7 @@ async function vistaAdminStock(partes, params) {
           <div><dt>Agotados</dt><dd>${totales.filter((t) => t === 0).length}</dd></div>`;
         $('#stock-filas', main).innerHTML = filas.length ? filas.map(({ p, tallas, total, reduccion }) => `
           <tr class="${resaltar.has(p.dbId) ? 'fila-cambio' : ''}">
-            <td><div class="stock-producto"><img src="${img(p)}" alt="" width="48" height="48" loading="lazy"><span><strong>${esc(p.nombre)}</strong><span class="texto-suave">Cód. ${esc(p.dbId)} · ${CATEGORIAS[p.categoria] || ''}</span></span></div></td>
+            <td><div class="stock-producto">${foto(img(p), { ancho: 48, alto: 48, sizes: 48 })}<span><strong>${esc(p.nombre)}</strong><span class="texto-suave">Cód. ${esc(p.dbId)} · ${CATEGORIAS[p.categoria] || ''}</span></span></div></td>
             <td><ul class="chips-stock">${tallas.map((t) => `<li class="${t.cantidad === 0 ? 'agotado' : t.cantidad <= STOCK_BAJO ? 'bajo' : ''}">${t.talla ? `<span>${esc(t.talla)}</span>` : '<span>Única</span>'}<strong>${t.cantidad}</strong></li>`).join('')}</ul></td>
             <td class="num"><strong>${total}</strong>${!tallas.length ? '' : total === 0 ? ' <span class="estado estado--cancelado">Agotado</span>' : total <= STOCK_BAJO ? ' <span class="estado estado--preparando">Bajo</span>' : ''}</td>
             <td>${reduccion ? `<span class="reduccion"><strong class="menos">${reduccion.cantidad}</strong>${reduccion.talla ? ` talla ${esc(reduccion.talla)}` : ''} · ${reduccion.antes} → <strong>${reduccion.despues}</strong></span><span class="texto-suave d-bloque">${esc(reduccion.motivo)}${reduccion.pedido ? ` · <a href="orden.html?pedido=${reduccion.pedido.id}">${esc(reduccion.pedido.numero)}</a>` : ''} · ${hace(reduccion.fecha)}</span>` : '<span class="texto-suave">Sin ventas todavía</span>'}</td>
@@ -484,105 +484,5 @@ async function vistaAdminStock(partes, params) {
         if (ventas.length) aviso(`Stock actualizado: se vendieron ${ventas.reduce((s, m) => s - m.cantidad, 0)} unidades.`);
       }, SEGUNDOS_STOCK * 1000);
     }
-  };
-}
-
-/* ======================= Ayuda y página no encontrada ======================= */
-function vistaAyuda() {
-  return {
-    titulo: 'Centro de ayuda',
-    seccion: 'ayuda',
-    html: `
-    <div class="contenedor pagina">
-      <h1 class="titulo-pagina">Centro de ayuda</h1>
-      <p class="subtitulo cabecera-pagina">Respuestas a las preguntas más frecuentes.</p>
-      <div class="preguntas">
-        ${AYUDA.map(([q, r], i) => `<details class="pregunta" ${i === 0 ? 'open' : ''}><summary>${q}</summary><p>${r}</p></details>`).join('')}
-      </div>
-      <div class="panel panel--gris" style="margin-top:2rem;max-width:48rem">
-        <h2>¿Necesitas más ayuda?</h2>
-        <p>Escríbenos a <a href="mailto:geovannymorocho621@gmail.com?subject=Consulta%20ATHLETIX">geovannymorocho621@gmail.com</a> y te respondemos de lunes a sábado, de 09:00 a 18:00.</p>
-      </div>
-    </div>`
-  };
-}
-
-/* ======================= Quiénes somos ======================= */
-async function vistaQuienesSomos() {
-  // Las tiendas se leen de la base (las mismas donde se retira el pedido); si no responde, la sección no se muestra
-  const rt = await cargarTiendas();
-  const tiendas = rt.error ? [] : estado.tiendas;
-  const activos = PRODUCTOS.filter((p) => p.activo !== false);
-  const cuantos = (c) => activos.filter((p) => p.categoria === c).length;
-  return {
-    titulo: 'Quiénes somos',
-    seccion: 'quienes-somos',
-    html: `
-    <div class="contenedor pagina quienes">
-      <h1 class="titulo-pagina">Quiénes somos</h1>
-      <p class="subtitulo cabecera-pagina">ATHLETIX es una tienda deportiva ecuatoriana. Vendemos en línea y entregamos en nuestras tiendas de Quito y Guayaquil, sin costo de envío.</p>
-
-      <section class="quienes__bloque" aria-labelledby="q-historia">
-        <h2 class="titulo-seccion" id="q-historia">Nuestra historia</h2>
-        <p>ATHLETIX nació de una queja que escuchábamos seguido entre amigos que corren y entrenan: para conseguir unas buenas zapatillas o un reloj deportivo había que recorrer varios locales, preguntar si quedaba la talla y muchas veces volver con las manos vacías.</p>
-        <p>Por eso juntamos en un solo lugar el calzado, la tecnología y el equipo de entrenamiento que usamos nosotros mismos, y mostramos en la web el stock real de cada talla. Antes de salir de casa ya sabes si lo que buscas está disponible.</p>
-        <p>Elegimos el retiro en tienda porque es más rápido que esperar un envío: compras en la web y en una a tres horas tu pedido está listo, sin costo extra. Hoy atendemos en Quito y Guayaquil, y seguimos escogiendo cada producto con el mismo criterio con el que empezamos: que de verdad sirva para entrenar.</p>
-      </section>
-
-      <div class="quienes__grilla">
-        <section class="panel" aria-labelledby="q-mision">
-          <span class="quienes__icono">${icono('escudo')}</span>
-          <h2 id="q-mision">Misión</h2>
-          <p>Acercar a cada deportista el calzado, la tecnología y el equipo que necesita, con precios claros, compra fácil y retiro rápido en tienda.</p>
-        </section>
-        <section class="panel" aria-labelledby="q-vision">
-          <span class="quienes__icono">${icono('grafico')}</span>
-          <h2 id="q-vision">Visión</h2>
-          <p>Ser la tienda deportiva en línea de referencia en Ecuador, reconocida por una experiencia de compra accesible para todas las personas.</p>
-        </section>
-        <section class="panel" aria-labelledby="q-valores">
-          <span class="quienes__icono">${icono('estrella')}</span>
-          <h2 id="q-valores">Valores</h2>
-          <ul class="quienes__lista">
-            <li><strong>Honestidad:</strong> el precio que ves es el que pagas, con el IVA indicado.</li>
-            <li><strong>Opiniones reales:</strong> solo opina quien compró el producto.</li>
-            <li><strong>Accesibilidad:</strong> la tienda se usa con teclado, lector de pantalla y celular.</li>
-          </ul>
-        </section>
-      </div>
-
-      <section class="quienes__bloque" aria-labelledby="q-ofrecemos">
-        <h2 class="titulo-seccion" id="q-ofrecemos">Qué vendemos</h2>
-        <ul class="quienes__categorias">
-          ${Object.entries(CATEGORIAS).map(([c, t]) => `<li><a class="panel panel--gris" href="productos.html?cat=${c}"><strong>${t}</strong><span>${plural(cuantos(c), 'producto', 'productos')}</span></a></li>`).join('')}
-        </ul>
-      </section>
-
-      ${tiendas.length ? `
-      <section class="quienes__bloque" aria-labelledby="q-tiendas">
-        <h2 class="titulo-seccion" id="q-tiendas">Nuestras tiendas</h2>
-        <p class="texto-suave">Aquí retiras tus pedidos. Lleva tu cédula o pasaporte y tu número de pedido.</p>
-        <ul class="quienes__tiendas">
-          ${tiendas.map((t) => `<li class="panel">
-            <h3>${icono('tienda')}${esc(t.nombre)}</h3>
-            <p>${esc(t.direccion)}${t.ciudad ? `, ${esc(t.ciudad)}` : ''}</p>
-            ${t.horario ? `<p class="texto-suave">${esc(t.horario)}</p>` : ''}
-          </li>`).join('')}
-        </ul>
-      </section>` : ''}
-    </div>`
-  };
-}
-
-function vistaNoEncontrada() {
-  return {
-    titulo: 'Página no encontrada',
-    seccion: '',
-    html: `
-    <div class="contenedor pagina centro">
-      <h1 class="titulo-pagina">No encontramos esta página</h1>
-      <p class="subtitulo">Puede que el enlace esté incompleto.</p>
-      <a class="boton boton--principal" style="margin-top:1.5rem" href="index.html">Ir al inicio</a>
-    </div>`
   };
 }

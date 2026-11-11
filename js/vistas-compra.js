@@ -10,12 +10,6 @@ function protegerCompra() {
 }
 
 /* Las tiendas se leen de la base una vez por página */
-async function cargarTiendas() {
-  if (estado.tiendas.length) return { datos: estado.tiendas };
-  const r = await Api.catalogo.tiendas();
-  if (!r.error) estado.tiendas = r.datos || [];
-  return r;
-}
 
 /* Tienda de retiro elegida (se guarda mientras dura la compra) */
 function leerEntrega() {

@@ -220,29 +220,47 @@ const productoPorDbId = (dbId) => PRODUCTOS.find((p) => p.dbId === dbId);
 PRODUCTOS.forEach((p) => { if (p.dbId === undefined) p.dbId = p.id; });
 const normalizar = (t) => String(t).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
 const plural = (n, uno, varios) => `${n} ${n === 1 ? uno : varios}`;
-/* Fotos responsivas: cada foto de producto existe en WebP de 600, 1000 y 1600 px (img/productos/w/).
-   El navegador elige la justa para el tamaño en pantalla y la densidad de píxeles (srcset y sizes);
-   el JPG de 1600 px queda como respaldo y para los correos. Se aplica sola a toda imagen de producto. */
-const RE_FOTO = /(?:^|\/)img\/productos\/([a-z0-9]+-\d)\.jpg(?:\?.*)?$/;
-const srcsetFoto = (src, lados = [600, 1000, 1600]) => { const m = RE_FOTO.exec(src || ''); return m ? lados.map((l) => `img/productos/w/${m[1]}-${l}.webp ${l}w`).join(', ') : ''; };
-function mejorarFoto(im) {
-  const src = im.getAttribute('src');
-  if (im.dataset.fotoDe === src) return;
-  const set = srcsetFoto(src);
-  im.dataset.fotoDe = src;
-  if (!set) { im.removeAttribute('srcset'); return; }
-  const ancho = Math.round(im.getBoundingClientRect().width);
-  im.sizes = ancho > 0 ? `${ancho}px` : '(max-width: 40rem) 50vw, 320px';
-  im.srcset = set;
+/* Fotos de producto (componente único). Cada foto existe en AVIF y WebP de 400 a 1600 px (img/productos/w/,
+   las genera herramientas/fotos_web.py). Todas las pantallas arman la foto con foto(), que ya entrega
+   <picture> con srcset y sizes: el navegador baja una sola versión, la justa para el espacio y la pantalla.
+   El JPG original no se descarga en la tienda; queda para los correos. */
+const RE_FOTO = /(?:^|\/)img\/productos\/([a-z0-9]+-\d+)\.jpg(?:\?.*)?$/;
+const ANCHOS_FOTO = [400, 600, 800, 1000, 1200, 1600];
+// Espacio que ocupa cada tipo de foto según el ancho de pantalla (medido de 320 a 1920 px)
+const TAMANOS_FOTO = {
+  hero: '(max-width: 37.5rem) calc(100vw - 2rem), (max-width: 64rem) 40vw, 448px',
+  categoria: '(max-width: 37.5rem) calc(100vw - 2rem), 385px',
+  tarjeta: '(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px',
+  principal: '(max-width: 40rem) 92vw, (max-width: 80rem) 45vw, 574px',
+  carrito: '(max-width: 40rem) 30vw, 160px'
+};
+const baseFoto = (src) => { const m = RE_FOTO.exec(src || ''); return m ? m[1] : ''; };
+const srcsetFoto = (base, formato) => ANCHOS_FOTO.map((a) => `img/productos/w/${base}-${a}.${formato} ${a}w`).join(', ');
+/* src: ruta de la foto; o: { alt, ancho, alto, sizes (clave de TAMANOS_FOTO o texto, o número en px),
+   prioridad (foto principal visible al abrir: se pide primero y sin carga diferida), lazy, id, clase } */
+function foto(src, o = {}) {
+  const ancho = o.ancho || 800, alto = o.alto || 600;
+  const sizes = typeof o.sizes === 'number' ? `${o.sizes}px` : (TAMANOS_FOTO[o.sizes] || o.sizes || `${ancho}px`);
+  const carga = o.prioridad ? ' fetchpriority="high"' : (o.lazy === false ? '' : ' loading="lazy"');
+  const extra = `${o.id ? ` id="${o.id}"` : ''}${o.clase ? ` class="${o.clase}"` : ''} alt="${o.alt || ''}" width="${ancho}" height="${alto}"${carga} decoding="async"`;
+  const base = baseFoto(src);
+  if (!base) return `<img src="${esc(src || FOTO_RESPALDO)}"${extra}>`;
+  return `<picture><source type="image/avif" srcset="${srcsetFoto(base, 'avif')}" sizes="${sizes}">`
+    + `<img src="img/productos/w/${base}-800.webp" srcset="${srcsetFoto(base, 'webp')}" sizes="${sizes}"${extra}></picture>`;
 }
-function vigilarFotos() {
-  const revisar = (raiz) => { if (raiz.tagName === 'IMG') mejorarFoto(raiz); else if (raiz.querySelectorAll) raiz.querySelectorAll('img').forEach(mejorarFoto); };
-  revisar(document.body);
-  new MutationObserver((cambios) => cambios.forEach((c) => {
-    if (c.type === 'attributes') mejorarFoto(c.target); else c.addedNodes.forEach((n) => n.nodeType === 1 && revisar(n));
-  })).observe(document.body, { subtree: true, childList: true, attributes: true, attributeFilter: ['src'] });
+// Cambia la foto mostrada en un <img> creado con foto() (por ejemplo, la galería del producto)
+function cambiarFoto(im, src) {
+  const base = baseFoto(src);
+  const fuente = im.parentElement && im.parentElement.tagName === 'PICTURE' ? im.parentElement.querySelector('source') : null;
+  delete im.dataset.respaldo;
+  if (!base) { if (fuente) fuente.removeAttribute('srcset'); im.removeAttribute('srcset'); im.src = src; return; }
+  if (fuente) fuente.srcset = srcsetFoto(base, 'avif');
+  im.srcset = srcsetFoto(base, 'webp');
+  im.src = `img/productos/w/${base}-800.webp`;
 }
 
+// En los correos la foto se ve de 56 px: se envía la miniatura JPG de 112 px (antes el JPG de 1600 px, ~290 KB)
+const fotoCorreo = (src) => { const base = baseFoto(src); return base ? `img/productos/correo/${base}.jpg` : src; };
 const img = (p, vista = 1) => (p.imagenes && p.imagenes[vista - 1]) || `img/productos/${p.id}-${vista}.jpg`;
 // Si una foto no carga (archivo faltante o red lenta), se muestra una imagen de respaldo en vez de un hueco roto
 const FOTO_RESPALDO = 'img/sin-foto.svg';
@@ -250,6 +268,8 @@ document.addEventListener('error', (e) => {
   const el = e.target;
   if (el && el.tagName === 'IMG' && !el.dataset.respaldo && !el.src.endsWith(FOTO_RESPALDO)) {
     el.dataset.respaldo = '1';
+    if (el.parentElement && el.parentElement.tagName === 'PICTURE') el.parentElement.querySelectorAll('source').forEach((s) => s.remove());
+    el.removeAttribute('srcset');
     el.src = FOTO_RESPALDO;
   }
 }, true);

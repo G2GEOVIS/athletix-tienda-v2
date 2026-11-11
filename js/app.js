@@ -20,6 +20,38 @@ function desdeBase(f, anterior) {
     stock: Object.fromEntries((f.producto_tallas || []).map((t) => [t.talla, t.stock]))
   };
 }
+/* Catálogo guardado en el navegador: la última respuesta de la base se guarda (localStorage) para mostrar
+   la página al instante en la siguiente visita y no volver a pedir los 90 productos en cada página. */
+const CLAVE_CATALOGO = 'athletix-catalogo-v2';
+const CATALOGO_FRESCO_MS = 60 * 1000; // menos de 1 minuto: se usa tal cual, sin consultar la base
+let firmaCatalogo = '';
+function aplicarCatalogo(filas, notasLista) {
+  const notas = new Map((notasLista || []).map((c) => [c.producto_id, c]));
+  const anteriores = new Map(PRODUCTOS.map((p) => [p.id, p]));
+  const nuevos = filas.map((f) => {
+    const p = desdeBase(f, anteriores.get(f.id));
+    const n = notas.get(f.id);
+    p.rating = n ? Number(n.promedio) : 0;
+    p.opiniones = n ? Number(n.opiniones) : 0;
+    return p;
+  });
+  // Se mantiene el orden de datos.js y los productos nuevos del administrador van al final
+  const orden = new Map(PRODUCTOS.map((p, i) => [p.id, i]));
+  nuevos.sort((a, b) => (orden.has(a.id) ? orden.get(a.id) : 1e6) - (orden.has(b.id) ? orden.get(b.id) : 1e6));
+  PRODUCTOS.length = 0;
+  PRODUCTOS.push(...nuevos);
+}
+// Aplica el catálogo guardado (si hay) y devuelve su antigüedad en milisegundos
+function catalogoGuardado() {
+  try {
+    const g = JSON.parse(localStorage.getItem(CLAVE_CATALOGO) || 'null');
+    if (!g || !Array.isArray(g.filas) || !g.filas.length) return null;
+    aplicarCatalogo(g.filas, g.notas);
+    firmaCatalogo = JSON.stringify([g.filas, g.notas || []]);
+    return { edad: Date.now() - (g.t || 0) };
+  } catch (e) { return null; }
+}
+// Pide el catálogo a la base. Devuelve true si cambió algo respecto a lo que ya se mostraba.
 async function cargarCatalogo() {
   const [rp, rc] = await Promise.all([Api.catalogo.productos(), Api.catalogo.calificaciones()]);
   if (rp.error) {
@@ -28,27 +60,19 @@ async function cargarCatalogo() {
     pintarBannerConexion();
     return false;
   }
-  const notas = new Map(((rc.datos) || []).map((c) => [c.producto_id, c]));
   const filas = rp.datos || [];
-  if (filas.length) {
-    const anteriores = new Map(PRODUCTOS.map((p) => [p.id, p]));
-    const nuevos = filas.map((f) => {
-      const p = desdeBase(f, anteriores.get(f.id));
-      const n = notas.get(f.id);
-      p.rating = n ? Number(n.promedio) : 0;
-      p.opiniones = n ? Number(n.opiniones) : 0;
-      return p;
-    });
-    // Se mantiene el orden de datos.js y los productos nuevos del administrador van al final
-    const orden = new Map(PRODUCTOS.map((p, i) => [p.id, i]));
-    nuevos.sort((a, b) => (orden.has(a.id) ? orden.get(a.id) : 1e6) - (orden.has(b.id) ? orden.get(b.id) : 1e6));
-    PRODUCTOS.length = 0;
-    PRODUCTOS.push(...nuevos);
+  const notas = rc.datos || [];
+  const firma = JSON.stringify([filas, notas]);
+  const cambio = firma !== firmaCatalogo;
+  if (filas.length && cambio) {
+    aplicarCatalogo(filas, notas);
+    firmaCatalogo = firma;
   }
+  if (filas.length) { try { localStorage.setItem(CLAVE_CATALOGO, JSON.stringify({ t: Date.now(), filas, notas })); } catch (e) { /* sin espacio: se sigue sin guardar */ } }
   estado.catalogoConectado = filas.length > 0;
   estado.errorCatalogo = filas.length ? '' : 'Los productos todavía no están cargados en la base de datos.';
   pintarBannerConexion();
-  return true;
+  return cambio;
 }
 
 function pintarBannerConexion() {
@@ -248,32 +272,64 @@ const ARCHIVOS = { '': 'index.html', productos: 'productos.html', producto: 'pro
   perfil: 'perfil.html', admin: 'admin.html', ayuda: 'ayuda.html', orden: 'orden.html',
   'admin-productos': 'admin-productos.html', 'admin-producto': 'admin-producto.html', 'admin-pagos': 'admin-pagos.html', 'admin-stock': 'admin-stock.html', favoritos: 'favoritos.html', 'quienes-somos': 'quienes-somos.html' };
 
+const ARCHIVO_PERFIL = { '': 'perfil.html', pagos: 'metodos-pago.html', seguridad: 'cambiar-clave.html' };
+// Rutas que no muestran productos: no piden el catálogo a la base
+const RUTAS_SIN_CATALOGO = new Set(['ingresar', 'registro', 'verifica-correo', 'completar-perfil', 'recuperar', 'nueva-clave', 'perfil', 'ayuda', 'quienes-somos']);
+// Rutas que siempre piden el catálogo al día (precios y stock exactos)
+const RUTAS_CATALOGO_AL_DIA = new Set(['carrito', 'retiro', 'pago', 'admin', 'admin-productos', 'admin-producto', 'admin-stock', 'admin-pagos']);
+const CLAVE_GOOGLE = 'athletix-google-activo';
+/* Pantalla de cada ruta, por nombre: cada página solo carga el archivo de vistas que necesita
+   (tienda, cuenta, compra o administración), así que la función se busca recién al mostrarla */
 const VISTAS = {
-  '': vistaInicio,
-  productos: vistaProductos,
-  producto: vistaProducto,
-  carrito: vistaCarrito,
-  ingresar: vistaIngresar,
-  registro: vistaRegistro,
-  'verifica-correo': vistaVerificaCorreo,
-  'completar-perfil': vistaCompletarPerfil,
-  recuperar: vistaRecuperar,
-  'nueva-clave': vistaNuevaClave,
-  retiro: vistaRetiro,
-  pago: vistaPago,
-  confirmacion: vistaConfirmacion,
-  pedidos: vistaPedidos,
-  perfil: vistaPerfil,
-  admin: vistaAdmin,
-  'admin-productos': vistaAdminProductos,
-  'admin-producto': vistaAdminProducto,
-  'admin-pagos': vistaAdminPagos,
-  'admin-stock': vistaAdminStock,
-  orden: vistaOrden,
-  favoritos: vistaFavoritos,
-  ayuda: vistaAyuda,
-  'quienes-somos': vistaQuienesSomos
+  '': 'vistaInicio',
+  productos: 'vistaProductos',
+  producto: 'vistaProducto',
+  carrito: 'vistaCarrito',
+  ingresar: 'vistaIngresar',
+  registro: 'vistaRegistro',
+  'verifica-correo': 'vistaVerificaCorreo',
+  'completar-perfil': 'vistaCompletarPerfil',
+  recuperar: 'vistaRecuperar',
+  'nueva-clave': 'vistaNuevaClave',
+  retiro: 'vistaRetiro',
+  pago: 'vistaPago',
+  confirmacion: 'vistaConfirmacion',
+  pedidos: 'vistaPedidos',
+  perfil: 'vistaPerfil',
+  admin: 'vistaAdmin',
+  'admin-productos': 'vistaAdminProductos',
+  'admin-producto': 'vistaAdminProducto',
+  'admin-pagos': 'vistaAdminPagos',
+  'admin-stock': 'vistaAdminStock',
+  orden: 'vistaOrden',
+  favoritos: 'vistaFavoritos',
+  ayuda: 'vistaAyuda',
+  'quienes-somos': 'vistaQuienesSomos'
 };
+
+/* Prefetch: mientras el cliente mira una pantalla del flujo de compra, el navegador descarga en segundo plano
+   (con prioridad baja) la página y el código del paso siguiente, para que al pulsar "Continuar" abra al instante. */
+const SIGUIENTE_PASO = {
+  producto: { pagina: 'carrito.html', grupos: [] },
+  carrito: { pagina: 'retiro.html', grupos: ['cuenta', 'compra'] },
+  retiro: { pagina: 'pago.html', grupos: [] },
+  pago: { pagina: 'confirmacion.html', grupos: [] }
+};
+const adelantados = new Set();
+function adelantarSiguientePaso(ruta) {
+  const sig = SIGUIENTE_PASO[ruta];
+  if (!sig) return;
+  const urls = [sig.pagina, ...sig.grupos.map((g) => (window.GRUPOS_SITIO || {})[g]).filter(Boolean)];
+  const pedir = () => urls.forEach((u) => {
+    if (adelantados.has(u)) return;
+    adelantados.add(u);
+    const l = document.createElement('link');
+    l.rel = 'prefetch';
+    l.href = u;
+    document.head.appendChild(l);
+  });
+  if ('requestIdleCallback' in window) requestIdleCallback(pedir, { timeout: 3000 }); else setTimeout(pedir, 1500);
+}
 
 let primeraCarga = true;
 let turnoRender = 0;
@@ -285,7 +341,7 @@ async function render() {
   $('#menu-principal').classList.remove('abierta');
 
   const { partes, params } = leerRuta();
-  const vista = VISTAS[partes[0] || ''] || vistaNoEncontrada;
+  const vista = window[VISTAS[partes[0] || '']] || vistaNoEncontrada;
   const main = $('#contenido');
   let resultado;
   try {
@@ -319,6 +375,7 @@ async function render() {
   window.scrollTo(0, 0);
   if (partes[0] === 'productos') { recordarCatalogo(); restaurarCatalogo(); }
   recordarPagina();
+  adelantarSiguientePaso(partes[0] || '');
   if (!primeraCarga) {
     const titulo = $('h1', main);
     if (titulo) { titulo.setAttribute('tabindex', '-1'); titulo.focus({ preventScroll: true }); }
@@ -371,7 +428,6 @@ document.addEventListener('click', (e) => {
 
 async function iniciar() {
   iniciarEncabezado();
-  vigilarFotos();
   actualizarContador();
   renderCuenta();
   mostrarAvisoSesionPendiente();
@@ -384,9 +440,24 @@ async function iniciar() {
     render();
     return;
   }
-  // El catálogo se muestra de inmediato y se actualiza cuando responde la base
-  const catalogo = cargarCatalogo();
-  const google = Api.auth.googleActivo().then((g) => { estado.googleActivo = g; });
+  /* Qué pide cada página a la base (antes: catálogo, calificaciones y ajustes de Google en todas):
+     - Las páginas que no muestran productos (ingreso, registro, ayuda, perfil…) no piden el catálogo.
+     - Si el catálogo guardado tiene menos de 1 minuto, se usa sin consultar (salvo carrito, compra y administración,
+       que siempre lo piden al día por precios y stock).
+     - Si Google está activo se guarda en el navegador y solo se vuelve a preguntar en ingreso y registro. */
+  const ruta = leerRuta().partes[0] || '';
+  const usaCatalogo = !RUTAS_SIN_CATALOGO.has(ruta);
+  const guardado = catalogoGuardado();
+  if (guardado && guardado.edad < CATALOGO_FRESCO_MS) estado.catalogoConectado = true;
+  const pedirCatalogo = usaCatalogo && (!guardado || guardado.edad >= CATALOGO_FRESCO_MS || RUTAS_CATALOGO_AL_DIA.has(ruta));
+  const catalogo = pedirCatalogo ? cargarCatalogo() : Promise.resolve(false);
+  let googleGuardado = null;
+  try { googleGuardado = localStorage.getItem(CLAVE_GOOGLE); } catch (e) { /* sin almacenamiento */ }
+  if (googleGuardado !== null) estado.googleActivo = googleGuardado === '1';
+  const preguntaGoogle = ruta === 'ingresar' || ruta === 'registro';
+  const google = preguntaGoogle || googleGuardado === null
+    ? Api.auth.googleActivo().then((g) => { estado.googleActivo = g; try { localStorage.setItem(CLAVE_GOOGLE, g ? '1' : '0'); } catch (e) { /* nada */ } })
+    : Promise.resolve();
   // Supabase lee primero los datos del enlace del correo; después se limpia la dirección
   await alIniciarSesion(await Api.auth.sesion());
   if (regreso) history.replaceState(null, '', location.pathname + location.search);
@@ -418,22 +489,31 @@ async function iniciar() {
     const destino = destinoTrasIngreso(volver);
     if (destino !== 'index.html') { ir(destino); return; }
   }
-  // Se espera el catálogo de la base (máximo 5 s); si tarda más se muestra el de respaldo y luego se actualiza
-  $('#contenido').innerHTML = cargandoHtml();
-  let listo = false;
-  catalogo.then(() => { listo = true; });
-  await Promise.race([Promise.all([catalogo, google]), new Promise((ok) => setTimeout(ok, 5000))]);
+  /* La página se muestra de inmediato con el catálogo guardado (o el de respaldo de datos.js) y se actualiza
+     sola si la base responde con algo distinto. Solo esperan a la base (máximo 5 s):
+     el carrito y la compra con sesión (precios y stock al día) y el ingreso o registro si aún no se sabe si Google está activo. */
+  const esperaCatalogo = pedirCatalogo && RUTAS_CATALOGO_AL_DIA.has(ruta) && (ruta === 'carrito' || estado.sesion);
+  const esperaGoogle = preguntaGoogle && googleGuardado === null;
+  if (esperaCatalogo || esperaGoogle) {
+    $('#contenido').innerHTML = cargandoHtml();
+    await Promise.race([Promise.all([esperaCatalogo ? catalogo : null, esperaGoogle ? google : null]), new Promise((ok) => setTimeout(ok, 5000))]);
+  }
   render();
   mostrarAvisoPendiente();
-  if (!listo) {
-    await catalogo;
-    const ruta = leerRuta().partes[0] || '';
-    if (['', 'productos', 'producto', 'carrito'].includes(ruta) && !$('#dialogo').open) render();
-  }
+  const cambio = await catalogo;
+  const ahora = leerRuta().partes[0] || '';
+  if (cambio && ['', 'productos', 'producto', 'carrito', 'favoritos'].includes(ahora) && !$('#dialogo').open) render();
+  if (preguntaGoogle && !esperaGoogle) { await google; if (String(estado.googleActivo) !== String(googleGuardado === '1') && !$('#dialogo').open) render(); }
 }
 
 // Enlaces antiguos con # (por ejemplo index.html#/carrito) se llevan a su página nueva
-(function redirigirEnlaceAntiguo() {
+// Service Worker (sw.js): guarda en el navegador JS, CSS, fuentes y fotos para las siguientes visitas.
+// Se registra cuando la página ya terminó de cargar, para no competir con lo que el cliente está viendo.
+if ('serviceWorker' in navigator && location.protocol === 'https:') {
+  window.addEventListener('load', () => { navigator.serviceWorker.register('sw.js').catch(() => { /* sin Service Worker la tienda funciona igual */ }); });
+}
+// Los scripts se cargan con defer: el arranque espera a que estén todos (también las vistas de la página)
+function redirigirEnlaceAntiguo() {
   const m = location.hash.match(/^#\/([^?]*)(\?.*)?$/);
   if (!m) { iniciar(); return; }
   const [ruta, sub] = m[1].split('/');
@@ -443,4 +523,6 @@ async function iniciar() {
   else if (ruta === 'perfil' && sub) destino = ARCHIVO_PERFIL[sub] || 'perfil.html';
   if (consulta) destino += (destino.includes('?') ? '&' : '?') + consulta;
   location.replace(destino);
-})();
+}
+if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', redirigirEnlaceAntiguo);
+else redirigirEnlaceAntiguo();
