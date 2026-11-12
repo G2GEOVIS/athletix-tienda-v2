@@ -1,5 +1,5 @@
 const { chromium } = require('playwright');
-const B = process.argv[2] || 'http://127.0.0.1:5500/';
+const B = process.argv[2] || 'https://g2geovis.github.io/athletix-tienda-v2/';
 (async () => {
   const b = await chromium.launch(); const ctx = await b.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 3, isMobile: true, hasTouch: true });
   const p = await ctx.newPage(); const err = []; p.on('pageerror', (e) => err.push(e.message)); p.on('console', (m) => m.type() === 'error' && !/Failed to load resource/.test(m.text()) && err.push(m.text()));

@@ -1,6 +1,6 @@
 // Carrera de scripts: se retrasan las vistas (tienda/cuenta) o la base y la página igual debe dibujar su vista
 const { chromium } = require('playwright');
-const B = process.argv[2] || 'http://127.0.0.1:5501/';
+const B = process.argv[2] || 'https://g2geovis.github.io/athletix-tienda-v2/';
 const pags = ['index.html', 'productos.html', 'productos.html?cat=calzado', 'producto.html?id=vx', 'carrito.html', 'favoritos.html', 'login.html', 'login.html?volver=pedidos.html', 'registro.html', 'recuperar.html', 'ayuda.html', 'quienes-somos.html', 'pedidos.html', 'retiro.html'];
 (async () => {
   const b = await chromium.launch(); let fallas = 0;

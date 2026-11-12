@@ -1,6 +1,6 @@
 // Prueba de humo: cada página carga sin errores, muestra su contenido y no pide JPG ni fuentes de Google
 const { chromium } = require('playwright');
-const B = process.argv[2] || 'http://127.0.0.1:5500/';
+const B = process.argv[2] || 'https://g2geovis.github.io/athletix-tienda-v2/';
 const pags = ['index.html','productos.html','productos.html?cat=calzado','producto.html?id=vx','producto.html?id=noexiste','carrito.html','favoritos.html','ayuda.html','quienes-somos.html','login.html','registro.html','recuperar.html','confirmar-correo.html','nueva-clave.html','completar-perfil.html','retiro.html','pago.html','confirmacion.html','orden.html','pedidos.html','perfil.html','metodos-pago.html','cambiar-clave.html','admin.html','admin-productos.html','admin-producto.html','admin-stock.html','admin-pagos.html','404.html'];
 (async () => {
   const b = await chromium.launch(); let fallas = 0;

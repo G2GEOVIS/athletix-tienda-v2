@@ -1,6 +1,6 @@
 // Pruebas del renderizado previo: qué se ve sin JavaScript, cuándo se oculta y si el JS dibuja lo mismo
 const { chromium } = require('playwright');
-const B = process.argv[2] || 'http://127.0.0.1:5501/';
+const B = process.argv[2] || 'https://g2geovis.github.io/athletix-tienda-v2/';
 (async () => {
   const b = await chromium.launch();
   const abrir = async (ruta, { sinJs = false, antes = null } = {}) => {
