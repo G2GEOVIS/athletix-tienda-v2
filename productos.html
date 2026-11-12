@@ -6,19 +6,19 @@
   <meta name="theme-color" content="#0B1F3A">
   <meta name="description" content="Catálogo de ATHLETIX: calzado, tecnología e implementos deportivos y equipo de entrenamiento.">
   <title>Productos | ATHLETIX</title>
-  <meta name="version-sitio" content="84f1f8d5c0">
+  <meta name="version-sitio" content="8b6585be05">
   <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
   <!-- Conexión anticipada con la base de datos (catálogo, sesión) -->
   <link rel="preconnect" href="https://umujfngetzifneqerirl.supabase.co" crossorigin>
-  <!-- Fuentes propias: se piden de inmediato las dos que se ven primero -->
+  <!-- Fuentes propias: se piden de inmediato las que se ven primero (texto, negrita de los botones, títulos y la cursiva
+       del logo y del título principal). Si llegaran tarde, el texto cambiaría de ancho y movería la página (CLS). -->
   <link rel="preload" href="fuentes/barlow-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fuentes/barlow-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fuentes/barlow-condensed-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="css/estilos.min.css?v=9b034bb5">
+  <link rel="preload" href="fuentes/barlow-condensed-latin-800-italic.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="css/estilos.min.css?v=c3adde39">
   <!-- defer: los scripts se descargan en paralelo y se ejecutan después de leer la página (no la bloquean) -->
-  <script src="js/version.js?v=5fdf0f18" defer></script>
-  <script src="js/vendor/supabase.min.js?v=34035ac7" defer></script>
-  <script src="js/min/base.min.js?v=49d2087e" defer></script>
-  <script src="js/min/tienda.min.js?v=98a13768" defer></script>
+  <script>(function(){var ok=!location.hash&&!location.search;try{for(var i=0;i<sessionStorage.length;i++)if(/^sb-.*-auth-token$/.test(sessionStorage.key(i)))ok=false}catch(e){ok=false}if(!ok)document.documentElement.className+=' sin-previo';})();</script>
 </head>
 <!-- Página generada desde plantilla.html (herramientas/generar_paginas.py) -->
 <body data-pagina="productos">
@@ -72,7 +72,1483 @@
     </div>
   </header>
 
-  <main id="contenido" tabindex="-1"></main>
+  <main id="contenido" tabindex="-1" data-previo data-google="1">
+<div class="contenedor pagina">
+      <nav class="migas" aria-label="Ruta de navegación"><ol><li><a href="index.html">Inicio</a></li><li><span aria-current="page">Productos</span></li></ol></nav>
+      <div class="cabecera-pagina resultados__info">
+        <h1 class="titulo-pagina" id="titulo-catalogo" tabindex="-1">Todos los productos</h1>
+        <div class="resultados__orden">
+          <p class="texto-suave" id="conteo" aria-live="polite">90 productos</p>
+          <label class="orden"><span>Ordenar por</span>
+            <select id="orden"><option value="relevancia" selected="">Recomendados</option><option value="menor">Precio: menor a mayor</option><option value="mayor">Precio: mayor a menor</option><option value="valorados">Mejor valorados</option></select>
+          </label>
+        </div>
+      </div>
+      <div class="catalogo">
+        <aside class="filtros" aria-label="Filtros">
+          <form class="filtros__cuerpo" id="filtros-cuerpo">
+            <fieldset class="grupo-filtro grupo-filtro--categoria">
+              <legend>Categoría</legend>
+              <div class="grupo-filtro__opciones"><label class="opcion"><input type="radio" name="cat" value="todas" checked=""> Todas</label><label class="opcion"><input type="radio" name="cat" value="calzado"> Calzado</label><label class="opcion"><input type="radio" name="cat" value="tecnologia"> Tecnología e implementos</label><label class="opcion"><input type="radio" name="cat" value="entrenamiento"> Entrenamiento</label></div>
+            </fieldset>
+            <button class="filtros__abrir" type="button" aria-expanded="false" aria-controls="filtros-mas"><span><svg class="" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 6h16M7 12h10M10 18h4"></path></svg><span id="texto-filtros">Género y precio</span><span class="filtros__resumen" id="filtros-resumen">Todos</span></span><svg class="" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6"></path></svg></button>
+            <div class="filtros__mas" id="filtros-mas">
+              <fieldset class="grupo-filtro" id="grupo-publico">
+                <legend>Género del calzado</legend>
+                <div class="grupo-filtro__opciones"><label class="opcion"><input type="radio" name="pub" value="todos" checked=""> Todos</label><label class="opcion"><input type="radio" name="pub" value="Hombre"> Hombre</label><label class="opcion"><input type="radio" name="pub" value="Mujer"> Mujer</label></div>
+              </fieldset>
+              <fieldset class="grupo-filtro">
+                <legend>Precio</legend>
+                <div class="grupo-filtro__opciones"><label class="opcion"><input type="radio" name="precio" value="todos" checked=""> Todos los precios</label><label class="opcion"><input type="radio" name="precio" value="bajo"> Menos de $50</label><label class="opcion"><input type="radio" name="precio" value="medio"> De $50 a $150</label><label class="opcion"><input type="radio" name="precio" value="alto"> Más de $150</label></div>
+              </fieldset>
+              <button class="boton boton--secundario boton--bloque" type="button" id="limpiar-filtros">Limpiar filtros</button>
+            </div>
+          </form>
+        </aside>
+        <section aria-labelledby="titulo-catalogo" id="resultados"><ul class="grilla-productos">
+    <li>
+      <article class="tarjeta-producto">
+        <div class="tarjeta-producto__imagen"><picture><source type="image/avif" srcset="img/productos/w/vx-1-400.avif 400w, img/productos/w/vx-1-600.avif 600w, img/productos/w/vx-1-800.avif 800w, img/productos/w/vx-1-1000.avif 1000w, img/productos/w/vx-1-1200.avif 1200w, img/productos/w/vx-1-1600.avif 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px"><img src="img/productos/w/vx-1-800.webp" srcset="img/productos/w/vx-1-400.webp 400w, img/productos/w/vx-1-600.webp 600w, img/productos/w/vx-1-800.webp 800w, img/productos/w/vx-1-1000.webp 1000w, img/productos/w/vx-1-1200.webp 1200w, img/productos/w/vx-1-1600.webp 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px" alt="Foto de ASICS Metaspeed Edge Paris" width="800" height="600" fetchpriority="high" decoding="async"></picture></div>
+        <button class="boton-favorito tarjeta-producto__favorito" type="button" data-favorito="vx" aria-pressed="false" aria-label="Favorito: ASICS Metaspeed Edge Paris"><svg class="" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20z"></path></svg></button>
+        <span class="etiqueta tarjeta-producto__etiqueta">Nuevo</span>
+        <div class="tarjeta-producto__cuerpo">
+          <h2 class="tarjeta-producto__nombre"><a href="producto.html?id=vx">ASICS Metaspeed Edge Paris</a></h2>
+          <p class="texto-suave">Calzado · Hombre</p>
+          <p class="calificacion texto-suave">Sin opiniones todavía</p>
+          <div class="tarjeta-producto__pie">
+            <p class="precio">$239,90</p>
+            <span class="tarjeta-producto__ver" aria-hidden="true">Ver producto →</span>
+          </div>
+        </div>
+      </article>
+    </li>
+    <li>
+      <article class="tarjeta-producto">
+        <div class="tarjeta-producto__imagen"><picture><source type="image/avif" srcset="img/productos/w/sf-1-400.avif 400w, img/productos/w/sf-1-600.avif 600w, img/productos/w/sf-1-800.avif 800w, img/productos/w/sf-1-1000.avif 1000w, img/productos/w/sf-1-1200.avif 1200w, img/productos/w/sf-1-1600.avif 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px"><img src="img/productos/w/sf-1-800.webp" srcset="img/productos/w/sf-1-400.webp 400w, img/productos/w/sf-1-600.webp 600w, img/productos/w/sf-1-800.webp 800w, img/productos/w/sf-1-1000.webp 1000w, img/productos/w/sf-1-1200.webp 1200w, img/productos/w/sf-1-1600.webp 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px" alt="Foto de ASICS Metaspeed Sky Paris" width="800" height="600" fetchpriority="high" decoding="async"></picture></div>
+        <button class="boton-favorito tarjeta-producto__favorito" type="button" data-favorito="sf" aria-pressed="false" aria-label="Favorito: ASICS Metaspeed Sky Paris"><svg class="" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20z"></path></svg></button>
+        
+        <div class="tarjeta-producto__cuerpo">
+          <h2 class="tarjeta-producto__nombre"><a href="producto.html?id=sf">ASICS Metaspeed Sky Paris</a></h2>
+          <p class="texto-suave">Calzado · Hombre</p>
+          <p class="calificacion texto-suave">Sin opiniones todavía</p>
+          <div class="tarjeta-producto__pie">
+            <p class="precio">$249,50</p>
+            <span class="tarjeta-producto__ver" aria-hidden="true">Ver producto →</span>
+          </div>
+        </div>
+      </article>
+    </li>
+    <li>
+      <article class="tarjeta-producto">
+        <div class="tarjeta-producto__imagen"><picture><source type="image/avif" srcset="img/productos/w/oc-1-400.avif 400w, img/productos/w/oc-1-600.avif 600w, img/productos/w/oc-1-800.avif 800w, img/productos/w/oc-1-1000.avif 1000w, img/productos/w/oc-1-1200.avif 1200w, img/productos/w/oc-1-1600.avif 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px"><img src="img/productos/w/oc-1-800.webp" srcset="img/productos/w/oc-1-400.webp 400w, img/productos/w/oc-1-600.webp 600w, img/productos/w/oc-1-800.webp 800w, img/productos/w/oc-1-1000.webp 1000w, img/productos/w/oc-1-1200.webp 1200w, img/productos/w/oc-1-1600.webp 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px" alt="Foto de Brooks Glycerin 21" width="800" height="600" decoding="async"></picture></div>
+        <button class="boton-favorito tarjeta-producto__favorito" type="button" data-favorito="oc" aria-pressed="false" aria-label="Favorito: Brooks Glycerin 21"><svg class="" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20z"></path></svg></button>
+        
+        <div class="tarjeta-producto__cuerpo">
+          <h2 class="tarjeta-producto__nombre"><a href="producto.html?id=oc">Brooks Glycerin 21</a></h2>
+          <p class="texto-suave">Calzado · Mujer</p>
+          <p class="calificacion texto-suave">Sin opiniones todavía</p>
+          <div class="tarjeta-producto__pie">
+            <p class="precio">$164,90</p>
+            <span class="tarjeta-producto__ver" aria-hidden="true">Ver producto →</span>
+          </div>
+        </div>
+      </article>
+    </li>
+    <li>
+      <article class="tarjeta-producto">
+        <div class="tarjeta-producto__imagen"><picture><source type="image/avif" srcset="img/productos/w/lr-1-400.avif 400w, img/productos/w/lr-1-600.avif 600w, img/productos/w/lr-1-800.avif 800w, img/productos/w/lr-1-1000.avif 1000w, img/productos/w/lr-1-1200.avif 1200w, img/productos/w/lr-1-1600.avif 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px"><img src="img/productos/w/lr-1-800.webp" srcset="img/productos/w/lr-1-400.webp 400w, img/productos/w/lr-1-600.webp 600w, img/productos/w/lr-1-800.webp 800w, img/productos/w/lr-1-1000.webp 1000w, img/productos/w/lr-1-1200.webp 1200w, img/productos/w/lr-1-1600.webp 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px" alt="Foto de Craft CTM Ultra Carbon 2" width="800" height="600" decoding="async"></picture></div>
+        <button class="boton-favorito tarjeta-producto__favorito" type="button" data-favorito="lr" aria-pressed="false" aria-label="Favorito: Craft CTM Ultra Carbon 2"><svg class="" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20z"></path></svg></button>
+        <span class="etiqueta tarjeta-producto__etiqueta">Nuevo</span>
+        <div class="tarjeta-producto__cuerpo">
+          <h2 class="tarjeta-producto__nombre"><a href="producto.html?id=lr">Craft CTM Ultra Carbon 2</a></h2>
+          <p class="texto-suave">Calzado · Mujer</p>
+          <p class="calificacion texto-suave">Sin opiniones todavía</p>
+          <div class="tarjeta-producto__pie">
+            <p class="precio">$199,00</p>
+            <span class="tarjeta-producto__ver" aria-hidden="true">Ver producto →</span>
+          </div>
+        </div>
+      </article>
+    </li>
+    <li>
+      <article class="tarjeta-producto">
+        <div class="tarjeta-producto__imagen"><picture><source type="image/avif" srcset="img/productos/w/tn-1-400.avif 400w, img/productos/w/tn-1-600.avif 600w, img/productos/w/tn-1-800.avif 800w, img/productos/w/tn-1-1000.avif 1000w, img/productos/w/tn-1-1200.avif 1200w, img/productos/w/tn-1-1600.avif 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px"><img src="img/productos/w/tn-1-800.webp" srcset="img/productos/w/tn-1-400.webp 400w, img/productos/w/tn-1-600.webp 600w, img/productos/w/tn-1-800.webp 800w, img/productos/w/tn-1-1000.webp 1000w, img/productos/w/tn-1-1200.webp 1200w, img/productos/w/tn-1-1600.webp 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px" alt="Foto de ASICS Novablast 4 Matcha" width="800" height="600" decoding="async"></picture></div>
+        <button class="boton-favorito tarjeta-producto__favorito" type="button" data-favorito="tn" aria-pressed="false" aria-label="Favorito: ASICS Novablast 4 Matcha"><svg class="" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20z"></path></svg></button>
+        
+        <div class="tarjeta-producto__cuerpo">
+          <h2 class="tarjeta-producto__nombre"><a href="producto.html?id=tn">ASICS Novablast 4 Matcha</a></h2>
+          <p class="texto-suave">Calzado · Hombre</p>
+          <p class="calificacion texto-suave">Sin opiniones todavía</p>
+          <div class="tarjeta-producto__pie">
+            <p class="precio">$139,90</p>
+            <span class="tarjeta-producto__ver" aria-hidden="true">Ver producto →</span>
+          </div>
+        </div>
+      </article>
+    </li>
+    <li>
+      <article class="tarjeta-producto">
+        <div class="tarjeta-producto__imagen"><picture><source type="image/avif" srcset="img/productos/w/pt-1-400.avif 400w, img/productos/w/pt-1-600.avif 600w, img/productos/w/pt-1-800.avif 800w, img/productos/w/pt-1-1000.avif 1000w, img/productos/w/pt-1-1200.avif 1200w, img/productos/w/pt-1-1600.avif 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px"><img src="img/productos/w/pt-1-800.webp" srcset="img/productos/w/pt-1-400.webp 400w, img/productos/w/pt-1-600.webp 600w, img/productos/w/pt-1-800.webp 800w, img/productos/w/pt-1-1000.webp 1000w, img/productos/w/pt-1-1200.webp 1200w, img/productos/w/pt-1-1600.webp 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px" alt="Foto de Reloj GPS de running negro" width="800" height="600" decoding="async"></picture></div>
+        <button class="boton-favorito tarjeta-producto__favorito" type="button" data-favorito="pt" aria-pressed="false" aria-label="Favorito: Reloj GPS de running negro"><svg class="" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20z"></path></svg></button>
+        
+        <div class="tarjeta-producto__cuerpo">
+          <h2 class="tarjeta-producto__nombre"><a href="producto.html?id=pt">Reloj GPS de running negro</a></h2>
+          <p class="texto-suave">Tecnología e implementos</p>
+          <p class="calificacion texto-suave">Sin opiniones todavía</p>
+          <div class="tarjeta-producto__pie">
+            <p class="precio">$249,00</p>
+            <span class="tarjeta-producto__ver" aria-hidden="true">Ver producto →</span>
+          </div>
+        </div>
+      </article>
+    </li>
+    <li>
+      <article class="tarjeta-producto">
+        <div class="tarjeta-producto__imagen"><picture><source type="image/avif" srcset="img/productos/w/sa-1-400.avif 400w, img/productos/w/sa-1-600.avif 600w, img/productos/w/sa-1-800.avif 800w, img/productos/w/sa-1-1000.avif 1000w, img/productos/w/sa-1-1200.avif 1200w, img/productos/w/sa-1-1600.avif 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px"><img src="img/productos/w/sa-1-800.webp" srcset="img/productos/w/sa-1-400.webp 400w, img/productos/w/sa-1-600.webp 600w, img/productos/w/sa-1-800.webp 800w, img/productos/w/sa-1-1000.webp 1000w, img/productos/w/sa-1-1200.webp 1200w, img/productos/w/sa-1-1600.webp 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px" alt="Foto de Audífonos de conducción ósea Shokz" width="800" height="600" loading="lazy" decoding="async"></picture></div>
+        <button class="boton-favorito tarjeta-producto__favorito" type="button" data-favorito="sa" aria-pressed="false" aria-label="Favorito: Audífonos de conducción ósea Shokz"><svg class="" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20z"></path></svg></button>
+        <span class="etiqueta tarjeta-producto__etiqueta">Nuevo</span>
+        <div class="tarjeta-producto__cuerpo">
+          <h2 class="tarjeta-producto__nombre"><a href="producto.html?id=sa">Audífonos de conducción ósea Shokz</a></h2>
+          <p class="texto-suave">Tecnología e implementos</p>
+          <p class="calificacion texto-suave">Sin opiniones todavía</p>
+          <div class="tarjeta-producto__pie">
+            <p class="precio">$179,90</p>
+            <span class="tarjeta-producto__ver" aria-hidden="true">Ver producto →</span>
+          </div>
+        </div>
+      </article>
+    </li>
+    <li>
+      <article class="tarjeta-producto">
+        <div class="tarjeta-producto__imagen"><picture><source type="image/avif" srcset="img/productos/w/cb-1-400.avif 400w, img/productos/w/cb-1-600.avif 600w, img/productos/w/cb-1-800.avif 800w, img/productos/w/cb-1-1000.avif 1000w, img/productos/w/cb-1-1200.avif 1200w, img/productos/w/cb-1-1600.avif 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px"><img src="img/productos/w/cb-1-800.webp" srcset="img/productos/w/cb-1-400.webp 400w, img/productos/w/cb-1-600.webp 600w, img/productos/w/cb-1-800.webp 800w, img/productos/w/cb-1-1000.webp 1000w, img/productos/w/cb-1-1200.webp 1200w, img/productos/w/cb-1-1600.webp 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px" alt="Foto de Banda cardiaca Polar H10" width="800" height="600" loading="lazy" decoding="async"></picture></div>
+        <button class="boton-favorito tarjeta-producto__favorito" type="button" data-favorito="cb" aria-pressed="false" aria-label="Favorito: Banda cardiaca Polar H10"><svg class="" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20z"></path></svg></button>
+        
+        <div class="tarjeta-producto__cuerpo">
+          <h2 class="tarjeta-producto__nombre"><a href="producto.html?id=cb">Banda cardiaca Polar H10</a></h2>
+          <p class="texto-suave">Tecnología e implementos</p>
+          <p class="calificacion texto-suave">Sin opiniones todavía</p>
+          <div class="tarjeta-producto__pie">
+            <p class="precio">$89,90</p>
+            <span class="tarjeta-producto__ver" aria-hidden="true">Ver producto →</span>
+          </div>
+        </div>
+      </article>
+    </li>
+    <li>
+      <article class="tarjeta-producto">
+        <div class="tarjeta-producto__imagen"><picture><source type="image/avif" srcset="img/productos/w/sp-1-400.avif 400w, img/productos/w/sp-1-600.avif 600w, img/productos/w/sp-1-800.avif 800w, img/productos/w/sp-1-1000.avif 1000w, img/productos/w/sp-1-1200.avif 1200w, img/productos/w/sp-1-1600.avif 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px"><img src="img/productos/w/sp-1-800.webp" srcset="img/productos/w/sp-1-400.webp 400w, img/productos/w/sp-1-600.webp 600w, img/productos/w/sp-1-800.webp 800w, img/productos/w/sp-1-1000.webp 1000w, img/productos/w/sp-1-1200.webp 1200w, img/productos/w/sp-1-1600.webp 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px" alt="Foto de Sensor de potencia Stryd" width="800" height="600" loading="lazy" decoding="async"></picture></div>
+        <button class="boton-favorito tarjeta-producto__favorito" type="button" data-favorito="sp" aria-pressed="false" aria-label="Favorito: Sensor de potencia Stryd"><svg class="" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20z"></path></svg></button>
+        
+        <div class="tarjeta-producto__cuerpo">
+          <h2 class="tarjeta-producto__nombre"><a href="producto.html?id=sp">Sensor de potencia Stryd</a></h2>
+          <p class="texto-suave">Tecnología e implementos</p>
+          <p class="calificacion texto-suave">Sin opiniones todavía</p>
+          <div class="tarjeta-producto__pie">
+            <p class="precio">$219,00</p>
+            <span class="tarjeta-producto__ver" aria-hidden="true">Ver producto →</span>
+          </div>
+        </div>
+      </article>
+    </li>
+    <li>
+      <article class="tarjeta-producto">
+        <div class="tarjeta-producto__imagen"><picture><source type="image/avif" srcset="img/productos/w/hb-1-400.avif 400w, img/productos/w/hb-1-600.avif 600w, img/productos/w/hb-1-800.avif 800w, img/productos/w/hb-1-1000.avif 1000w, img/productos/w/hb-1-1200.avif 1200w, img/productos/w/hb-1-1600.avif 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px"><img src="img/productos/w/hb-1-800.webp" srcset="img/productos/w/hb-1-400.webp 400w, img/productos/w/hb-1-600.webp 600w, img/productos/w/hb-1-800.webp 800w, img/productos/w/hb-1-1000.webp 1000w, img/productos/w/hb-1-1200.webp 1200w, img/productos/w/hb-1-1600.webp 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px" alt="Foto de Cinturón de hidratación morado" width="800" height="600" loading="lazy" decoding="async"></picture></div>
+        <button class="boton-favorito tarjeta-producto__favorito" type="button" data-favorito="hb" aria-pressed="false" aria-label="Favorito: Cinturón de hidratación morado"><svg class="" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20z"></path></svg></button>
+        
+        <div class="tarjeta-producto__cuerpo">
+          <h2 class="tarjeta-producto__nombre"><a href="producto.html?id=hb">Cinturón de hidratación morado</a></h2>
+          <p class="texto-suave">Tecnología e implementos</p>
+          <p class="calificacion texto-suave">Sin opiniones todavía</p>
+          <div class="tarjeta-producto__pie">
+            <p class="precio">$31,50</p>
+            <span class="tarjeta-producto__ver" aria-hidden="true">Ver producto →</span>
+          </div>
+        </div>
+      </article>
+    </li>
+    <li>
+      <article class="tarjeta-producto">
+        <div class="tarjeta-producto__imagen"><picture><source type="image/avif" srcset="img/productos/w/au-1-400.avif 400w, img/productos/w/au-1-600.avif 600w, img/productos/w/au-1-800.avif 800w, img/productos/w/au-1-1000.avif 1000w, img/productos/w/au-1-1200.avif 1200w, img/productos/w/au-1-1600.avif 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px"><img src="img/productos/w/au-1-800.webp" srcset="img/productos/w/au-1-400.webp 400w, img/productos/w/au-1-600.webp 600w, img/productos/w/au-1-800.webp 800w, img/productos/w/au-1-1000.webp 1000w, img/productos/w/au-1-1200.webp 1200w, img/productos/w/au-1-1600.webp 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px" alt="Foto de Reloj inteligente rosa de fitness" width="800" height="600" loading="lazy" decoding="async"></picture></div>
+        <button class="boton-favorito tarjeta-producto__favorito" type="button" data-favorito="au" aria-pressed="false" aria-label="Favorito: Reloj inteligente rosa de fitness"><svg class="" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20z"></path></svg></button>
+        <span class="etiqueta tarjeta-producto__etiqueta">Nuevo</span>
+        <div class="tarjeta-producto__cuerpo">
+          <h2 class="tarjeta-producto__nombre"><a href="producto.html?id=au">Reloj inteligente rosa de fitness</a></h2>
+          <p class="texto-suave">Tecnología e implementos</p>
+          <p class="calificacion texto-suave">Sin opiniones todavía</p>
+          <div class="tarjeta-producto__pie">
+            <p class="precio">$189,00</p>
+            <span class="tarjeta-producto__ver" aria-hidden="true">Ver producto →</span>
+          </div>
+        </div>
+      </article>
+    </li>
+    <li>
+      <article class="tarjeta-producto">
+        <div class="tarjeta-producto__imagen"><picture><source type="image/avif" srcset="img/productos/w/at-1-400.avif 400w, img/productos/w/at-1-600.avif 600w, img/productos/w/at-1-800.avif 800w, img/productos/w/at-1-1000.avif 1000w, img/productos/w/at-1-1200.avif 1200w, img/productos/w/at-1-1600.avif 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px"><img src="img/productos/w/at-1-800.webp" srcset="img/productos/w/at-1-400.webp 400w, img/productos/w/at-1-600.webp 600w, img/productos/w/at-1-800.webp 800w, img/productos/w/at-1-1000.webp 1000w, img/productos/w/at-1-1200.webp 1200w, img/productos/w/at-1-1600.webp 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px" alt="Foto de Kit de agilidad ProSet" width="800" height="600" loading="lazy" decoding="async"></picture></div>
+        <button class="boton-favorito tarjeta-producto__favorito" type="button" data-favorito="at" aria-pressed="false" aria-label="Favorito: Kit de agilidad ProSet"><svg class="" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20z"></path></svg></button>
+        
+        <div class="tarjeta-producto__cuerpo">
+          <h2 class="tarjeta-producto__nombre"><a href="producto.html?id=at">Kit de agilidad ProSet</a></h2>
+          <p class="texto-suave">Entrenamiento</p>
+          <p class="calificacion texto-suave">Sin opiniones todavía</p>
+          <div class="tarjeta-producto__pie">
+            <p class="precio">$48,90</p>
+            <span class="tarjeta-producto__ver" aria-hidden="true">Ver producto →</span>
+          </div>
+        </div>
+      </article>
+    </li>
+    <li>
+      <article class="tarjeta-producto">
+        <div class="tarjeta-producto__imagen"><picture><source type="image/avif" srcset="img/productos/w/pv-1-400.avif 400w, img/productos/w/pv-1-600.avif 600w, img/productos/w/pv-1-800.avif 800w, img/productos/w/pv-1-1000.avif 1000w, img/productos/w/pv-1-1200.avif 1200w, img/productos/w/pv-1-1600.avif 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px"><img src="img/productos/w/pv-1-800.webp" srcset="img/productos/w/pv-1-400.webp 400w, img/productos/w/pv-1-600.webp 600w, img/productos/w/pv-1-800.webp 800w, img/productos/w/pv-1-1000.webp 1000w, img/productos/w/pv-1-1200.webp 1200w, img/productos/w/pv-1-1600.webp 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px" alt="Foto de Chaleco de peso ajustable Fuerza Élite" width="800" height="600" loading="lazy" decoding="async"></picture></div>
+        <button class="boton-favorito tarjeta-producto__favorito" type="button" data-favorito="pv" aria-pressed="false" aria-label="Favorito: Chaleco de peso ajustable Fuerza Élite"><svg class="" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20z"></path></svg></button>
+        <span class="etiqueta tarjeta-producto__etiqueta">Nuevo</span>
+        <div class="tarjeta-producto__cuerpo">
+          <h2 class="tarjeta-producto__nombre"><a href="producto.html?id=pv">Chaleco de peso ajustable Fuerza Élite</a></h2>
+          <p class="texto-suave">Entrenamiento</p>
+          <p class="calificacion texto-suave">Sin opiniones todavía</p>
+          <div class="tarjeta-producto__pie">
+            <p class="precio">$96,40</p>
+            <span class="tarjeta-producto__ver" aria-hidden="true">Ver producto →</span>
+          </div>
+        </div>
+      </article>
+    </li>
+    <li>
+      <article class="tarjeta-producto">
+        <div class="tarjeta-producto__imagen"><picture><source type="image/avif" srcset="img/productos/w/sc-1-400.avif 400w, img/productos/w/sc-1-600.avif 600w, img/productos/w/sc-1-800.avif 800w, img/productos/w/sc-1-1000.avif 1000w, img/productos/w/sc-1-1200.avif 1200w, img/productos/w/sc-1-1600.avif 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px"><img src="img/productos/w/sc-1-800.webp" srcset="img/productos/w/sc-1-400.webp 400w, img/productos/w/sc-1-600.webp 600w, img/productos/w/sc-1-800.webp 800w, img/productos/w/sc-1-1000.webp 1000w, img/productos/w/sc-1-1200.webp 1200w, img/productos/w/sc-1-1600.webp 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px" alt="Foto de Paracaídas de Velocidad Pro" width="800" height="600" loading="lazy" decoding="async"></picture></div>
+        <button class="boton-favorito tarjeta-producto__favorito" type="button" data-favorito="sc" aria-pressed="false" aria-label="Favorito: Paracaídas de Velocidad Pro"><svg class="" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20z"></path></svg></button>
+        
+        <div class="tarjeta-producto__cuerpo">
+          <h2 class="tarjeta-producto__nombre"><a href="producto.html?id=sc">Paracaídas de Velocidad Pro</a></h2>
+          <p class="texto-suave">Entrenamiento</p>
+          <p class="calificacion texto-suave">Sin opiniones todavía</p>
+          <div class="tarjeta-producto__pie">
+            <p class="precio">$29,75</p>
+            <span class="tarjeta-producto__ver" aria-hidden="true">Ver producto →</span>
+          </div>
+        </div>
+      </article>
+    </li>
+    <li>
+      <article class="tarjeta-producto">
+        <div class="tarjeta-producto__imagen"><picture><source type="image/avif" srcset="img/productos/w/fl-1-400.avif 400w, img/productos/w/fl-1-600.avif 600w, img/productos/w/fl-1-800.avif 800w, img/productos/w/fl-1-1000.avif 1000w, img/productos/w/fl-1-1200.avif 1200w, img/productos/w/fl-1-1600.avif 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px"><img src="img/productos/w/fl-1-800.webp" srcset="img/productos/w/fl-1-400.webp 400w, img/productos/w/fl-1-600.webp 600w, img/productos/w/fl-1-800.webp 800w, img/productos/w/fl-1-1000.webp 1000w, img/productos/w/fl-1-1200.webp 1200w, img/productos/w/fl-1-1600.webp 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px" alt="Foto de Kit de tubos de resistencia con manijas" width="800" height="600" loading="lazy" decoding="async"></picture></div>
+        <button class="boton-favorito tarjeta-producto__favorito" type="button" data-favorito="fl" aria-pressed="false" aria-label="Favorito: Kit de tubos de resistencia con manijas"><svg class="" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20z"></path></svg></button>
+        
+        <div class="tarjeta-producto__cuerpo">
+          <h2 class="tarjeta-producto__nombre"><a href="producto.html?id=fl">Kit de tubos de resistencia con manijas</a></h2>
+          <p class="texto-suave">Entrenamiento</p>
+          <p class="calificacion texto-suave">Sin opiniones todavía</p>
+          <div class="tarjeta-producto__pie">
+            <p class="precio">$36,80</p>
+            <span class="tarjeta-producto__ver" aria-hidden="true">Ver producto →</span>
+          </div>
+        </div>
+      </article>
+    </li>
+    <li>
+      <article class="tarjeta-producto">
+        <div class="tarjeta-producto__imagen"><picture><source type="image/avif" srcset="img/productos/w/cm-1-400.avif 400w, img/productos/w/cm-1-600.avif 600w, img/productos/w/cm-1-800.avif 800w, img/productos/w/cm-1-1000.avif 1000w, img/productos/w/cm-1-1200.avif 1200w, img/productos/w/cm-1-1600.avif 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px"><img src="img/productos/w/cm-1-800.webp" srcset="img/productos/w/cm-1-400.webp 400w, img/productos/w/cm-1-600.webp 600w, img/productos/w/cm-1-800.webp 800w, img/productos/w/cm-1-1000.webp 1000w, img/productos/w/cm-1-1200.webp 1200w, img/productos/w/cm-1-1600.webp 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px" alt="Foto de Balón Medicinal Núcleo Pro 10 kg" width="800" height="600" loading="lazy" decoding="async"></picture></div>
+        <button class="boton-favorito tarjeta-producto__favorito" type="button" data-favorito="cm" aria-pressed="false" aria-label="Favorito: Balón Medicinal Núcleo Pro 10 kg"><svg class="" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20z"></path></svg></button>
+        
+        <div class="tarjeta-producto__cuerpo">
+          <h2 class="tarjeta-producto__nombre"><a href="producto.html?id=cm">Balón Medicinal Núcleo Pro 10 kg</a></h2>
+          <p class="texto-suave">Entrenamiento</p>
+          <p class="calificacion texto-suave">Sin opiniones todavía</p>
+          <div class="tarjeta-producto__pie">
+            <p class="precio">$58,30</p>
+            <span class="tarjeta-producto__ver" aria-hidden="true">Ver producto →</span>
+          </div>
+        </div>
+      </article>
+    </li>
+    <li>
+      <article class="tarjeta-producto">
+        <div class="tarjeta-producto__imagen"><picture><source type="image/avif" srcset="img/productos/w/zh01-1-400.avif 400w, img/productos/w/zh01-1-600.avif 600w, img/productos/w/zh01-1-800.avif 800w, img/productos/w/zh01-1-1000.avif 1000w, img/productos/w/zh01-1-1200.avif 1200w, img/productos/w/zh01-1-1600.avif 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px"><img src="img/productos/w/zh01-1-800.webp" srcset="img/productos/w/zh01-1-400.webp 400w, img/productos/w/zh01-1-600.webp 600w, img/productos/w/zh01-1-800.webp 800w, img/productos/w/zh01-1-1000.webp 1000w, img/productos/w/zh01-1-1200.webp 1200w, img/productos/w/zh01-1-1600.webp 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px" alt="Foto de Adidas Adizero Boston 12 Lucid Lemon" width="800" height="600" loading="lazy" decoding="async"></picture></div>
+        <button class="boton-favorito tarjeta-producto__favorito" type="button" data-favorito="zh01" aria-pressed="false" aria-label="Favorito: Adidas Adizero Boston 12 Lucid Lemon"><svg class="" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20z"></path></svg></button>
+        
+        <div class="tarjeta-producto__cuerpo">
+          <h2 class="tarjeta-producto__nombre"><a href="producto.html?id=zh01">Adidas Adizero Boston 12 Lucid Lemon</a></h2>
+          <p class="texto-suave">Calzado · Hombre</p>
+          <p class="calificacion texto-suave">Sin opiniones todavía</p>
+          <div class="tarjeta-producto__pie">
+            <p class="precio">$164,00</p>
+            <span class="tarjeta-producto__ver" aria-hidden="true">Ver producto →</span>
+          </div>
+        </div>
+      </article>
+    </li>
+    <li>
+      <article class="tarjeta-producto">
+        <div class="tarjeta-producto__imagen"><picture><source type="image/avif" srcset="img/productos/w/zh02-1-400.avif 400w, img/productos/w/zh02-1-600.avif 600w, img/productos/w/zh02-1-800.avif 800w, img/productos/w/zh02-1-1000.avif 1000w, img/productos/w/zh02-1-1200.avif 1200w, img/productos/w/zh02-1-1600.avif 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px"><img src="img/productos/w/zh02-1-800.webp" srcset="img/productos/w/zh02-1-400.webp 400w, img/productos/w/zh02-1-600.webp 600w, img/productos/w/zh02-1-800.webp 800w, img/productos/w/zh02-1-1000.webp 1000w, img/productos/w/zh02-1-1200.webp 1200w, img/productos/w/zh02-1-1600.webp 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px" alt="Foto de Adidas Adizero Adios Pro 4" width="800" height="600" loading="lazy" decoding="async"></picture></div>
+        <button class="boton-favorito tarjeta-producto__favorito" type="button" data-favorito="zh02" aria-pressed="false" aria-label="Favorito: Adidas Adizero Adios Pro 4"><svg class="" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20z"></path></svg></button>
+        
+        <div class="tarjeta-producto__cuerpo">
+          <h2 class="tarjeta-producto__nombre"><a href="producto.html?id=zh02">Adidas Adizero Adios Pro 4</a></h2>
+          <p class="texto-suave">Calzado · Hombre</p>
+          <p class="calificacion texto-suave">Sin opiniones todavía</p>
+          <div class="tarjeta-producto__pie">
+            <p class="precio">$245,00</p>
+            <span class="tarjeta-producto__ver" aria-hidden="true">Ver producto →</span>
+          </div>
+        </div>
+      </article>
+    </li>
+    <li>
+      <article class="tarjeta-producto">
+        <div class="tarjeta-producto__imagen"><picture><source type="image/avif" srcset="img/productos/w/zh03-1-400.avif 400w, img/productos/w/zh03-1-600.avif 600w, img/productos/w/zh03-1-800.avif 800w, img/productos/w/zh03-1-1000.avif 1000w, img/productos/w/zh03-1-1200.avif 1200w, img/productos/w/zh03-1-1600.avif 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px"><img src="img/productos/w/zh03-1-800.webp" srcset="img/productos/w/zh03-1-400.webp 400w, img/productos/w/zh03-1-600.webp 600w, img/productos/w/zh03-1-800.webp 800w, img/productos/w/zh03-1-1000.webp 1000w, img/productos/w/zh03-1-1200.webp 1200w, img/productos/w/zh03-1-1600.webp 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px" alt="Foto de Brooks Ghost 16" width="800" height="600" loading="lazy" decoding="async"></picture></div>
+        <button class="boton-favorito tarjeta-producto__favorito" type="button" data-favorito="zh03" aria-pressed="false" aria-label="Favorito: Brooks Ghost 16"><svg class="" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20z"></path></svg></button>
+        
+        <div class="tarjeta-producto__cuerpo">
+          <h2 class="tarjeta-producto__nombre"><a href="producto.html?id=zh03">Brooks Ghost 16</a></h2>
+          <p class="texto-suave">Calzado · Hombre</p>
+          <p class="calificacion texto-suave">Sin opiniones todavía</p>
+          <div class="tarjeta-producto__pie">
+            <p class="precio">$139,50</p>
+            <span class="tarjeta-producto__ver" aria-hidden="true">Ver producto →</span>
+          </div>
+        </div>
+      </article>
+    </li>
+    <li>
+      <article class="tarjeta-producto">
+        <div class="tarjeta-producto__imagen"><picture><source type="image/avif" srcset="img/productos/w/zh04-1-400.avif 400w, img/productos/w/zh04-1-600.avif 600w, img/productos/w/zh04-1-800.avif 800w, img/productos/w/zh04-1-1000.avif 1000w, img/productos/w/zh04-1-1200.avif 1200w, img/productos/w/zh04-1-1600.avif 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px"><img src="img/productos/w/zh04-1-800.webp" srcset="img/productos/w/zh04-1-400.webp 400w, img/productos/w/zh04-1-600.webp 600w, img/productos/w/zh04-1-800.webp 800w, img/productos/w/zh04-1-1000.webp 1000w, img/productos/w/zh04-1-1200.webp 1200w, img/productos/w/zh04-1-1600.webp 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px" alt="Foto de HOKA Mach 6" width="800" height="600" loading="lazy" decoding="async"></picture></div>
+        <button class="boton-favorito tarjeta-producto__favorito" type="button" data-favorito="zh04" aria-pressed="false" aria-label="Favorito: HOKA Mach 6"><svg class="" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20z"></path></svg></button>
+        
+        <div class="tarjeta-producto__cuerpo">
+          <h2 class="tarjeta-producto__nombre"><a href="producto.html?id=zh04">HOKA Mach 6</a></h2>
+          <p class="texto-suave">Calzado · Hombre</p>
+          <p class="calificacion texto-suave">Sin opiniones todavía</p>
+          <div class="tarjeta-producto__pie">
+            <p class="precio">$148,75</p>
+            <span class="tarjeta-producto__ver" aria-hidden="true">Ver producto →</span>
+          </div>
+        </div>
+      </article>
+    </li>
+    <li>
+      <article class="tarjeta-producto">
+        <div class="tarjeta-producto__imagen"><picture><source type="image/avif" srcset="img/productos/w/zh05-1-400.avif 400w, img/productos/w/zh05-1-600.avif 600w, img/productos/w/zh05-1-800.avif 800w, img/productos/w/zh05-1-1000.avif 1000w, img/productos/w/zh05-1-1200.avif 1200w, img/productos/w/zh05-1-1600.avif 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px"><img src="img/productos/w/zh05-1-800.webp" srcset="img/productos/w/zh05-1-400.webp 400w, img/productos/w/zh05-1-600.webp 600w, img/productos/w/zh05-1-800.webp 800w, img/productos/w/zh05-1-1000.webp 1000w, img/productos/w/zh05-1-1200.webp 1200w, img/productos/w/zh05-1-1600.webp 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px" alt="Foto de Mizuno Wave Rebellion Pro 2" width="800" height="600" loading="lazy" decoding="async"></picture></div>
+        <button class="boton-favorito tarjeta-producto__favorito" type="button" data-favorito="zh05" aria-pressed="false" aria-label="Favorito: Mizuno Wave Rebellion Pro 2"><svg class="" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20z"></path></svg></button>
+        
+        <div class="tarjeta-producto__cuerpo">
+          <h2 class="tarjeta-producto__nombre"><a href="producto.html?id=zh05">Mizuno Wave Rebellion Pro 2</a></h2>
+          <p class="texto-suave">Calzado · Hombre</p>
+          <p class="calificacion texto-suave">Sin opiniones todavía</p>
+          <div class="tarjeta-producto__pie">
+            <p class="precio">$229,00</p>
+            <span class="tarjeta-producto__ver" aria-hidden="true">Ver producto →</span>
+          </div>
+        </div>
+      </article>
+    </li>
+    <li>
+      <article class="tarjeta-producto">
+        <div class="tarjeta-producto__imagen"><picture><source type="image/avif" srcset="img/productos/w/zh06-1-400.avif 400w, img/productos/w/zh06-1-600.avif 600w, img/productos/w/zh06-1-800.avif 800w, img/productos/w/zh06-1-1000.avif 1000w, img/productos/w/zh06-1-1200.avif 1200w, img/productos/w/zh06-1-1600.avif 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px"><img src="img/productos/w/zh06-1-800.webp" srcset="img/productos/w/zh06-1-400.webp 400w, img/productos/w/zh06-1-600.webp 600w, img/productos/w/zh06-1-800.webp 800w, img/productos/w/zh06-1-1000.webp 1000w, img/productos/w/zh06-1-1200.webp 1200w, img/productos/w/zh06-1-1600.webp 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px" alt="Foto de New Balance FuelCell SuperComp Elite v4" width="800" height="600" loading="lazy" decoding="async"></picture></div>
+        <button class="boton-favorito tarjeta-producto__favorito" type="button" data-favorito="zh06" aria-pressed="false" aria-label="Favorito: New Balance FuelCell SuperComp Elite v4"><svg class="" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20z"></path></svg></button>
+        
+        <div class="tarjeta-producto__cuerpo">
+          <h2 class="tarjeta-producto__nombre"><a href="producto.html?id=zh06">New Balance FuelCell SuperComp Elite v4</a></h2>
+          <p class="texto-suave">Calzado · Hombre</p>
+          <p class="calificacion texto-suave">Sin opiniones todavía</p>
+          <div class="tarjeta-producto__pie">
+            <p class="precio">$259,90</p>
+            <span class="tarjeta-producto__ver" aria-hidden="true">Ver producto →</span>
+          </div>
+        </div>
+      </article>
+    </li>
+    <li>
+      <article class="tarjeta-producto">
+        <div class="tarjeta-producto__imagen"><picture><source type="image/avif" srcset="img/productos/w/zh07-1-400.avif 400w, img/productos/w/zh07-1-600.avif 600w, img/productos/w/zh07-1-800.avif 800w, img/productos/w/zh07-1-1000.avif 1000w, img/productos/w/zh07-1-1200.avif 1200w, img/productos/w/zh07-1-1600.avif 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px"><img src="img/productos/w/zh07-1-800.webp" srcset="img/productos/w/zh07-1-400.webp 400w, img/productos/w/zh07-1-600.webp 600w, img/productos/w/zh07-1-800.webp 800w, img/productos/w/zh07-1-1000.webp 1000w, img/productos/w/zh07-1-1200.webp 1200w, img/productos/w/zh07-1-1600.webp 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px" alt="Foto de Nike Alphafly 3" width="800" height="600" loading="lazy" decoding="async"></picture></div>
+        <button class="boton-favorito tarjeta-producto__favorito" type="button" data-favorito="zh07" aria-pressed="false" aria-label="Favorito: Nike Alphafly 3"><svg class="" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20z"></path></svg></button>
+        
+        <div class="tarjeta-producto__cuerpo">
+          <h2 class="tarjeta-producto__nombre"><a href="producto.html?id=zh07">Nike Alphafly 3</a></h2>
+          <p class="texto-suave">Calzado · Hombre</p>
+          <p class="calificacion texto-suave">Sin opiniones todavía</p>
+          <div class="tarjeta-producto__pie">
+            <p class="precio">$289,00</p>
+            <span class="tarjeta-producto__ver" aria-hidden="true">Ver producto →</span>
+          </div>
+        </div>
+      </article>
+    </li>
+    <li>
+      <article class="tarjeta-producto">
+        <div class="tarjeta-producto__imagen"><picture><source type="image/avif" srcset="img/productos/w/zh08-1-400.avif 400w, img/productos/w/zh08-1-600.avif 600w, img/productos/w/zh08-1-800.avif 800w, img/productos/w/zh08-1-1000.avif 1000w, img/productos/w/zh08-1-1200.avif 1200w, img/productos/w/zh08-1-1600.avif 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px"><img src="img/productos/w/zh08-1-800.webp" srcset="img/productos/w/zh08-1-400.webp 400w, img/productos/w/zh08-1-600.webp 600w, img/productos/w/zh08-1-800.webp 800w, img/productos/w/zh08-1-1000.webp 1000w, img/productos/w/zh08-1-1200.webp 1200w, img/productos/w/zh08-1-1600.webp 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px" alt="Foto de Nike Vaporfly 3" width="800" height="600" loading="lazy" decoding="async"></picture></div>
+        <button class="boton-favorito tarjeta-producto__favorito" type="button" data-favorito="zh08" aria-pressed="false" aria-label="Favorito: Nike Vaporfly 3"><svg class="" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20z"></path></svg></button>
+        
+        <div class="tarjeta-producto__cuerpo">
+          <h2 class="tarjeta-producto__nombre"><a href="producto.html?id=zh08">Nike Vaporfly 3</a></h2>
+          <p class="texto-suave">Calzado · Hombre</p>
+          <p class="calificacion texto-suave">Sin opiniones todavía</p>
+          <div class="tarjeta-producto__pie">
+            <p class="precio">$259,00</p>
+            <span class="tarjeta-producto__ver" aria-hidden="true">Ver producto →</span>
+          </div>
+        </div>
+      </article>
+    </li>
+    <li>
+      <article class="tarjeta-producto">
+        <div class="tarjeta-producto__imagen"><picture><source type="image/avif" srcset="img/productos/w/zh09-1-400.avif 400w, img/productos/w/zh09-1-600.avif 600w, img/productos/w/zh09-1-800.avif 800w, img/productos/w/zh09-1-1000.avif 1000w, img/productos/w/zh09-1-1200.avif 1200w, img/productos/w/zh09-1-1600.avif 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px"><img src="img/productos/w/zh09-1-800.webp" srcset="img/productos/w/zh09-1-400.webp 400w, img/productos/w/zh09-1-600.webp 600w, img/productos/w/zh09-1-800.webp 800w, img/productos/w/zh09-1-1000.webp 1000w, img/productos/w/zh09-1-1200.webp 1200w, img/productos/w/zh09-1-1600.webp 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px" alt="Foto de On Cloudboom Echo 3" width="800" height="600" loading="lazy" decoding="async"></picture></div>
+        <button class="boton-favorito tarjeta-producto__favorito" type="button" data-favorito="zh09" aria-pressed="false" aria-label="Favorito: On Cloudboom Echo 3"><svg class="" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20z"></path></svg></button>
+        
+        <div class="tarjeta-producto__cuerpo">
+          <h2 class="tarjeta-producto__nombre"><a href="producto.html?id=zh09">On Cloudboom Echo 3</a></h2>
+          <p class="texto-suave">Calzado · Hombre</p>
+          <p class="calificacion texto-suave">Sin opiniones todavía</p>
+          <div class="tarjeta-producto__pie">
+            <p class="precio">$274,90</p>
+            <span class="tarjeta-producto__ver" aria-hidden="true">Ver producto →</span>
+          </div>
+        </div>
+      </article>
+    </li>
+    <li>
+      <article class="tarjeta-producto">
+        <div class="tarjeta-producto__imagen"><picture><source type="image/avif" srcset="img/productos/w/zh10-1-400.avif 400w, img/productos/w/zh10-1-600.avif 600w, img/productos/w/zh10-1-800.avif 800w, img/productos/w/zh10-1-1000.avif 1000w, img/productos/w/zh10-1-1200.avif 1200w, img/productos/w/zh10-1-1600.avif 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px"><img src="img/productos/w/zh10-1-800.webp" srcset="img/productos/w/zh10-1-400.webp 400w, img/productos/w/zh10-1-600.webp 600w, img/productos/w/zh10-1-800.webp 800w, img/productos/w/zh10-1-1000.webp 1000w, img/productos/w/zh10-1-1200.webp 1200w, img/productos/w/zh10-1-1600.webp 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px" alt="Foto de Puma Deviate Nitro Elite 3" width="800" height="600" loading="lazy" decoding="async"></picture></div>
+        <button class="boton-favorito tarjeta-producto__favorito" type="button" data-favorito="zh10" aria-pressed="false" aria-label="Favorito: Puma Deviate Nitro Elite 3"><svg class="" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20z"></path></svg></button>
+        
+        <div class="tarjeta-producto__cuerpo">
+          <h2 class="tarjeta-producto__nombre"><a href="producto.html?id=zh10">Puma Deviate Nitro Elite 3</a></h2>
+          <p class="texto-suave">Calzado · Hombre</p>
+          <p class="calificacion texto-suave">Sin opiniones todavía</p>
+          <div class="tarjeta-producto__pie">
+            <p class="precio">$234,50</p>
+            <span class="tarjeta-producto__ver" aria-hidden="true">Ver producto →</span>
+          </div>
+        </div>
+      </article>
+    </li>
+    <li>
+      <article class="tarjeta-producto">
+        <div class="tarjeta-producto__imagen"><picture><source type="image/avif" srcset="img/productos/w/zh11-1-400.avif 400w, img/productos/w/zh11-1-600.avif 600w, img/productos/w/zh11-1-800.avif 800w, img/productos/w/zh11-1-1000.avif 1000w, img/productos/w/zh11-1-1200.avif 1200w, img/productos/w/zh11-1-1600.avif 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px"><img src="img/productos/w/zh11-1-800.webp" srcset="img/productos/w/zh11-1-400.webp 400w, img/productos/w/zh11-1-600.webp 600w, img/productos/w/zh11-1-800.webp 800w, img/productos/w/zh11-1-1000.webp 1000w, img/productos/w/zh11-1-1200.webp 1200w, img/productos/w/zh11-1-1600.webp 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px" alt="Foto de Saucony Endorphin Speed 4" width="800" height="600" loading="lazy" decoding="async"></picture></div>
+        <button class="boton-favorito tarjeta-producto__favorito" type="button" data-favorito="zh11" aria-pressed="false" aria-label="Favorito: Saucony Endorphin Speed 4"><svg class="" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20z"></path></svg></button>
+        <span class="etiqueta tarjeta-producto__etiqueta">Nuevo</span>
+        <div class="tarjeta-producto__cuerpo">
+          <h2 class="tarjeta-producto__nombre"><a href="producto.html?id=zh11">Saucony Endorphin Speed 4</a></h2>
+          <p class="texto-suave">Calzado · Hombre</p>
+          <p class="calificacion texto-suave">Sin opiniones todavía</p>
+          <div class="tarjeta-producto__pie">
+            <p class="precio">$169,90</p>
+            <span class="tarjeta-producto__ver" aria-hidden="true">Ver producto →</span>
+          </div>
+        </div>
+      </article>
+    </li>
+    <li>
+      <article class="tarjeta-producto">
+        <div class="tarjeta-producto__imagen"><picture><source type="image/avif" srcset="img/productos/w/zh12-1-400.avif 400w, img/productos/w/zh12-1-600.avif 600w, img/productos/w/zh12-1-800.avif 800w, img/productos/w/zh12-1-1000.avif 1000w, img/productos/w/zh12-1-1200.avif 1200w, img/productos/w/zh12-1-1600.avif 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px"><img src="img/productos/w/zh12-1-800.webp" srcset="img/productos/w/zh12-1-400.webp 400w, img/productos/w/zh12-1-600.webp 600w, img/productos/w/zh12-1-800.webp 800w, img/productos/w/zh12-1-1000.webp 1000w, img/productos/w/zh12-1-1200.webp 1200w, img/productos/w/zh12-1-1600.webp 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px" alt="Foto de Under Armour Flow Velociti Elite" width="800" height="600" loading="lazy" decoding="async"></picture></div>
+        <button class="boton-favorito tarjeta-producto__favorito" type="button" data-favorito="zh12" aria-pressed="false" aria-label="Favorito: Under Armour Flow Velociti Elite"><svg class="" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20z"></path></svg></button>
+        <span class="etiqueta tarjeta-producto__etiqueta">Nuevo</span>
+        <div class="tarjeta-producto__cuerpo">
+          <h2 class="tarjeta-producto__nombre"><a href="producto.html?id=zh12">Under Armour Flow Velociti Elite</a></h2>
+          <p class="texto-suave">Calzado · Hombre</p>
+          <p class="calificacion texto-suave">Sin opiniones todavía</p>
+          <div class="tarjeta-producto__pie">
+            <p class="precio">$219,00</p>
+            <span class="tarjeta-producto__ver" aria-hidden="true">Ver producto →</span>
+          </div>
+        </div>
+      </article>
+    </li>
+    <li>
+      <article class="tarjeta-producto">
+        <div class="tarjeta-producto__imagen"><picture><source type="image/avif" srcset="img/productos/w/zh13-1-400.avif 400w, img/productos/w/zh13-1-600.avif 600w, img/productos/w/zh13-1-800.avif 800w, img/productos/w/zh13-1-1000.avif 1000w, img/productos/w/zh13-1-1200.avif 1200w, img/productos/w/zh13-1-1600.avif 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px"><img src="img/productos/w/zh13-1-800.webp" srcset="img/productos/w/zh13-1-400.webp 400w, img/productos/w/zh13-1-600.webp 600w, img/productos/w/zh13-1-800.webp 800w, img/productos/w/zh13-1-1000.webp 1000w, img/productos/w/zh13-1-1200.webp 1200w, img/productos/w/zh13-1-1600.webp 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px" alt="Foto de Adidas Adizero Boston 12 Amarillo Solar" width="800" height="600" loading="lazy" decoding="async"></picture></div>
+        <button class="boton-favorito tarjeta-producto__favorito" type="button" data-favorito="zh13" aria-pressed="false" aria-label="Favorito: Adidas Adizero Boston 12 Amarillo Solar"><svg class="" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20z"></path></svg></button>
+        <span class="etiqueta tarjeta-producto__etiqueta">Nuevo</span>
+        <div class="tarjeta-producto__cuerpo">
+          <h2 class="tarjeta-producto__nombre"><a href="producto.html?id=zh13">Adidas Adizero Boston 12 Amarillo Solar</a></h2>
+          <p class="texto-suave">Calzado · Hombre</p>
+          <p class="calificacion texto-suave">Sin opiniones todavía</p>
+          <div class="tarjeta-producto__pie">
+            <p class="precio">$158,00</p>
+            <span class="tarjeta-producto__ver" aria-hidden="true">Ver producto →</span>
+          </div>
+        </div>
+      </article>
+    </li>
+    <li>
+      <article class="tarjeta-producto">
+        <div class="tarjeta-producto__imagen"><picture><source type="image/avif" srcset="img/productos/w/zh14-1-400.avif 400w, img/productos/w/zh14-1-600.avif 600w, img/productos/w/zh14-1-800.avif 800w, img/productos/w/zh14-1-1000.avif 1000w, img/productos/w/zh14-1-1200.avif 1200w, img/productos/w/zh14-1-1600.avif 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px"><img src="img/productos/w/zh14-1-800.webp" srcset="img/productos/w/zh14-1-400.webp 400w, img/productos/w/zh14-1-600.webp 600w, img/productos/w/zh14-1-800.webp 800w, img/productos/w/zh14-1-1000.webp 1000w, img/productos/w/zh14-1-1200.webp 1200w, img/productos/w/zh14-1-1600.webp 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px" alt="Foto de Salomon Trail Contagrip Verde Oliva" width="800" height="600" loading="lazy" decoding="async"></picture></div>
+        <button class="boton-favorito tarjeta-producto__favorito" type="button" data-favorito="zh14" aria-pressed="false" aria-label="Favorito: Salomon Trail Contagrip Verde Oliva"><svg class="" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20z"></path></svg></button>
+        <span class="etiqueta tarjeta-producto__etiqueta">Nuevo</span>
+        <div class="tarjeta-producto__cuerpo">
+          <h2 class="tarjeta-producto__nombre"><a href="producto.html?id=zh14">Salomon Trail Contagrip Verde Oliva</a></h2>
+          <p class="texto-suave">Calzado · Hombre</p>
+          <p class="calificacion texto-suave">Sin opiniones todavía</p>
+          <div class="tarjeta-producto__pie">
+            <p class="precio">$132,40</p>
+            <span class="tarjeta-producto__ver" aria-hidden="true">Ver producto →</span>
+          </div>
+        </div>
+      </article>
+    </li>
+    <li>
+      <article class="tarjeta-producto">
+        <div class="tarjeta-producto__imagen"><picture><source type="image/avif" srcset="img/productos/w/zh15-1-400.avif 400w, img/productos/w/zh15-1-600.avif 600w, img/productos/w/zh15-1-800.avif 800w, img/productos/w/zh15-1-1000.avif 1000w, img/productos/w/zh15-1-1200.avif 1200w, img/productos/w/zh15-1-1600.avif 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px"><img src="img/productos/w/zh15-1-800.webp" srcset="img/productos/w/zh15-1-400.webp 400w, img/productos/w/zh15-1-600.webp 600w, img/productos/w/zh15-1-800.webp 800w, img/productos/w/zh15-1-1000.webp 1000w, img/productos/w/zh15-1-1200.webp 1200w, img/productos/w/zh15-1-1600.webp 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px" alt="Foto de Mizuno Terrax Sendero Neón" width="800" height="600" loading="lazy" decoding="async"></picture></div>
+        <button class="boton-favorito tarjeta-producto__favorito" type="button" data-favorito="zh15" aria-pressed="false" aria-label="Favorito: Mizuno Terrax Sendero Neón"><svg class="" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20z"></path></svg></button>
+        <span class="etiqueta tarjeta-producto__etiqueta">Nuevo</span>
+        <div class="tarjeta-producto__cuerpo">
+          <h2 class="tarjeta-producto__nombre"><a href="producto.html?id=zh15">Mizuno Terrax Sendero Neón</a></h2>
+          <p class="texto-suave">Calzado · Hombre</p>
+          <p class="calificacion texto-suave">Sin opiniones todavía</p>
+          <div class="tarjeta-producto__pie">
+            <p class="precio">$127,80</p>
+            <span class="tarjeta-producto__ver" aria-hidden="true">Ver producto →</span>
+          </div>
+        </div>
+      </article>
+    </li>
+    <li>
+      <article class="tarjeta-producto">
+        <div class="tarjeta-producto__imagen"><picture><source type="image/avif" srcset="img/productos/w/zh16-1-400.avif 400w, img/productos/w/zh16-1-600.avif 600w, img/productos/w/zh16-1-800.avif 800w, img/productos/w/zh16-1-1000.avif 1000w, img/productos/w/zh16-1-1200.avif 1200w, img/productos/w/zh16-1-1600.avif 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px"><img src="img/productos/w/zh16-1-800.webp" srcset="img/productos/w/zh16-1-400.webp 400w, img/productos/w/zh16-1-600.webp 600w, img/productos/w/zh16-1-800.webp 800w, img/productos/w/zh16-1-1000.webp 1000w, img/productos/w/zh16-1-1200.webp 1200w, img/productos/w/zh16-1-1600.webp 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px" alt="Foto de Nike Pegasus 41 Gris" width="800" height="600" loading="lazy" decoding="async"></picture></div>
+        <button class="boton-favorito tarjeta-producto__favorito" type="button" data-favorito="zh16" aria-pressed="false" aria-label="Favorito: Nike Pegasus 41 Gris"><svg class="" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20z"></path></svg></button>
+        <span class="etiqueta tarjeta-producto__etiqueta">Nuevo</span>
+        <div class="tarjeta-producto__cuerpo">
+          <h2 class="tarjeta-producto__nombre"><a href="producto.html?id=zh16">Nike Pegasus 41 Gris</a></h2>
+          <p class="texto-suave">Calzado · Hombre</p>
+          <p class="calificacion texto-suave">Sin opiniones todavía</p>
+          <div class="tarjeta-producto__pie">
+            <p class="precio">$139,00</p>
+            <span class="tarjeta-producto__ver" aria-hidden="true">Ver producto →</span>
+          </div>
+        </div>
+      </article>
+    </li>
+    <li>
+      <article class="tarjeta-producto">
+        <div class="tarjeta-producto__imagen"><picture><source type="image/avif" srcset="img/productos/w/zh17-1-400.avif 400w, img/productos/w/zh17-1-600.avif 600w, img/productos/w/zh17-1-800.avif 800w, img/productos/w/zh17-1-1000.avif 1000w, img/productos/w/zh17-1-1200.avif 1200w, img/productos/w/zh17-1-1600.avif 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px"><img src="img/productos/w/zh17-1-800.webp" srcset="img/productos/w/zh17-1-400.webp 400w, img/productos/w/zh17-1-600.webp 600w, img/productos/w/zh17-1-800.webp 800w, img/productos/w/zh17-1-1000.webp 1000w, img/productos/w/zh17-1-1200.webp 1200w, img/productos/w/zh17-1-1600.webp 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px" alt="Foto de Mizuno Wave Rider 28" width="800" height="600" loading="lazy" decoding="async"></picture></div>
+        <button class="boton-favorito tarjeta-producto__favorito" type="button" data-favorito="zh17" aria-pressed="false" aria-label="Favorito: Mizuno Wave Rider 28"><svg class="" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20z"></path></svg></button>
+        <span class="etiqueta tarjeta-producto__etiqueta">Nuevo</span>
+        <div class="tarjeta-producto__cuerpo">
+          <h2 class="tarjeta-producto__nombre"><a href="producto.html?id=zh17">Mizuno Wave Rider 28</a></h2>
+          <p class="texto-suave">Calzado · Hombre</p>
+          <p class="calificacion texto-suave">Sin opiniones todavía</p>
+          <div class="tarjeta-producto__pie">
+            <p class="precio">$134,60</p>
+            <span class="tarjeta-producto__ver" aria-hidden="true">Ver producto →</span>
+          </div>
+        </div>
+      </article>
+    </li>
+    <li>
+      <article class="tarjeta-producto">
+        <div class="tarjeta-producto__imagen"><picture><source type="image/avif" srcset="img/productos/w/zh18-1-400.avif 400w, img/productos/w/zh18-1-600.avif 600w, img/productos/w/zh18-1-800.avif 800w, img/productos/w/zh18-1-1000.avif 1000w, img/productos/w/zh18-1-1200.avif 1200w, img/productos/w/zh18-1-1600.avif 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px"><img src="img/productos/w/zh18-1-800.webp" srcset="img/productos/w/zh18-1-400.webp 400w, img/productos/w/zh18-1-600.webp 600w, img/productos/w/zh18-1-800.webp 800w, img/productos/w/zh18-1-1000.webp 1000w, img/productos/w/zh18-1-1200.webp 1200w, img/productos/w/zh18-1-1600.webp 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px" alt="Foto de Under Armour Infinite Elite Azul" width="800" height="600" loading="lazy" decoding="async"></picture></div>
+        <button class="boton-favorito tarjeta-producto__favorito" type="button" data-favorito="zh18" aria-pressed="false" aria-label="Favorito: Under Armour Infinite Elite Azul"><svg class="" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20z"></path></svg></button>
+        <span class="etiqueta tarjeta-producto__etiqueta">Nuevo</span>
+        <div class="tarjeta-producto__cuerpo">
+          <h2 class="tarjeta-producto__nombre"><a href="producto.html?id=zh18">Under Armour Infinite Elite Azul</a></h2>
+          <p class="texto-suave">Calzado · Hombre</p>
+          <p class="calificacion texto-suave">Sin opiniones todavía</p>
+          <div class="tarjeta-producto__pie">
+            <p class="precio">$149,25</p>
+            <span class="tarjeta-producto__ver" aria-hidden="true">Ver producto →</span>
+          </div>
+        </div>
+      </article>
+    </li>
+    <li>
+      <article class="tarjeta-producto">
+        <div class="tarjeta-producto__imagen"><picture><source type="image/avif" srcset="img/productos/w/zm01-1-400.avif 400w, img/productos/w/zm01-1-600.avif 600w, img/productos/w/zm01-1-800.avif 800w, img/productos/w/zm01-1-1000.avif 1000w, img/productos/w/zm01-1-1200.avif 1200w, img/productos/w/zm01-1-1600.avif 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px"><img src="img/productos/w/zm01-1-800.webp" srcset="img/productos/w/zm01-1-400.webp 400w, img/productos/w/zm01-1-600.webp 600w, img/productos/w/zm01-1-800.webp 800w, img/productos/w/zm01-1-1000.webp 1000w, img/productos/w/zm01-1-1200.webp 1200w, img/productos/w/zm01-1-1600.webp 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px" alt="Foto de Diadora Atomo V7000" width="800" height="600" loading="lazy" decoding="async"></picture></div>
+        <button class="boton-favorito tarjeta-producto__favorito" type="button" data-favorito="zm01" aria-pressed="false" aria-label="Favorito: Diadora Atomo V7000"><svg class="" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20z"></path></svg></button>
+        
+        <div class="tarjeta-producto__cuerpo">
+          <h2 class="tarjeta-producto__nombre"><a href="producto.html?id=zm01">Diadora Atomo V7000</a></h2>
+          <p class="texto-suave">Calzado · Mujer</p>
+          <p class="calificacion texto-suave">Sin opiniones todavía</p>
+          <div class="tarjeta-producto__pie">
+            <p class="precio">$149,00</p>
+            <span class="tarjeta-producto__ver" aria-hidden="true">Ver producto →</span>
+          </div>
+        </div>
+      </article>
+    </li>
+    <li>
+      <article class="tarjeta-producto">
+        <div class="tarjeta-producto__imagen"><picture><source type="image/avif" srcset="img/productos/w/zm02-1-400.avif 400w, img/productos/w/zm02-1-600.avif 600w, img/productos/w/zm02-1-800.avif 800w, img/productos/w/zm02-1-1000.avif 1000w, img/productos/w/zm02-1-1200.avif 1200w, img/productos/w/zm02-1-1600.avif 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px"><img src="img/productos/w/zm02-1-800.webp" srcset="img/productos/w/zm02-1-400.webp 400w, img/productos/w/zm02-1-600.webp 600w, img/productos/w/zm02-1-800.webp 800w, img/productos/w/zm02-1-1000.webp 1000w, img/productos/w/zm02-1-1200.webp 1200w, img/productos/w/zm02-1-1600.webp 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px" alt="Foto de Karhu Fusion 4.0" width="800" height="600" loading="lazy" decoding="async"></picture></div>
+        <button class="boton-favorito tarjeta-producto__favorito" type="button" data-favorito="zm02" aria-pressed="false" aria-label="Favorito: Karhu Fusion 4.0"><svg class="" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20z"></path></svg></button>
+        
+        <div class="tarjeta-producto__cuerpo">
+          <h2 class="tarjeta-producto__nombre"><a href="producto.html?id=zm02">Karhu Fusion 4.0</a></h2>
+          <p class="texto-suave">Calzado · Mujer</p>
+          <p class="calificacion texto-suave">Sin opiniones todavía</p>
+          <div class="tarjeta-producto__pie">
+            <p class="precio">$138,50</p>
+            <span class="tarjeta-producto__ver" aria-hidden="true">Ver producto →</span>
+          </div>
+        </div>
+      </article>
+    </li>
+    <li>
+      <article class="tarjeta-producto">
+        <div class="tarjeta-producto__imagen"><picture><source type="image/avif" srcset="img/productos/w/zm03-1-400.avif 400w, img/productos/w/zm03-1-600.avif 600w, img/productos/w/zm03-1-800.avif 800w, img/productos/w/zm03-1-1000.avif 1000w, img/productos/w/zm03-1-1200.avif 1200w, img/productos/w/zm03-1-1600.avif 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px"><img src="img/productos/w/zm03-1-800.webp" srcset="img/productos/w/zm03-1-400.webp 400w, img/productos/w/zm03-1-600.webp 600w, img/productos/w/zm03-1-800.webp 800w, img/productos/w/zm03-1-1000.webp 1000w, img/productos/w/zm03-1-1200.webp 1200w, img/productos/w/zm03-1-1600.webp 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px" alt="Foto de Mizuno Wave Rebellion Flash 2" width="800" height="600" loading="lazy" decoding="async"></picture></div>
+        <button class="boton-favorito tarjeta-producto__favorito" type="button" data-favorito="zm03" aria-pressed="false" aria-label="Favorito: Mizuno Wave Rebellion Flash 2"><svg class="" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20z"></path></svg></button>
+        
+        <div class="tarjeta-producto__cuerpo">
+          <h2 class="tarjeta-producto__nombre"><a href="producto.html?id=zm03">Mizuno Wave Rebellion Flash 2</a></h2>
+          <p class="texto-suave">Calzado · Mujer</p>
+          <p class="calificacion texto-suave">Sin opiniones todavía</p>
+          <div class="tarjeta-producto__pie">
+            <p class="precio">$154,90</p>
+            <span class="tarjeta-producto__ver" aria-hidden="true">Ver producto →</span>
+          </div>
+        </div>
+      </article>
+    </li>
+    <li>
+      <article class="tarjeta-producto">
+        <div class="tarjeta-producto__imagen"><picture><source type="image/avif" srcset="img/productos/w/zm04-1-400.avif 400w, img/productos/w/zm04-1-600.avif 600w, img/productos/w/zm04-1-800.avif 800w, img/productos/w/zm04-1-1000.avif 1000w, img/productos/w/zm04-1-1200.avif 1200w, img/productos/w/zm04-1-1600.avif 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px"><img src="img/productos/w/zm04-1-800.webp" srcset="img/productos/w/zm04-1-400.webp 400w, img/productos/w/zm04-1-600.webp 600w, img/productos/w/zm04-1-800.webp 800w, img/productos/w/zm04-1-1000.webp 1000w, img/productos/w/zm04-1-1200.webp 1200w, img/productos/w/zm04-1-1600.webp 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px" alt="Foto de Newton Distance 12" width="800" height="600" loading="lazy" decoding="async"></picture></div>
+        <button class="boton-favorito tarjeta-producto__favorito" type="button" data-favorito="zm04" aria-pressed="false" aria-label="Favorito: Newton Distance 12"><svg class="" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20z"></path></svg></button>
+        
+        <div class="tarjeta-producto__cuerpo">
+          <h2 class="tarjeta-producto__nombre"><a href="producto.html?id=zm04">Newton Distance 12</a></h2>
+          <p class="texto-suave">Calzado · Mujer</p>
+          <p class="calificacion texto-suave">Sin opiniones todavía</p>
+          <div class="tarjeta-producto__pie">
+            <p class="precio">$149,50</p>
+            <span class="tarjeta-producto__ver" aria-hidden="true">Ver producto →</span>
+          </div>
+        </div>
+      </article>
+    </li>
+    <li>
+      <article class="tarjeta-producto">
+        <div class="tarjeta-producto__imagen"><picture><source type="image/avif" srcset="img/productos/w/zm05-1-400.avif 400w, img/productos/w/zm05-1-600.avif 600w, img/productos/w/zm05-1-800.avif 800w, img/productos/w/zm05-1-1000.avif 1000w, img/productos/w/zm05-1-1200.avif 1200w, img/productos/w/zm05-1-1600.avif 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px"><img src="img/productos/w/zm05-1-800.webp" srcset="img/productos/w/zm05-1-400.webp 400w, img/productos/w/zm05-1-600.webp 600w, img/productos/w/zm05-1-800.webp 800w, img/productos/w/zm05-1-1000.webp 1000w, img/productos/w/zm05-1-1200.webp 1200w, img/productos/w/zm05-1-1600.webp 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px" alt="Foto de On Cloudstrike Edición Especial" width="800" height="600" loading="lazy" decoding="async"></picture></div>
+        <button class="boton-favorito tarjeta-producto__favorito" type="button" data-favorito="zm05" aria-pressed="false" aria-label="Favorito: On Cloudstrike Edición Especial"><svg class="" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20z"></path></svg></button>
+        
+        <div class="tarjeta-producto__cuerpo">
+          <h2 class="tarjeta-producto__nombre"><a href="producto.html?id=zm05">On Cloudstrike Edición Especial</a></h2>
+          <p class="texto-suave">Calzado · Mujer</p>
+          <p class="calificacion texto-suave">Sin opiniones todavía</p>
+          <div class="tarjeta-producto__pie">
+            <p class="precio">$159,00</p>
+            <span class="tarjeta-producto__ver" aria-hidden="true">Ver producto →</span>
+          </div>
+        </div>
+      </article>
+    </li>
+    <li>
+      <article class="tarjeta-producto">
+        <div class="tarjeta-producto__imagen"><picture><source type="image/avif" srcset="img/productos/w/zm06-1-400.avif 400w, img/productos/w/zm06-1-600.avif 600w, img/productos/w/zm06-1-800.avif 800w, img/productos/w/zm06-1-1000.avif 1000w, img/productos/w/zm06-1-1200.avif 1200w, img/productos/w/zm06-1-1600.avif 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px"><img src="img/productos/w/zm06-1-800.webp" srcset="img/productos/w/zm06-1-400.webp 400w, img/productos/w/zm06-1-600.webp 600w, img/productos/w/zm06-1-800.webp 800w, img/productos/w/zm06-1-1000.webp 1000w, img/productos/w/zm06-1-1200.webp 1200w, img/productos/w/zm06-1-1600.webp 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px" alt="Foto de Salomon Aero Glide 2" width="800" height="600" loading="lazy" decoding="async"></picture></div>
+        <button class="boton-favorito tarjeta-producto__favorito" type="button" data-favorito="zm06" aria-pressed="false" aria-label="Favorito: Salomon Aero Glide 2"><svg class="" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20z"></path></svg></button>
+        
+        <div class="tarjeta-producto__cuerpo">
+          <h2 class="tarjeta-producto__nombre"><a href="producto.html?id=zm06">Salomon Aero Glide 2</a></h2>
+          <p class="texto-suave">Calzado · Mujer</p>
+          <p class="calificacion texto-suave">Sin opiniones todavía</p>
+          <div class="tarjeta-producto__pie">
+            <p class="precio">$144,90</p>
+            <span class="tarjeta-producto__ver" aria-hidden="true">Ver producto →</span>
+          </div>
+        </div>
+      </article>
+    </li>
+    <li>
+      <article class="tarjeta-producto">
+        <div class="tarjeta-producto__imagen"><picture><source type="image/avif" srcset="img/productos/w/zm07-1-400.avif 400w, img/productos/w/zm07-1-600.avif 600w, img/productos/w/zm07-1-800.avif 800w, img/productos/w/zm07-1-1000.avif 1000w, img/productos/w/zm07-1-1200.avif 1200w, img/productos/w/zm07-1-1600.avif 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px"><img src="img/productos/w/zm07-1-800.webp" srcset="img/productos/w/zm07-1-400.webp 400w, img/productos/w/zm07-1-600.webp 600w, img/productos/w/zm07-1-800.webp 800w, img/productos/w/zm07-1-1000.webp 1000w, img/productos/w/zm07-1-1200.webp 1200w, img/productos/w/zm07-1-1600.webp 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px" alt="Foto de Salomon S/LAB Phantasm 2" width="800" height="600" loading="lazy" decoding="async"></picture></div>
+        <button class="boton-favorito tarjeta-producto__favorito" type="button" data-favorito="zm07" aria-pressed="false" aria-label="Favorito: Salomon S/LAB Phantasm 2"><svg class="" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20z"></path></svg></button>
+        
+        <div class="tarjeta-producto__cuerpo">
+          <h2 class="tarjeta-producto__nombre"><a href="producto.html?id=zm07">Salomon S/LAB Phantasm 2</a></h2>
+          <p class="texto-suave">Calzado · Mujer</p>
+          <p class="calificacion texto-suave">Sin opiniones todavía</p>
+          <div class="tarjeta-producto__pie">
+            <p class="precio">$239,90</p>
+            <span class="tarjeta-producto__ver" aria-hidden="true">Ver producto →</span>
+          </div>
+        </div>
+      </article>
+    </li>
+    <li>
+      <article class="tarjeta-producto">
+        <div class="tarjeta-producto__imagen"><picture><source type="image/avif" srcset="img/productos/w/zm08-1-400.avif 400w, img/productos/w/zm08-1-600.avif 600w, img/productos/w/zm08-1-800.avif 800w, img/productos/w/zm08-1-1000.avif 1000w, img/productos/w/zm08-1-1200.avif 1200w, img/productos/w/zm08-1-1600.avif 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px"><img src="img/productos/w/zm08-1-800.webp" srcset="img/productos/w/zm08-1-400.webp 400w, img/productos/w/zm08-1-600.webp 600w, img/productos/w/zm08-1-800.webp 800w, img/productos/w/zm08-1-1000.webp 1000w, img/productos/w/zm08-1-1200.webp 1200w, img/productos/w/zm08-1-1600.webp 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px" alt="Foto de Skechers GOrun Speed Elite Hyper" width="800" height="600" loading="lazy" decoding="async"></picture></div>
+        <button class="boton-favorito tarjeta-producto__favorito" type="button" data-favorito="zm08" aria-pressed="false" aria-label="Favorito: Skechers GOrun Speed Elite Hyper"><svg class="" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20z"></path></svg></button>
+        
+        <div class="tarjeta-producto__cuerpo">
+          <h2 class="tarjeta-producto__nombre"><a href="producto.html?id=zm08">Skechers GOrun Speed Elite Hyper</a></h2>
+          <p class="texto-suave">Calzado · Mujer</p>
+          <p class="calificacion texto-suave">Sin opiniones todavía</p>
+          <div class="tarjeta-producto__pie">
+            <p class="precio">$179,50</p>
+            <span class="tarjeta-producto__ver" aria-hidden="true">Ver producto →</span>
+          </div>
+        </div>
+      </article>
+    </li>
+    <li>
+      <article class="tarjeta-producto">
+        <div class="tarjeta-producto__imagen"><picture><source type="image/avif" srcset="img/productos/w/zm09-1-400.avif 400w, img/productos/w/zm09-1-600.avif 600w, img/productos/w/zm09-1-800.avif 800w, img/productos/w/zm09-1-1000.avif 1000w, img/productos/w/zm09-1-1200.avif 1200w, img/productos/w/zm09-1-1600.avif 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px"><img src="img/productos/w/zm09-1-800.webp" srcset="img/productos/w/zm09-1-400.webp 400w, img/productos/w/zm09-1-600.webp 600w, img/productos/w/zm09-1-800.webp 800w, img/productos/w/zm09-1-1000.webp 1000w, img/productos/w/zm09-1-1200.webp 1200w, img/productos/w/zm09-1-1600.webp 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px" alt="Foto de Topo Athletic Cyclone 2" width="800" height="600" loading="lazy" decoding="async"></picture></div>
+        <button class="boton-favorito tarjeta-producto__favorito" type="button" data-favorito="zm09" aria-pressed="false" aria-label="Favorito: Topo Athletic Cyclone 2"><svg class="" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20z"></path></svg></button>
+        
+        <div class="tarjeta-producto__cuerpo">
+          <h2 class="tarjeta-producto__nombre"><a href="producto.html?id=zm09">Topo Athletic Cyclone 2</a></h2>
+          <p class="texto-suave">Calzado · Mujer</p>
+          <p class="calificacion texto-suave">Sin opiniones todavía</p>
+          <div class="tarjeta-producto__pie">
+            <p class="precio">$139,00</p>
+            <span class="tarjeta-producto__ver" aria-hidden="true">Ver producto →</span>
+          </div>
+        </div>
+      </article>
+    </li>
+    <li>
+      <article class="tarjeta-producto">
+        <div class="tarjeta-producto__imagen"><picture><source type="image/avif" srcset="img/productos/w/zm10-1-400.avif 400w, img/productos/w/zm10-1-600.avif 600w, img/productos/w/zm10-1-800.avif 800w, img/productos/w/zm10-1-1000.avif 1000w, img/productos/w/zm10-1-1200.avif 1200w, img/productos/w/zm10-1-1600.avif 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px"><img src="img/productos/w/zm10-1-800.webp" srcset="img/productos/w/zm10-1-400.webp 400w, img/productos/w/zm10-1-600.webp 600w, img/productos/w/zm10-1-800.webp 800w, img/productos/w/zm10-1-1000.webp 1000w, img/productos/w/zm10-1-1200.webp 1200w, img/productos/w/zm10-1-1600.webp 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px" alt="Foto de Under Armour Infinite Elite Gris y Rosa" width="800" height="600" loading="lazy" decoding="async"></picture></div>
+        <button class="boton-favorito tarjeta-producto__favorito" type="button" data-favorito="zm10" aria-pressed="false" aria-label="Favorito: Under Armour Infinite Elite Gris y Rosa"><svg class="" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20z"></path></svg></button>
+        
+        <div class="tarjeta-producto__cuerpo">
+          <h2 class="tarjeta-producto__nombre"><a href="producto.html?id=zm10">Under Armour Infinite Elite Gris y Rosa</a></h2>
+          <p class="texto-suave">Calzado · Mujer</p>
+          <p class="calificacion texto-suave">Sin opiniones todavía</p>
+          <div class="tarjeta-producto__pie">
+            <p class="precio">$152,75</p>
+            <span class="tarjeta-producto__ver" aria-hidden="true">Ver producto →</span>
+          </div>
+        </div>
+      </article>
+    </li>
+    <li>
+      <article class="tarjeta-producto">
+        <div class="tarjeta-producto__imagen"><picture><source type="image/avif" srcset="img/productos/w/zm11-1-400.avif 400w, img/productos/w/zm11-1-600.avif 600w, img/productos/w/zm11-1-800.avif 800w, img/productos/w/zm11-1-1000.avif 1000w, img/productos/w/zm11-1-1200.avif 1200w, img/productos/w/zm11-1-1600.avif 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px"><img src="img/productos/w/zm11-1-800.webp" srcset="img/productos/w/zm11-1-400.webp 400w, img/productos/w/zm11-1-600.webp 600w, img/productos/w/zm11-1-800.webp 800w, img/productos/w/zm11-1-1000.webp 1000w, img/productos/w/zm11-1-1200.webp 1200w, img/productos/w/zm11-1-1600.webp 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px" alt="Foto de Under Armour Velociti Wind 3" width="800" height="600" loading="lazy" decoding="async"></picture></div>
+        <button class="boton-favorito tarjeta-producto__favorito" type="button" data-favorito="zm11" aria-pressed="false" aria-label="Favorito: Under Armour Velociti Wind 3"><svg class="" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20z"></path></svg></button>
+        <span class="etiqueta tarjeta-producto__etiqueta">Nuevo</span>
+        <div class="tarjeta-producto__cuerpo">
+          <h2 class="tarjeta-producto__nombre"><a href="producto.html?id=zm11">Under Armour Velociti Wind 3</a></h2>
+          <p class="texto-suave">Calzado · Mujer</p>
+          <p class="calificacion texto-suave">Sin opiniones todavía</p>
+          <div class="tarjeta-producto__pie">
+            <p class="precio">$129,90</p>
+            <span class="tarjeta-producto__ver" aria-hidden="true">Ver producto →</span>
+          </div>
+        </div>
+      </article>
+    </li>
+    <li>
+      <article class="tarjeta-producto">
+        <div class="tarjeta-producto__imagen"><picture><source type="image/avif" srcset="img/productos/w/zm12-1-400.avif 400w, img/productos/w/zm12-1-600.avif 600w, img/productos/w/zm12-1-800.avif 800w, img/productos/w/zm12-1-1000.avif 1000w, img/productos/w/zm12-1-1200.avif 1200w, img/productos/w/zm12-1-1600.avif 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px"><img src="img/productos/w/zm12-1-800.webp" srcset="img/productos/w/zm12-1-400.webp 400w, img/productos/w/zm12-1-600.webp 600w, img/productos/w/zm12-1-800.webp 800w, img/productos/w/zm12-1-1000.webp 1000w, img/productos/w/zm12-1-1200.webp 1200w, img/productos/w/zm12-1-1600.webp 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px" alt="Foto de Topo Athletic Atmos" width="800" height="600" loading="lazy" decoding="async"></picture></div>
+        <button class="boton-favorito tarjeta-producto__favorito" type="button" data-favorito="zm12" aria-pressed="false" aria-label="Favorito: Topo Athletic Atmos"><svg class="" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20z"></path></svg></button>
+        <span class="etiqueta tarjeta-producto__etiqueta">Nuevo</span>
+        <div class="tarjeta-producto__cuerpo">
+          <h2 class="tarjeta-producto__nombre"><a href="producto.html?id=zm12">Topo Athletic Atmos</a></h2>
+          <p class="texto-suave">Calzado · Mujer</p>
+          <p class="calificacion texto-suave">Sin opiniones todavía</p>
+          <div class="tarjeta-producto__pie">
+            <p class="precio">$158,00</p>
+            <span class="tarjeta-producto__ver" aria-hidden="true">Ver producto →</span>
+          </div>
+        </div>
+      </article>
+    </li>
+    <li>
+      <article class="tarjeta-producto">
+        <div class="tarjeta-producto__imagen"><picture><source type="image/avif" srcset="img/productos/w/zm13-1-400.avif 400w, img/productos/w/zm13-1-600.avif 600w, img/productos/w/zm13-1-800.avif 800w, img/productos/w/zm13-1-1000.avif 1000w, img/productos/w/zm13-1-1200.avif 1200w, img/productos/w/zm13-1-1600.avif 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px"><img src="img/productos/w/zm13-1-800.webp" srcset="img/productos/w/zm13-1-400.webp 400w, img/productos/w/zm13-1-600.webp 600w, img/productos/w/zm13-1-800.webp 800w, img/productos/w/zm13-1-1000.webp 1000w, img/productos/w/zm13-1-1200.webp 1200w, img/productos/w/zm13-1-1600.webp 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px" alt="Foto de Altra Escalante 4" width="800" height="600" loading="lazy" decoding="async"></picture></div>
+        <button class="boton-favorito tarjeta-producto__favorito" type="button" data-favorito="zm13" aria-pressed="false" aria-label="Favorito: Altra Escalante 4"><svg class="" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20z"></path></svg></button>
+        <span class="etiqueta tarjeta-producto__etiqueta">Nuevo</span>
+        <div class="tarjeta-producto__cuerpo">
+          <h2 class="tarjeta-producto__nombre"><a href="producto.html?id=zm13">Altra Escalante 4</a></h2>
+          <p class="texto-suave">Calzado · Mujer</p>
+          <p class="calificacion texto-suave">Sin opiniones todavía</p>
+          <div class="tarjeta-producto__pie">
+            <p class="precio">$136,40</p>
+            <span class="tarjeta-producto__ver" aria-hidden="true">Ver producto →</span>
+          </div>
+        </div>
+      </article>
+    </li>
+    <li>
+      <article class="tarjeta-producto">
+        <div class="tarjeta-producto__imagen"><picture><source type="image/avif" srcset="img/productos/w/zm14-1-400.avif 400w, img/productos/w/zm14-1-600.avif 600w, img/productos/w/zm14-1-800.avif 800w, img/productos/w/zm14-1-1000.avif 1000w, img/productos/w/zm14-1-1200.avif 1200w, img/productos/w/zm14-1-1600.avif 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px"><img src="img/productos/w/zm14-1-800.webp" srcset="img/productos/w/zm14-1-400.webp 400w, img/productos/w/zm14-1-600.webp 600w, img/productos/w/zm14-1-800.webp 800w, img/productos/w/zm14-1-1000.webp 1000w, img/productos/w/zm14-1-1200.webp 1200w, img/productos/w/zm14-1-1600.webp 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px" alt="Foto de Nike Pegasus 41 Lila" width="800" height="600" loading="lazy" decoding="async"></picture></div>
+        <button class="boton-favorito tarjeta-producto__favorito" type="button" data-favorito="zm14" aria-pressed="false" aria-label="Favorito: Nike Pegasus 41 Lila"><svg class="" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20z"></path></svg></button>
+        <span class="etiqueta tarjeta-producto__etiqueta">Nuevo</span>
+        <div class="tarjeta-producto__cuerpo">
+          <h2 class="tarjeta-producto__nombre"><a href="producto.html?id=zm14">Nike Pegasus 41 Lila</a></h2>
+          <p class="texto-suave">Calzado · Mujer</p>
+          <p class="calificacion texto-suave">Sin opiniones todavía</p>
+          <div class="tarjeta-producto__pie">
+            <p class="precio">$137,50</p>
+            <span class="tarjeta-producto__ver" aria-hidden="true">Ver producto →</span>
+          </div>
+        </div>
+      </article>
+    </li>
+    <li>
+      <article class="tarjeta-producto">
+        <div class="tarjeta-producto__imagen"><picture><source type="image/avif" srcset="img/productos/w/zm15-1-400.avif 400w, img/productos/w/zm15-1-600.avif 600w, img/productos/w/zm15-1-800.avif 800w, img/productos/w/zm15-1-1000.avif 1000w, img/productos/w/zm15-1-1200.avif 1200w, img/productos/w/zm15-1-1600.avif 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px"><img src="img/productos/w/zm15-1-800.webp" srcset="img/productos/w/zm15-1-400.webp 400w, img/productos/w/zm15-1-600.webp 600w, img/productos/w/zm15-1-800.webp 800w, img/productos/w/zm15-1-1000.webp 1000w, img/productos/w/zm15-1-1200.webp 1200w, img/productos/w/zm15-1-1600.webp 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px" alt="Foto de New Balance Fresh Foam X 1080 v14" width="800" height="600" loading="lazy" decoding="async"></picture></div>
+        <button class="boton-favorito tarjeta-producto__favorito" type="button" data-favorito="zm15" aria-pressed="false" aria-label="Favorito: New Balance Fresh Foam X 1080 v14"><svg class="" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20z"></path></svg></button>
+        <span class="etiqueta tarjeta-producto__etiqueta">Nuevo</span>
+        <div class="tarjeta-producto__cuerpo">
+          <h2 class="tarjeta-producto__nombre"><a href="producto.html?id=zm15">New Balance Fresh Foam X 1080 v14</a></h2>
+          <p class="texto-suave">Calzado · Mujer</p>
+          <p class="calificacion texto-suave">Sin opiniones todavía</p>
+          <div class="tarjeta-producto__pie">
+            <p class="precio">$164,75</p>
+            <span class="tarjeta-producto__ver" aria-hidden="true">Ver producto →</span>
+          </div>
+        </div>
+      </article>
+    </li>
+    <li>
+      <article class="tarjeta-producto">
+        <div class="tarjeta-producto__imagen"><picture><source type="image/avif" srcset="img/productos/w/zm16-1-400.avif 400w, img/productos/w/zm16-1-600.avif 600w, img/productos/w/zm16-1-800.avif 800w, img/productos/w/zm16-1-1000.avif 1000w, img/productos/w/zm16-1-1200.avif 1200w, img/productos/w/zm16-1-1600.avif 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px"><img src="img/productos/w/zm16-1-800.webp" srcset="img/productos/w/zm16-1-400.webp 400w, img/productos/w/zm16-1-600.webp 600w, img/productos/w/zm16-1-800.webp 800w, img/productos/w/zm16-1-1000.webp 1000w, img/productos/w/zm16-1-1200.webp 1200w, img/productos/w/zm16-1-1600.webp 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px" alt="Foto de ASICS Gel-Kayano 31" width="800" height="600" loading="lazy" decoding="async"></picture></div>
+        <button class="boton-favorito tarjeta-producto__favorito" type="button" data-favorito="zm16" aria-pressed="false" aria-label="Favorito: ASICS Gel-Kayano 31"><svg class="" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20z"></path></svg></button>
+        <span class="etiqueta tarjeta-producto__etiqueta">Nuevo</span>
+        <div class="tarjeta-producto__cuerpo">
+          <h2 class="tarjeta-producto__nombre"><a href="producto.html?id=zm16">ASICS Gel-Kayano 31</a></h2>
+          <p class="texto-suave">Calzado · Mujer</p>
+          <p class="calificacion texto-suave">Sin opiniones todavía</p>
+          <div class="tarjeta-producto__pie">
+            <p class="precio">$159,90</p>
+            <span class="tarjeta-producto__ver" aria-hidden="true">Ver producto →</span>
+          </div>
+        </div>
+      </article>
+    </li>
+    <li>
+      <article class="tarjeta-producto">
+        <div class="tarjeta-producto__imagen"><picture><source type="image/avif" srcset="img/productos/w/zm17-1-400.avif 400w, img/productos/w/zm17-1-600.avif 600w, img/productos/w/zm17-1-800.avif 800w, img/productos/w/zm17-1-1000.avif 1000w, img/productos/w/zm17-1-1200.avif 1200w, img/productos/w/zm17-1-1600.avif 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px"><img src="img/productos/w/zm17-1-800.webp" srcset="img/productos/w/zm17-1-400.webp 400w, img/productos/w/zm17-1-600.webp 600w, img/productos/w/zm17-1-800.webp 800w, img/productos/w/zm17-1-1000.webp 1000w, img/productos/w/zm17-1-1200.webp 1200w, img/productos/w/zm17-1-1600.webp 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px" alt="Foto de Saucony Ride 17" width="800" height="600" loading="lazy" decoding="async"></picture></div>
+        <button class="boton-favorito tarjeta-producto__favorito" type="button" data-favorito="zm17" aria-pressed="false" aria-label="Favorito: Saucony Ride 17"><svg class="" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20z"></path></svg></button>
+        <span class="etiqueta tarjeta-producto__etiqueta">Nuevo</span>
+        <div class="tarjeta-producto__cuerpo">
+          <h2 class="tarjeta-producto__nombre"><a href="producto.html?id=zm17">Saucony Ride 17</a></h2>
+          <p class="texto-suave">Calzado · Mujer</p>
+          <p class="calificacion texto-suave">Sin opiniones todavía</p>
+          <div class="tarjeta-producto__pie">
+            <p class="precio">$131,80</p>
+            <span class="tarjeta-producto__ver" aria-hidden="true">Ver producto →</span>
+          </div>
+        </div>
+      </article>
+    </li>
+    <li>
+      <article class="tarjeta-producto">
+        <div class="tarjeta-producto__imagen"><picture><source type="image/avif" srcset="img/productos/w/zm18-1-400.avif 400w, img/productos/w/zm18-1-600.avif 600w, img/productos/w/zm18-1-800.avif 800w, img/productos/w/zm18-1-1000.avif 1000w, img/productos/w/zm18-1-1200.avif 1200w, img/productos/w/zm18-1-1600.avif 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px"><img src="img/productos/w/zm18-1-800.webp" srcset="img/productos/w/zm18-1-400.webp 400w, img/productos/w/zm18-1-600.webp 600w, img/productos/w/zm18-1-800.webp 800w, img/productos/w/zm18-1-1000.webp 1000w, img/productos/w/zm18-1-1200.webp 1200w, img/productos/w/zm18-1-1600.webp 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px" alt="Foto de Adidas Adizero SL 2" width="800" height="600" loading="lazy" decoding="async"></picture></div>
+        <button class="boton-favorito tarjeta-producto__favorito" type="button" data-favorito="zm18" aria-pressed="false" aria-label="Favorito: Adidas Adizero SL 2"><svg class="" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20z"></path></svg></button>
+        <span class="etiqueta tarjeta-producto__etiqueta">Nuevo</span>
+        <div class="tarjeta-producto__cuerpo">
+          <h2 class="tarjeta-producto__nombre"><a href="producto.html?id=zm18">Adidas Adizero SL 2</a></h2>
+          <p class="texto-suave">Calzado · Mujer</p>
+          <p class="calificacion texto-suave">Sin opiniones todavía</p>
+          <div class="tarjeta-producto__pie">
+            <p class="precio">$122,40</p>
+            <span class="tarjeta-producto__ver" aria-hidden="true">Ver producto →</span>
+          </div>
+        </div>
+      </article>
+    </li>
+    <li>
+      <article class="tarjeta-producto">
+        <div class="tarjeta-producto__imagen"><picture><source type="image/avif" srcset="img/productos/w/tm01-1-400.avif 400w, img/productos/w/tm01-1-600.avif 600w, img/productos/w/tm01-1-800.avif 800w, img/productos/w/tm01-1-1000.avif 1000w, img/productos/w/tm01-1-1200.avif 1200w, img/productos/w/tm01-1-1600.avif 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px"><img src="img/productos/w/tm01-1-800.webp" srcset="img/productos/w/tm01-1-400.webp 400w, img/productos/w/tm01-1-600.webp 600w, img/productos/w/tm01-1-800.webp 800w, img/productos/w/tm01-1-1000.webp 1000w, img/productos/w/tm01-1-1200.webp 1200w, img/productos/w/tm01-1-1600.webp 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px" alt="Foto de Reloj COROS Pace 3" width="800" height="600" loading="lazy" decoding="async"></picture></div>
+        <button class="boton-favorito tarjeta-producto__favorito" type="button" data-favorito="tm01" aria-pressed="false" aria-label="Favorito: Reloj COROS Pace 3"><svg class="" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20z"></path></svg></button>
+        
+        <div class="tarjeta-producto__cuerpo">
+          <h2 class="tarjeta-producto__nombre"><a href="producto.html?id=tm01">Reloj COROS Pace 3</a></h2>
+          <p class="texto-suave">Tecnología e implementos</p>
+          <p class="calificacion texto-suave">Sin opiniones todavía</p>
+          <div class="tarjeta-producto__pie">
+            <p class="precio">$229,00</p>
+            <span class="tarjeta-producto__ver" aria-hidden="true">Ver producto →</span>
+          </div>
+        </div>
+      </article>
+    </li>
+    <li>
+      <article class="tarjeta-producto">
+        <div class="tarjeta-producto__imagen"><picture><source type="image/avif" srcset="img/productos/w/tm02-1-400.avif 400w, img/productos/w/tm02-1-600.avif 600w, img/productos/w/tm02-1-800.avif 800w, img/productos/w/tm02-1-1000.avif 1000w, img/productos/w/tm02-1-1200.avif 1200w, img/productos/w/tm02-1-1600.avif 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px"><img src="img/productos/w/tm02-1-800.webp" srcset="img/productos/w/tm02-1-400.webp 400w, img/productos/w/tm02-1-600.webp 600w, img/productos/w/tm02-1-800.webp 800w, img/productos/w/tm02-1-1000.webp 1000w, img/productos/w/tm02-1-1200.webp 1200w, img/productos/w/tm02-1-1600.webp 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px" alt="Foto de Secador de zapatillas con luz UV" width="800" height="600" loading="lazy" decoding="async"></picture></div>
+        <button class="boton-favorito tarjeta-producto__favorito" type="button" data-favorito="tm02" aria-pressed="false" aria-label="Favorito: Secador de zapatillas con luz UV"><svg class="" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20z"></path></svg></button>
+        
+        <div class="tarjeta-producto__cuerpo">
+          <h2 class="tarjeta-producto__nombre"><a href="producto.html?id=tm02">Secador de zapatillas con luz UV</a></h2>
+          <p class="texto-suave">Tecnología e implementos</p>
+          <p class="calificacion texto-suave">Sin opiniones todavía</p>
+          <div class="tarjeta-producto__pie">
+            <p class="precio">$46,80</p>
+            <span class="tarjeta-producto__ver" aria-hidden="true">Ver producto →</span>
+          </div>
+        </div>
+      </article>
+    </li>
+    <li>
+      <article class="tarjeta-producto">
+        <div class="tarjeta-producto__imagen"><picture><source type="image/avif" srcset="img/productos/w/tm03-1-400.avif 400w, img/productos/w/tm03-1-600.avif 600w, img/productos/w/tm03-1-800.avif 800w, img/productos/w/tm03-1-1000.avif 1000w, img/productos/w/tm03-1-1200.avif 1200w, img/productos/w/tm03-1-1600.avif 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px"><img src="img/productos/w/tm03-1-800.webp" srcset="img/productos/w/tm03-1-400.webp 400w, img/productos/w/tm03-1-600.webp 600w, img/productos/w/tm03-1-800.webp 800w, img/productos/w/tm03-1-1000.webp 1000w, img/productos/w/tm03-1-1200.webp 1200w, img/productos/w/tm03-1-1600.webp 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px" alt="Foto de Gafas deportivas rosas con lente espejado" width="800" height="600" loading="lazy" decoding="async"></picture></div>
+        <button class="boton-favorito tarjeta-producto__favorito" type="button" data-favorito="tm03" aria-pressed="false" aria-label="Favorito: Gafas deportivas rosas con lente espejado"><svg class="" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20z"></path></svg></button>
+        
+        <div class="tarjeta-producto__cuerpo">
+          <h2 class="tarjeta-producto__nombre"><a href="producto.html?id=tm03">Gafas deportivas rosas con lente espejado</a></h2>
+          <p class="texto-suave">Tecnología e implementos</p>
+          <p class="calificacion texto-suave">Sin opiniones todavía</p>
+          <div class="tarjeta-producto__pie">
+            <p class="precio">$68,50</p>
+            <span class="tarjeta-producto__ver" aria-hidden="true">Ver producto →</span>
+          </div>
+        </div>
+      </article>
+    </li>
+    <li>
+      <article class="tarjeta-producto">
+        <div class="tarjeta-producto__imagen"><picture><source type="image/avif" srcset="img/productos/w/tm07-1-400.avif 400w, img/productos/w/tm07-1-600.avif 600w, img/productos/w/tm07-1-800.avif 800w, img/productos/w/tm07-1-1000.avif 1000w, img/productos/w/tm07-1-1200.avif 1200w, img/productos/w/tm07-1-1600.avif 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px"><img src="img/productos/w/tm07-1-800.webp" srcset="img/productos/w/tm07-1-400.webp 400w, img/productos/w/tm07-1-600.webp 600w, img/productos/w/tm07-1-800.webp 800w, img/productos/w/tm07-1-1000.webp 1000w, img/productos/w/tm07-1-1200.webp 1200w, img/productos/w/tm07-1-1600.webp 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px" alt="Foto de Anillo inteligente oro rosa" width="800" height="600" loading="lazy" decoding="async"></picture></div>
+        <button class="boton-favorito tarjeta-producto__favorito" type="button" data-favorito="tm07" aria-pressed="false" aria-label="Favorito: Anillo inteligente oro rosa"><svg class="" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20z"></path></svg></button>
+        
+        <div class="tarjeta-producto__cuerpo">
+          <h2 class="tarjeta-producto__nombre"><a href="producto.html?id=tm07">Anillo inteligente oro rosa</a></h2>
+          <p class="texto-suave">Tecnología e implementos</p>
+          <p class="calificacion texto-suave">Sin opiniones todavía</p>
+          <div class="tarjeta-producto__pie">
+            <p class="precio">$299,00</p>
+            <span class="tarjeta-producto__ver" aria-hidden="true">Ver producto →</span>
+          </div>
+        </div>
+      </article>
+    </li>
+    <li>
+      <article class="tarjeta-producto">
+        <div class="tarjeta-producto__imagen"><picture><source type="image/avif" srcset="img/productos/w/tm08-1-400.avif 400w, img/productos/w/tm08-1-600.avif 600w, img/productos/w/tm08-1-800.avif 800w, img/productos/w/tm08-1-1000.avif 1000w, img/productos/w/tm08-1-1200.avif 1200w, img/productos/w/tm08-1-1600.avif 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px"><img src="img/productos/w/tm08-1-800.webp" srcset="img/productos/w/tm08-1-400.webp 400w, img/productos/w/tm08-1-600.webp 600w, img/productos/w/tm08-1-800.webp 800w, img/productos/w/tm08-1-1000.webp 1000w, img/productos/w/tm08-1-1200.webp 1200w, img/productos/w/tm08-1-1600.webp 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px" alt="Foto de Plantillas inteligentes rosas" width="800" height="600" loading="lazy" decoding="async"></picture></div>
+        <button class="boton-favorito tarjeta-producto__favorito" type="button" data-favorito="tm08" aria-pressed="false" aria-label="Favorito: Plantillas inteligentes rosas"><svg class="" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20z"></path></svg></button>
+        
+        <div class="tarjeta-producto__cuerpo">
+          <h2 class="tarjeta-producto__nombre"><a href="producto.html?id=tm08">Plantillas inteligentes rosas</a></h2>
+          <p class="texto-suave">Tecnología e implementos</p>
+          <p class="calificacion texto-suave">Sin opiniones todavía</p>
+          <div class="tarjeta-producto__pie">
+            <p class="precio">$189,90</p>
+            <span class="tarjeta-producto__ver" aria-hidden="true">Ver producto →</span>
+          </div>
+        </div>
+      </article>
+    </li>
+    <li>
+      <article class="tarjeta-producto">
+        <div class="tarjeta-producto__imagen"><picture><source type="image/avif" srcset="img/productos/w/tm09-1-400.avif 400w, img/productos/w/tm09-1-600.avif 600w, img/productos/w/tm09-1-800.avif 800w, img/productos/w/tm09-1-1000.avif 1000w, img/productos/w/tm09-1-1200.avif 1200w, img/productos/w/tm09-1-1600.avif 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px"><img src="img/productos/w/tm09-1-800.webp" srcset="img/productos/w/tm09-1-400.webp 400w, img/productos/w/tm09-1-600.webp 600w, img/productos/w/tm09-1-800.webp 800w, img/productos/w/tm09-1-1000.webp 1000w, img/productos/w/tm09-1-1200.webp 1200w, img/productos/w/tm09-1-1600.webp 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px" alt="Foto de Alarma personal de seguridad rosa" width="800" height="600" loading="lazy" decoding="async"></picture></div>
+        <button class="boton-favorito tarjeta-producto__favorito" type="button" data-favorito="tm09" aria-pressed="false" aria-label="Favorito: Alarma personal de seguridad rosa"><svg class="" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20z"></path></svg></button>
+        
+        <div class="tarjeta-producto__cuerpo">
+          <h2 class="tarjeta-producto__nombre"><a href="producto.html?id=tm09">Alarma personal de seguridad rosa</a></h2>
+          <p class="texto-suave">Tecnología e implementos</p>
+          <p class="calificacion texto-suave">Sin opiniones todavía</p>
+          <div class="tarjeta-producto__pie">
+            <p class="precio">$24,75</p>
+            <span class="tarjeta-producto__ver" aria-hidden="true">Ver producto →</span>
+          </div>
+        </div>
+      </article>
+    </li>
+    <li>
+      <article class="tarjeta-producto">
+        <div class="tarjeta-producto__imagen"><picture><source type="image/avif" srcset="img/productos/w/tm10-1-400.avif 400w, img/productos/w/tm10-1-600.avif 600w, img/productos/w/tm10-1-800.avif 800w, img/productos/w/tm10-1-1000.avif 1000w, img/productos/w/tm10-1-1200.avif 1200w, img/productos/w/tm10-1-1600.avif 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px"><img src="img/productos/w/tm10-1-800.webp" srcset="img/productos/w/tm10-1-400.webp 400w, img/productos/w/tm10-1-600.webp 600w, img/productos/w/tm10-1-800.webp 800w, img/productos/w/tm10-1-1000.webp 1000w, img/productos/w/tm10-1-1200.webp 1200w, img/productos/w/tm10-1-1600.webp 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px" alt="Foto de Botella inteligente rosa" width="800" height="600" loading="lazy" decoding="async"></picture></div>
+        <button class="boton-favorito tarjeta-producto__favorito" type="button" data-favorito="tm10" aria-pressed="false" aria-label="Favorito: Botella inteligente rosa"><svg class="" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20z"></path></svg></button>
+        
+        <div class="tarjeta-producto__cuerpo">
+          <h2 class="tarjeta-producto__nombre"><a href="producto.html?id=tm10">Botella inteligente rosa</a></h2>
+          <p class="texto-suave">Tecnología e implementos</p>
+          <p class="calificacion texto-suave">Sin opiniones todavía</p>
+          <div class="tarjeta-producto__pie">
+            <p class="precio">$49,60</p>
+            <span class="tarjeta-producto__ver" aria-hidden="true">Ver producto →</span>
+          </div>
+        </div>
+      </article>
+    </li>
+    <li>
+      <article class="tarjeta-producto">
+        <div class="tarjeta-producto__imagen"><picture><source type="image/avif" srcset="img/productos/w/tm11-1-400.avif 400w, img/productos/w/tm11-1-600.avif 600w, img/productos/w/tm11-1-800.avif 800w, img/productos/w/tm11-1-1000.avif 1000w, img/productos/w/tm11-1-1200.avif 1200w, img/productos/w/tm11-1-1600.avif 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px"><img src="img/productos/w/tm11-1-800.webp" srcset="img/productos/w/tm11-1-400.webp 400w, img/productos/w/tm11-1-600.webp 600w, img/productos/w/tm11-1-800.webp 800w, img/productos/w/tm11-1-1000.webp 1000w, img/productos/w/tm11-1-1200.webp 1200w, img/productos/w/tm11-1-1600.webp 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px" alt="Foto de Monitor portátil de calidad del aire" width="800" height="600" loading="lazy" decoding="async"></picture></div>
+        <button class="boton-favorito tarjeta-producto__favorito" type="button" data-favorito="tm11" aria-pressed="false" aria-label="Favorito: Monitor portátil de calidad del aire"><svg class="" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20z"></path></svg></button>
+        
+        <div class="tarjeta-producto__cuerpo">
+          <h2 class="tarjeta-producto__nombre"><a href="producto.html?id=tm11">Monitor portátil de calidad del aire</a></h2>
+          <p class="texto-suave">Tecnología e implementos</p>
+          <p class="calificacion texto-suave">Sin opiniones todavía</p>
+          <div class="tarjeta-producto__pie">
+            <p class="precio">$139,00</p>
+            <span class="tarjeta-producto__ver" aria-hidden="true">Ver producto →</span>
+          </div>
+        </div>
+      </article>
+    </li>
+    <li>
+      <article class="tarjeta-producto">
+        <div class="tarjeta-producto__imagen"><picture><source type="image/avif" srcset="img/productos/w/tm12-1-400.avif 400w, img/productos/w/tm12-1-600.avif 600w, img/productos/w/tm12-1-800.avif 800w, img/productos/w/tm12-1-1000.avif 1000w, img/productos/w/tm12-1-1200.avif 1200w, img/productos/w/tm12-1-1600.avif 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px"><img src="img/productos/w/tm12-1-800.webp" srcset="img/productos/w/tm12-1-400.webp 400w, img/productos/w/tm12-1-600.webp 600w, img/productos/w/tm12-1-800.webp 800w, img/productos/w/tm12-1-1000.webp 1000w, img/productos/w/tm12-1-1200.webp 1200w, img/productos/w/tm12-1-1600.webp 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px" alt="Foto de Top deportivo rosa con sensor cardiaco" width="800" height="600" loading="lazy" decoding="async"></picture></div>
+        <button class="boton-favorito tarjeta-producto__favorito" type="button" data-favorito="tm12" aria-pressed="false" aria-label="Favorito: Top deportivo rosa con sensor cardiaco"><svg class="" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20z"></path></svg></button>
+        
+        <div class="tarjeta-producto__cuerpo">
+          <h2 class="tarjeta-producto__nombre"><a href="producto.html?id=tm12">Top deportivo rosa con sensor cardiaco</a></h2>
+          <p class="texto-suave">Tecnología e implementos</p>
+          <p class="calificacion texto-suave">Sin opiniones todavía</p>
+          <div class="tarjeta-producto__pie">
+            <p class="precio">$74,90</p>
+            <span class="tarjeta-producto__ver" aria-hidden="true">Ver producto →</span>
+          </div>
+        </div>
+      </article>
+    </li>
+    <li>
+      <article class="tarjeta-producto">
+        <div class="tarjeta-producto__imagen"><picture><source type="image/avif" srcset="img/productos/w/tm13-1-400.avif 400w, img/productos/w/tm13-1-600.avif 600w, img/productos/w/tm13-1-800.avif 800w, img/productos/w/tm13-1-1000.avif 1000w, img/productos/w/tm13-1-1200.avif 1200w, img/productos/w/tm13-1-1600.avif 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px"><img src="img/productos/w/tm13-1-800.webp" srcset="img/productos/w/tm13-1-400.webp 400w, img/productos/w/tm13-1-600.webp 600w, img/productos/w/tm13-1-800.webp 800w, img/productos/w/tm13-1-1000.webp 1000w, img/productos/w/tm13-1-1200.webp 1200w, img/productos/w/tm13-1-1600.webp 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px" alt="Foto de Chaleco LED de alta visibilidad" width="800" height="600" loading="lazy" decoding="async"></picture></div>
+        <button class="boton-favorito tarjeta-producto__favorito" type="button" data-favorito="tm13" aria-pressed="false" aria-label="Favorito: Chaleco LED de alta visibilidad"><svg class="" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20z"></path></svg></button>
+        
+        <div class="tarjeta-producto__cuerpo">
+          <h2 class="tarjeta-producto__nombre"><a href="producto.html?id=tm13">Chaleco LED de alta visibilidad</a></h2>
+          <p class="texto-suave">Tecnología e implementos</p>
+          <p class="calificacion texto-suave">Sin opiniones todavía</p>
+          <div class="tarjeta-producto__pie">
+            <p class="precio">$39,80</p>
+            <span class="tarjeta-producto__ver" aria-hidden="true">Ver producto →</span>
+          </div>
+        </div>
+      </article>
+    </li>
+    <li>
+      <article class="tarjeta-producto">
+        <div class="tarjeta-producto__imagen"><picture><source type="image/avif" srcset="img/productos/w/tm14-1-400.avif 400w, img/productos/w/tm14-1-600.avif 600w, img/productos/w/tm14-1-800.avif 800w, img/productos/w/tm14-1-1000.avif 1000w, img/productos/w/tm14-1-1200.avif 1200w, img/productos/w/tm14-1-1600.avif 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px"><img src="img/productos/w/tm14-1-800.webp" srcset="img/productos/w/tm14-1-400.webp 400w, img/productos/w/tm14-1-600.webp 600w, img/productos/w/tm14-1-800.webp 800w, img/productos/w/tm14-1-1000.webp 1000w, img/productos/w/tm14-1-1200.webp 1200w, img/productos/w/tm14-1-1600.webp 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px" alt="Foto de Secador de zapatillas con luz LED morada" width="800" height="600" loading="lazy" decoding="async"></picture></div>
+        <button class="boton-favorito tarjeta-producto__favorito" type="button" data-favorito="tm14" aria-pressed="false" aria-label="Favorito: Secador de zapatillas con luz LED morada"><svg class="" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20z"></path></svg></button>
+        
+        <div class="tarjeta-producto__cuerpo">
+          <h2 class="tarjeta-producto__nombre"><a href="producto.html?id=tm14">Secador de zapatillas con luz LED morada</a></h2>
+          <p class="texto-suave">Tecnología e implementos</p>
+          <p class="calificacion texto-suave">Sin opiniones todavía</p>
+          <div class="tarjeta-producto__pie">
+            <p class="precio">$52,30</p>
+            <span class="tarjeta-producto__ver" aria-hidden="true">Ver producto →</span>
+          </div>
+        </div>
+      </article>
+    </li>
+    <li>
+      <article class="tarjeta-producto">
+        <div class="tarjeta-producto__imagen"><picture><source type="image/avif" srcset="img/productos/w/tm15-1-400.avif 400w, img/productos/w/tm15-1-600.avif 600w, img/productos/w/tm15-1-800.avif 800w, img/productos/w/tm15-1-1000.avif 1000w, img/productos/w/tm15-1-1200.avif 1200w, img/productos/w/tm15-1-1600.avif 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px"><img src="img/productos/w/tm15-1-800.webp" srcset="img/productos/w/tm15-1-400.webp 400w, img/productos/w/tm15-1-600.webp 600w, img/productos/w/tm15-1-800.webp 800w, img/productos/w/tm15-1-1000.webp 1000w, img/productos/w/tm15-1-1200.webp 1200w, img/productos/w/tm15-1-1600.webp 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px" alt="Foto de Chaleco de hidratación coral" width="800" height="600" loading="lazy" decoding="async"></picture></div>
+        <button class="boton-favorito tarjeta-producto__favorito" type="button" data-favorito="tm15" aria-pressed="false" aria-label="Favorito: Chaleco de hidratación coral"><svg class="" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20z"></path></svg></button>
+        
+        <div class="tarjeta-producto__cuerpo">
+          <h2 class="tarjeta-producto__nombre"><a href="producto.html?id=tm15">Chaleco de hidratación coral</a></h2>
+          <p class="texto-suave">Tecnología e implementos</p>
+          <p class="calificacion texto-suave">Sin opiniones todavía</p>
+          <div class="tarjeta-producto__pie">
+            <p class="precio">$89,60</p>
+            <span class="tarjeta-producto__ver" aria-hidden="true">Ver producto →</span>
+          </div>
+        </div>
+      </article>
+    </li>
+    <li>
+      <article class="tarjeta-producto">
+        <div class="tarjeta-producto__imagen"><picture><source type="image/avif" srcset="img/productos/w/th02-1-400.avif 400w, img/productos/w/th02-1-600.avif 600w, img/productos/w/th02-1-800.avif 800w, img/productos/w/th02-1-1000.avif 1000w, img/productos/w/th02-1-1200.avif 1200w, img/productos/w/th02-1-1600.avif 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px"><img src="img/productos/w/th02-1-800.webp" srcset="img/productos/w/th02-1-400.webp 400w, img/productos/w/th02-1-600.webp 600w, img/productos/w/th02-1-800.webp 800w, img/productos/w/th02-1-1000.webp 1000w, img/productos/w/th02-1-1200.webp 1200w, img/productos/w/th02-1-1600.webp 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px" alt="Foto de Audífonos deportivos Under Armour" width="800" height="600" loading="lazy" decoding="async"></picture></div>
+        <button class="boton-favorito tarjeta-producto__favorito" type="button" data-favorito="th02" aria-pressed="false" aria-label="Favorito: Audífonos deportivos Under Armour"><svg class="" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20z"></path></svg></button>
+        
+        <div class="tarjeta-producto__cuerpo">
+          <h2 class="tarjeta-producto__nombre"><a href="producto.html?id=th02">Audífonos deportivos Under Armour</a></h2>
+          <p class="texto-suave">Tecnología e implementos</p>
+          <p class="calificacion texto-suave">Sin opiniones todavía</p>
+          <div class="tarjeta-producto__pie">
+            <p class="precio">$129,50</p>
+            <span class="tarjeta-producto__ver" aria-hidden="true">Ver producto →</span>
+          </div>
+        </div>
+      </article>
+    </li>
+    <li>
+      <article class="tarjeta-producto">
+        <div class="tarjeta-producto__imagen"><picture><source type="image/avif" srcset="img/productos/w/th03-1-400.avif 400w, img/productos/w/th03-1-600.avif 600w, img/productos/w/th03-1-800.avif 800w, img/productos/w/th03-1-1000.avif 1000w, img/productos/w/th03-1-1200.avif 1200w, img/productos/w/th03-1-1600.avif 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px"><img src="img/productos/w/th03-1-800.webp" srcset="img/productos/w/th03-1-400.webp 400w, img/productos/w/th03-1-600.webp 600w, img/productos/w/th03-1-800.webp 800w, img/productos/w/th03-1-1000.webp 1000w, img/productos/w/th03-1-1200.webp 1200w, img/productos/w/th03-1-1600.webp 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px" alt="Foto de Cinturón de hidratación negro y lima" width="800" height="600" loading="lazy" decoding="async"></picture></div>
+        <button class="boton-favorito tarjeta-producto__favorito" type="button" data-favorito="th03" aria-pressed="false" aria-label="Favorito: Cinturón de hidratación negro y lima"><svg class="" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20z"></path></svg></button>
+        
+        <div class="tarjeta-producto__cuerpo">
+          <h2 class="tarjeta-producto__nombre"><a href="producto.html?id=th03">Cinturón de hidratación negro y lima</a></h2>
+          <p class="texto-suave">Tecnología e implementos</p>
+          <p class="calificacion texto-suave">Sin opiniones todavía</p>
+          <div class="tarjeta-producto__pie">
+            <p class="precio">$32,90</p>
+            <span class="tarjeta-producto__ver" aria-hidden="true">Ver producto →</span>
+          </div>
+        </div>
+      </article>
+    </li>
+    <li>
+      <article class="tarjeta-producto">
+        <div class="tarjeta-producto__imagen"><picture><source type="image/avif" srcset="img/productos/w/th05-1-400.avif 400w, img/productos/w/th05-1-600.avif 600w, img/productos/w/th05-1-800.avif 800w, img/productos/w/th05-1-1000.avif 1000w, img/productos/w/th05-1-1200.avif 1200w, img/productos/w/th05-1-1600.avif 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px"><img src="img/productos/w/th05-1-800.webp" srcset="img/productos/w/th05-1-400.webp 400w, img/productos/w/th05-1-600.webp 600w, img/productos/w/th05-1-800.webp 800w, img/productos/w/th05-1-1000.webp 1000w, img/productos/w/th05-1-1200.webp 1200w, img/productos/w/th05-1-1600.webp 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px" alt="Foto de Gafas deportivas inteligentes con pantalla" width="800" height="600" loading="lazy" decoding="async"></picture></div>
+        <button class="boton-favorito tarjeta-producto__favorito" type="button" data-favorito="th05" aria-pressed="false" aria-label="Favorito: Gafas deportivas inteligentes con pantalla"><svg class="" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20z"></path></svg></button>
+        
+        <div class="tarjeta-producto__cuerpo">
+          <h2 class="tarjeta-producto__nombre"><a href="producto.html?id=th05">Gafas deportivas inteligentes con pantalla</a></h2>
+          <p class="texto-suave">Tecnología e implementos</p>
+          <p class="calificacion texto-suave">Sin opiniones todavía</p>
+          <div class="tarjeta-producto__pie">
+            <p class="precio">$279,00</p>
+            <span class="tarjeta-producto__ver" aria-hidden="true">Ver producto →</span>
+          </div>
+        </div>
+      </article>
+    </li>
+    <li>
+      <article class="tarjeta-producto">
+        <div class="tarjeta-producto__imagen"><picture><source type="image/avif" srcset="img/productos/w/th07-1-400.avif 400w, img/productos/w/th07-1-600.avif 600w, img/productos/w/th07-1-800.avif 800w, img/productos/w/th07-1-1000.avif 1000w, img/productos/w/th07-1-1200.avif 1200w, img/productos/w/th07-1-1600.avif 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px"><img src="img/productos/w/th07-1-800.webp" srcset="img/productos/w/th07-1-400.webp 400w, img/productos/w/th07-1-600.webp 600w, img/productos/w/th07-1-800.webp 800w, img/productos/w/th07-1-1000.webp 1000w, img/productos/w/th07-1-1200.webp 1200w, img/productos/w/th07-1-1600.webp 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px" alt="Foto de Anillo inteligente Oura plateado" width="800" height="600" loading="lazy" decoding="async"></picture></div>
+        <button class="boton-favorito tarjeta-producto__favorito" type="button" data-favorito="th07" aria-pressed="false" aria-label="Favorito: Anillo inteligente Oura plateado"><svg class="" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20z"></path></svg></button>
+        
+        <div class="tarjeta-producto__cuerpo">
+          <h2 class="tarjeta-producto__nombre"><a href="producto.html?id=th07">Anillo inteligente Oura plateado</a></h2>
+          <p class="texto-suave">Tecnología e implementos</p>
+          <p class="calificacion texto-suave">Sin opiniones todavía</p>
+          <div class="tarjeta-producto__pie">
+            <p class="precio">$349,00</p>
+            <span class="tarjeta-producto__ver" aria-hidden="true">Ver producto →</span>
+          </div>
+        </div>
+      </article>
+    </li>
+    <li>
+      <article class="tarjeta-producto">
+        <div class="tarjeta-producto__imagen"><picture><source type="image/avif" srcset="img/productos/w/th08-1-400.avif 400w, img/productos/w/th08-1-600.avif 600w, img/productos/w/th08-1-800.avif 800w, img/productos/w/th08-1-1000.avif 1000w, img/productos/w/th08-1-1200.avif 1200w, img/productos/w/th08-1-1600.avif 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px"><img src="img/productos/w/th08-1-800.webp" srcset="img/productos/w/th08-1-400.webp 400w, img/productos/w/th08-1-600.webp 600w, img/productos/w/th08-1-800.webp 800w, img/productos/w/th08-1-1000.webp 1000w, img/productos/w/th08-1-1200.webp 1200w, img/productos/w/th08-1-1600.webp 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px" alt="Foto de Plantillas inteligentes NURVV Run" width="800" height="600" loading="lazy" decoding="async"></picture></div>
+        <button class="boton-favorito tarjeta-producto__favorito" type="button" data-favorito="th08" aria-pressed="false" aria-label="Favorito: Plantillas inteligentes NURVV Run"><svg class="" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20z"></path></svg></button>
+        
+        <div class="tarjeta-producto__cuerpo">
+          <h2 class="tarjeta-producto__nombre"><a href="producto.html?id=th08">Plantillas inteligentes NURVV Run</a></h2>
+          <p class="texto-suave">Tecnología e implementos</p>
+          <p class="calificacion texto-suave">Sin opiniones todavía</p>
+          <div class="tarjeta-producto__pie">
+            <p class="precio">$249,00</p>
+            <span class="tarjeta-producto__ver" aria-hidden="true">Ver producto →</span>
+          </div>
+        </div>
+      </article>
+    </li>
+    <li>
+      <article class="tarjeta-producto">
+        <div class="tarjeta-producto__imagen"><picture><source type="image/avif" srcset="img/productos/w/th09-1-400.avif 400w, img/productos/w/th09-1-600.avif 600w, img/productos/w/th09-1-800.avif 800w, img/productos/w/th09-1-1000.avif 1000w, img/productos/w/th09-1-1200.avif 1200w, img/productos/w/th09-1-1600.avif 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px"><img src="img/productos/w/th09-1-800.webp" srcset="img/productos/w/th09-1-400.webp 400w, img/productos/w/th09-1-600.webp 600w, img/productos/w/th09-1-800.webp 800w, img/productos/w/th09-1-1000.webp 1000w, img/productos/w/th09-1-1200.webp 1200w, img/productos/w/th09-1-1600.webp 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px" alt="Foto de Cámara GoPro HERO12 Black" width="800" height="600" loading="lazy" decoding="async"></picture></div>
+        <button class="boton-favorito tarjeta-producto__favorito" type="button" data-favorito="th09" aria-pressed="false" aria-label="Favorito: Cámara GoPro HERO12 Black"><svg class="" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20z"></path></svg></button>
+        
+        <div class="tarjeta-producto__cuerpo">
+          <h2 class="tarjeta-producto__nombre"><a href="producto.html?id=th09">Cámara GoPro HERO12 Black</a></h2>
+          <p class="texto-suave">Tecnología e implementos</p>
+          <p class="calificacion texto-suave">Sin opiniones todavía</p>
+          <div class="tarjeta-producto__pie">
+            <p class="precio">$389,00</p>
+            <span class="tarjeta-producto__ver" aria-hidden="true">Ver producto →</span>
+          </div>
+        </div>
+      </article>
+    </li>
+    <li>
+      <article class="tarjeta-producto">
+        <div class="tarjeta-producto__imagen"><picture><source type="image/avif" srcset="img/productos/w/th10-1-400.avif 400w, img/productos/w/th10-1-600.avif 600w, img/productos/w/th10-1-800.avif 800w, img/productos/w/th10-1-1000.avif 1000w, img/productos/w/th10-1-1200.avif 1200w, img/productos/w/th10-1-1600.avif 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px"><img src="img/productos/w/th10-1-800.webp" srcset="img/productos/w/th10-1-400.webp 400w, img/productos/w/th10-1-600.webp 600w, img/productos/w/th10-1-800.webp 800w, img/productos/w/th10-1-1000.webp 1000w, img/productos/w/th10-1-1200.webp 1200w, img/productos/w/th10-1-1600.webp 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px" alt="Foto de Localizador GPS Garmin inReach Mini 2" width="800" height="600" loading="lazy" decoding="async"></picture></div>
+        <button class="boton-favorito tarjeta-producto__favorito" type="button" data-favorito="th10" aria-pressed="false" aria-label="Favorito: Localizador GPS Garmin inReach Mini 2"><svg class="" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20z"></path></svg></button>
+        
+        <div class="tarjeta-producto__cuerpo">
+          <h2 class="tarjeta-producto__nombre"><a href="producto.html?id=th10">Localizador GPS Garmin inReach Mini 2</a></h2>
+          <p class="texto-suave">Tecnología e implementos</p>
+          <p class="calificacion texto-suave">Sin opiniones todavía</p>
+          <div class="tarjeta-producto__pie">
+            <p class="precio">$399,50</p>
+            <span class="tarjeta-producto__ver" aria-hidden="true">Ver producto →</span>
+          </div>
+        </div>
+      </article>
+    </li>
+    <li>
+      <article class="tarjeta-producto">
+        <div class="tarjeta-producto__imagen"><picture><source type="image/avif" srcset="img/productos/w/th11-1-400.avif 400w, img/productos/w/th11-1-600.avif 600w, img/productos/w/th11-1-800.avif 800w, img/productos/w/th11-1-1000.avif 1000w, img/productos/w/th11-1-1200.avif 1200w, img/productos/w/th11-1-1600.avif 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px"><img src="img/productos/w/th11-1-800.webp" srcset="img/productos/w/th11-1-400.webp 400w, img/productos/w/th11-1-600.webp 600w, img/productos/w/th11-1-800.webp 800w, img/productos/w/th11-1-1000.webp 1000w, img/productos/w/th11-1-1200.webp 1200w, img/productos/w/th11-1-1600.webp 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px" alt="Foto de Botella térmica inteligente negra" width="800" height="600" loading="lazy" decoding="async"></picture></div>
+        <button class="boton-favorito tarjeta-producto__favorito" type="button" data-favorito="th11" aria-pressed="false" aria-label="Favorito: Botella térmica inteligente negra"><svg class="" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20z"></path></svg></button>
+        
+        <div class="tarjeta-producto__cuerpo">
+          <h2 class="tarjeta-producto__nombre"><a href="producto.html?id=th11">Botella térmica inteligente negra</a></h2>
+          <p class="texto-suave">Tecnología e implementos</p>
+          <p class="calificacion texto-suave">Sin opiniones todavía</p>
+          <div class="tarjeta-producto__pie">
+            <p class="precio">$54,75</p>
+            <span class="tarjeta-producto__ver" aria-hidden="true">Ver producto →</span>
+          </div>
+        </div>
+      </article>
+    </li>
+    <li>
+      <article class="tarjeta-producto">
+        <div class="tarjeta-producto__imagen"><picture><source type="image/avif" srcset="img/productos/w/th12-1-400.avif 400w, img/productos/w/th12-1-600.avif 600w, img/productos/w/th12-1-800.avif 800w, img/productos/w/th12-1-1000.avif 1000w, img/productos/w/th12-1-1200.avif 1200w, img/productos/w/th12-1-1600.avif 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px"><img src="img/productos/w/th12-1-800.webp" srcset="img/productos/w/th12-1-400.webp 400w, img/productos/w/th12-1-600.webp 600w, img/productos/w/th12-1-800.webp 800w, img/productos/w/th12-1-1000.webp 1000w, img/productos/w/th12-1-1200.webp 1200w, img/productos/w/th12-1-1600.webp 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px" alt="Foto de Pistola de masaje negra" width="800" height="600" loading="lazy" decoding="async"></picture></div>
+        <button class="boton-favorito tarjeta-producto__favorito" type="button" data-favorito="th12" aria-pressed="false" aria-label="Favorito: Pistola de masaje negra"><svg class="" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20z"></path></svg></button>
+        
+        <div class="tarjeta-producto__cuerpo">
+          <h2 class="tarjeta-producto__nombre"><a href="producto.html?id=th12">Pistola de masaje negra</a></h2>
+          <p class="texto-suave">Tecnología e implementos</p>
+          <p class="calificacion texto-suave">Sin opiniones todavía</p>
+          <div class="tarjeta-producto__pie">
+            <p class="precio">$119,00</p>
+            <span class="tarjeta-producto__ver" aria-hidden="true">Ver producto →</span>
+          </div>
+        </div>
+      </article>
+    </li>
+    <li>
+      <article class="tarjeta-producto">
+        <div class="tarjeta-producto__imagen"><picture><source type="image/avif" srcset="img/productos/w/th14-1-400.avif 400w, img/productos/w/th14-1-600.avif 600w, img/productos/w/th14-1-800.avif 800w, img/productos/w/th14-1-1000.avif 1000w, img/productos/w/th14-1-1200.avif 1200w, img/productos/w/th14-1-1600.avif 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px"><img src="img/productos/w/th14-1-800.webp" srcset="img/productos/w/th14-1-400.webp 400w, img/productos/w/th14-1-600.webp 600w, img/productos/w/th14-1-800.webp 800w, img/productos/w/th14-1-1000.webp 1000w, img/productos/w/th14-1-1200.webp 1200w, img/productos/w/th14-1-1600.webp 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px" alt="Foto de Linterna frontal LED negro y neón" width="800" height="600" loading="lazy" decoding="async"></picture></div>
+        <button class="boton-favorito tarjeta-producto__favorito" type="button" data-favorito="th14" aria-pressed="false" aria-label="Favorito: Linterna frontal LED negro y neón"><svg class="" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20z"></path></svg></button>
+        
+        <div class="tarjeta-producto__cuerpo">
+          <h2 class="tarjeta-producto__nombre"><a href="producto.html?id=th14">Linterna frontal LED negro y neón</a></h2>
+          <p class="texto-suave">Tecnología e implementos</p>
+          <p class="calificacion texto-suave">Sin opiniones todavía</p>
+          <div class="tarjeta-producto__pie">
+            <p class="precio">$34,50</p>
+            <span class="tarjeta-producto__ver" aria-hidden="true">Ver producto →</span>
+          </div>
+        </div>
+      </article>
+    </li>
+    <li>
+      <article class="tarjeta-producto">
+        <div class="tarjeta-producto__imagen"><picture><source type="image/avif" srcset="img/productos/w/th15-1-400.avif 400w, img/productos/w/th15-1-600.avif 600w, img/productos/w/th15-1-800.avif 800w, img/productos/w/th15-1-1000.avif 1000w, img/productos/w/th15-1-1200.avif 1200w, img/productos/w/th15-1-1600.avif 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px"><img src="img/productos/w/th15-1-800.webp" srcset="img/productos/w/th15-1-400.webp 400w, img/productos/w/th15-1-600.webp 600w, img/productos/w/th15-1-800.webp 800w, img/productos/w/th15-1-1000.webp 1000w, img/productos/w/th15-1-1200.webp 1200w, img/productos/w/th15-1-1600.webp 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px" alt="Foto de Rodillera inteligente con sensor" width="800" height="600" loading="lazy" decoding="async"></picture></div>
+        <button class="boton-favorito tarjeta-producto__favorito" type="button" data-favorito="th15" aria-pressed="false" aria-label="Favorito: Rodillera inteligente con sensor"><svg class="" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20z"></path></svg></button>
+        
+        <div class="tarjeta-producto__cuerpo">
+          <h2 class="tarjeta-producto__nombre"><a href="producto.html?id=th15">Rodillera inteligente con sensor</a></h2>
+          <p class="texto-suave">Tecnología e implementos</p>
+          <p class="calificacion texto-suave">Sin opiniones todavía</p>
+          <div class="tarjeta-producto__pie">
+            <p class="precio">$164,00</p>
+            <span class="tarjeta-producto__ver" aria-hidden="true">Ver producto →</span>
+          </div>
+        </div>
+      </article>
+    </li>
+    <li>
+      <article class="tarjeta-producto">
+        <div class="tarjeta-producto__imagen"><picture><source type="image/avif" srcset="img/productos/w/en07-1-400.avif 400w, img/productos/w/en07-1-600.avif 600w, img/productos/w/en07-1-800.avif 800w, img/productos/w/en07-1-1000.avif 1000w, img/productos/w/en07-1-1200.avif 1200w, img/productos/w/en07-1-1600.avif 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px"><img src="img/productos/w/en07-1-800.webp" srcset="img/productos/w/en07-1-400.webp 400w, img/productos/w/en07-1-600.webp 600w, img/productos/w/en07-1-800.webp 800w, img/productos/w/en07-1-1000.webp 1000w, img/productos/w/en07-1-1200.webp 1200w, img/productos/w/en07-1-1600.webp 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px" alt="Foto de Cajón pliométrico de espuma 3 en 1" width="800" height="600" loading="lazy" decoding="async"></picture></div>
+        <button class="boton-favorito tarjeta-producto__favorito" type="button" data-favorito="en07" aria-pressed="false" aria-label="Favorito: Cajón pliométrico de espuma 3 en 1"><svg class="" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20z"></path></svg></button>
+        
+        <div class="tarjeta-producto__cuerpo">
+          <h2 class="tarjeta-producto__nombre"><a href="producto.html?id=en07">Cajón pliométrico de espuma 3 en 1</a></h2>
+          <p class="texto-suave">Entrenamiento</p>
+          <p class="calificacion texto-suave">Sin opiniones todavía</p>
+          <div class="tarjeta-producto__pie">
+            <p class="precio">$152,00</p>
+            <span class="tarjeta-producto__ver" aria-hidden="true">Ver producto →</span>
+          </div>
+        </div>
+      </article>
+    </li>
+    <li>
+      <article class="tarjeta-producto">
+        <div class="tarjeta-producto__imagen"><picture><source type="image/avif" srcset="img/productos/w/en08-1-400.avif 400w, img/productos/w/en08-1-600.avif 600w, img/productos/w/en08-1-800.avif 800w, img/productos/w/en08-1-1000.avif 1000w, img/productos/w/en08-1-1200.avif 1200w, img/productos/w/en08-1-1600.avif 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px"><img src="img/productos/w/en08-1-800.webp" srcset="img/productos/w/en08-1-400.webp 400w, img/productos/w/en08-1-600.webp 600w, img/productos/w/en08-1-800.webp 800w, img/productos/w/en08-1-1000.webp 1000w, img/productos/w/en08-1-1200.webp 1200w, img/productos/w/en08-1-1600.webp 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px" alt="Foto de Tacos de salida para atletismo" width="800" height="600" loading="lazy" decoding="async"></picture></div>
+        <button class="boton-favorito tarjeta-producto__favorito" type="button" data-favorito="en08" aria-pressed="false" aria-label="Favorito: Tacos de salida para atletismo"><svg class="" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20z"></path></svg></button>
+        
+        <div class="tarjeta-producto__cuerpo">
+          <h2 class="tarjeta-producto__nombre"><a href="producto.html?id=en08">Tacos de salida para atletismo</a></h2>
+          <p class="texto-suave">Entrenamiento</p>
+          <p class="calificacion texto-suave">Sin opiniones todavía</p>
+          <div class="tarjeta-producto__pie">
+            <p class="precio">$184,50</p>
+            <span class="tarjeta-producto__ver" aria-hidden="true">Ver producto →</span>
+          </div>
+        </div>
+      </article>
+    </li>
+    <li>
+      <article class="tarjeta-producto">
+        <div class="tarjeta-producto__imagen"><picture><source type="image/avif" srcset="img/productos/w/en09-1-400.avif 400w, img/productos/w/en09-1-600.avif 600w, img/productos/w/en09-1-800.avif 800w, img/productos/w/en09-1-1000.avif 1000w, img/productos/w/en09-1-1200.avif 1200w, img/productos/w/en09-1-1600.avif 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px"><img src="img/productos/w/en09-1-800.webp" srcset="img/productos/w/en09-1-400.webp 400w, img/productos/w/en09-1-600.webp 600w, img/productos/w/en09-1-800.webp 800w, img/productos/w/en09-1-1000.webp 1000w, img/productos/w/en09-1-1200.webp 1200w, img/productos/w/en09-1-1600.webp 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px" alt="Foto de Sistema de Cronometraje Pro" width="800" height="600" loading="lazy" decoding="async"></picture></div>
+        <button class="boton-favorito tarjeta-producto__favorito" type="button" data-favorito="en09" aria-pressed="false" aria-label="Favorito: Sistema de Cronometraje Pro"><svg class="" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20z"></path></svg></button>
+        
+        <div class="tarjeta-producto__cuerpo">
+          <h2 class="tarjeta-producto__nombre"><a href="producto.html?id=en09">Sistema de Cronometraje Pro</a></h2>
+          <p class="texto-suave">Entrenamiento</p>
+          <p class="calificacion texto-suave">Sin opiniones todavía</p>
+          <div class="tarjeta-producto__pie">
+            <p class="precio">$342,80</p>
+            <span class="tarjeta-producto__ver" aria-hidden="true">Ver producto →</span>
+          </div>
+        </div>
+      </article>
+    </li>
+    <li>
+      <article class="tarjeta-producto">
+        <div class="tarjeta-producto__imagen"><picture><source type="image/avif" srcset="img/productos/w/en10-1-400.avif 400w, img/productos/w/en10-1-600.avif 600w, img/productos/w/en10-1-800.avif 800w, img/productos/w/en10-1-1000.avif 1000w, img/productos/w/en10-1-1200.avif 1200w, img/productos/w/en10-1-1600.avif 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px"><img src="img/productos/w/en10-1-800.webp" srcset="img/productos/w/en10-1-400.webp 400w, img/productos/w/en10-1-600.webp 600w, img/productos/w/en10-1-800.webp 800w, img/productos/w/en10-1-1000.webp 1000w, img/productos/w/en10-1-1200.webp 1200w, img/productos/w/en10-1-1600.webp 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px" alt="Foto de Cinturón de resistencia para sprints" width="800" height="600" loading="lazy" decoding="async"></picture></div>
+        <button class="boton-favorito tarjeta-producto__favorito" type="button" data-favorito="en10" aria-pressed="false" aria-label="Favorito: Cinturón de resistencia para sprints"><svg class="" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20z"></path></svg></button>
+        
+        <div class="tarjeta-producto__cuerpo">
+          <h2 class="tarjeta-producto__nombre"><a href="producto.html?id=en10">Cinturón de resistencia para sprints</a></h2>
+          <p class="texto-suave">Entrenamiento</p>
+          <p class="calificacion texto-suave">Sin opiniones todavía</p>
+          <div class="tarjeta-producto__pie">
+            <p class="precio">$39,90</p>
+            <span class="tarjeta-producto__ver" aria-hidden="true">Ver producto →</span>
+          </div>
+        </div>
+      </article>
+    </li>
+    <li>
+      <article class="tarjeta-producto">
+        <div class="tarjeta-producto__imagen"><picture><source type="image/avif" srcset="img/productos/w/en11-1-400.avif 400w, img/productos/w/en11-1-600.avif 600w, img/productos/w/en11-1-800.avif 800w, img/productos/w/en11-1-1000.avif 1000w, img/productos/w/en11-1-1200.avif 1200w, img/productos/w/en11-1-1600.avif 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px"><img src="img/productos/w/en11-1-800.webp" srcset="img/productos/w/en11-1-400.webp 400w, img/productos/w/en11-1-600.webp 600w, img/productos/w/en11-1-800.webp 800w, img/productos/w/en11-1-1000.webp 1000w, img/productos/w/en11-1-1200.webp 1200w, img/productos/w/en11-1-1600.webp 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px" alt="Foto de Cuerda de saltar Velocidad Pro" width="800" height="600" loading="lazy" decoding="async"></picture></div>
+        <button class="boton-favorito tarjeta-producto__favorito" type="button" data-favorito="en11" aria-pressed="false" aria-label="Favorito: Cuerda de saltar Velocidad Pro"><svg class="" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20z"></path></svg></button>
+        
+        <div class="tarjeta-producto__cuerpo">
+          <h2 class="tarjeta-producto__nombre"><a href="producto.html?id=en11">Cuerda de saltar Velocidad Pro</a></h2>
+          <p class="texto-suave">Entrenamiento</p>
+          <p class="calificacion texto-suave">Sin opiniones todavía</p>
+          <div class="tarjeta-producto__pie">
+            <p class="precio">$19,40</p>
+            <span class="tarjeta-producto__ver" aria-hidden="true">Ver producto →</span>
+          </div>
+        </div>
+      </article>
+    </li>
+    <li>
+      <article class="tarjeta-producto">
+        <div class="tarjeta-producto__imagen"><picture><source type="image/avif" srcset="img/productos/w/en12-1-400.avif 400w, img/productos/w/en12-1-600.avif 600w, img/productos/w/en12-1-800.avif 800w, img/productos/w/en12-1-1000.avif 1000w, img/productos/w/en12-1-1200.avif 1200w, img/productos/w/en12-1-1600.avif 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px"><img src="img/productos/w/en12-1-800.webp" srcset="img/productos/w/en12-1-400.webp 400w, img/productos/w/en12-1-600.webp 600w, img/productos/w/en12-1-800.webp 800w, img/productos/w/en12-1-1000.webp 1000w, img/productos/w/en12-1-1200.webp 1200w, img/productos/w/en12-1-1600.webp 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px" alt="Foto de Rodillo de liberación miofascial Núcleo Pro" width="800" height="600" loading="lazy" decoding="async"></picture></div>
+        <button class="boton-favorito tarjeta-producto__favorito" type="button" data-favorito="en12" aria-pressed="false" aria-label="Favorito: Rodillo de liberación miofascial Núcleo Pro"><svg class="" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20z"></path></svg></button>
+        
+        <div class="tarjeta-producto__cuerpo">
+          <h2 class="tarjeta-producto__nombre"><a href="producto.html?id=en12">Rodillo de liberación miofascial Núcleo Pro</a></h2>
+          <p class="texto-suave">Entrenamiento</p>
+          <p class="calificacion texto-suave">Sin opiniones todavía</p>
+          <div class="tarjeta-producto__pie">
+            <p class="precio">$31,60</p>
+            <span class="tarjeta-producto__ver" aria-hidden="true">Ver producto →</span>
+          </div>
+        </div>
+      </article>
+    </li>
+    <li>
+      <article class="tarjeta-producto">
+        <div class="tarjeta-producto__imagen"><picture><source type="image/avif" srcset="img/productos/w/en13-1-400.avif 400w, img/productos/w/en13-1-600.avif 600w, img/productos/w/en13-1-800.avif 800w, img/productos/w/en13-1-1000.avif 1000w, img/productos/w/en13-1-1200.avif 1200w, img/productos/w/en13-1-1600.avif 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px"><img src="img/productos/w/en13-1-800.webp" srcset="img/productos/w/en13-1-400.webp 400w, img/productos/w/en13-1-600.webp 600w, img/productos/w/en13-1-800.webp 800w, img/productos/w/en13-1-1000.webp 1000w, img/productos/w/en13-1-1200.webp 1200w, img/productos/w/en13-1-1600.webp 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px" alt="Foto de Tabla de equilibrio Estabilidad Pro" width="800" height="600" loading="lazy" decoding="async"></picture></div>
+        <button class="boton-favorito tarjeta-producto__favorito" type="button" data-favorito="en13" aria-pressed="false" aria-label="Favorito: Tabla de equilibrio Estabilidad Pro"><svg class="" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20z"></path></svg></button>
+        
+        <div class="tarjeta-producto__cuerpo">
+          <h2 class="tarjeta-producto__nombre"><a href="producto.html?id=en13">Tabla de equilibrio Estabilidad Pro</a></h2>
+          <p class="texto-suave">Entrenamiento</p>
+          <p class="calificacion texto-suave">Sin opiniones todavía</p>
+          <div class="tarjeta-producto__pie">
+            <p class="precio">$46,70</p>
+            <span class="tarjeta-producto__ver" aria-hidden="true">Ver producto →</span>
+          </div>
+        </div>
+      </article>
+    </li>
+    <li>
+      <article class="tarjeta-producto">
+        <div class="tarjeta-producto__imagen"><picture><source type="image/avif" srcset="img/productos/w/en14-1-400.avif 400w, img/productos/w/en14-1-600.avif 600w, img/productos/w/en14-1-800.avif 800w, img/productos/w/en14-1-1000.avif 1000w, img/productos/w/en14-1-1200.avif 1200w, img/productos/w/en14-1-1600.avif 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px"><img src="img/productos/w/en14-1-800.webp" srcset="img/productos/w/en14-1-400.webp 400w, img/productos/w/en14-1-600.webp 600w, img/productos/w/en14-1-800.webp 800w, img/productos/w/en14-1-1000.webp 1000w, img/productos/w/en14-1-1200.webp 1200w, img/productos/w/en14-1-1600.webp 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px" alt="Foto de Kit de resistencia para tobillos" width="800" height="600" loading="lazy" decoding="async"></picture></div>
+        <button class="boton-favorito tarjeta-producto__favorito" type="button" data-favorito="en14" aria-pressed="false" aria-label="Favorito: Kit de resistencia para tobillos"><svg class="" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20z"></path></svg></button>
+        
+        <div class="tarjeta-producto__cuerpo">
+          <h2 class="tarjeta-producto__nombre"><a href="producto.html?id=en14">Kit de resistencia para tobillos</a></h2>
+          <p class="texto-suave">Entrenamiento</p>
+          <p class="calificacion texto-suave">Sin opiniones todavía</p>
+          <div class="tarjeta-producto__pie">
+            <p class="precio">$28,90</p>
+            <span class="tarjeta-producto__ver" aria-hidden="true">Ver producto →</span>
+          </div>
+        </div>
+      </article>
+    </li>
+    <li>
+      <article class="tarjeta-producto">
+        <div class="tarjeta-producto__imagen"><picture><source type="image/avif" srcset="img/productos/w/en15-1-400.avif 400w, img/productos/w/en15-1-600.avif 600w, img/productos/w/en15-1-800.avif 800w, img/productos/w/en15-1-1000.avif 1000w, img/productos/w/en15-1-1200.avif 1200w, img/productos/w/en15-1-1600.avif 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px"><img src="img/productos/w/en15-1-800.webp" srcset="img/productos/w/en15-1-400.webp 400w, img/productos/w/en15-1-600.webp 600w, img/productos/w/en15-1-800.webp 800w, img/productos/w/en15-1-1000.webp 1000w, img/productos/w/en15-1-1200.webp 1200w, img/productos/w/en15-1-1600.webp 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px" alt="Foto de Trineo de arrastre Fuerza Máxima" width="800" height="600" loading="lazy" decoding="async"></picture></div>
+        <button class="boton-favorito tarjeta-producto__favorito" type="button" data-favorito="en15" aria-pressed="false" aria-label="Favorito: Trineo de arrastre Fuerza Máxima"><svg class="" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20z"></path></svg></button>
+        
+        <div class="tarjeta-producto__cuerpo">
+          <h2 class="tarjeta-producto__nombre"><a href="producto.html?id=en15">Trineo de arrastre Fuerza Máxima</a></h2>
+          <p class="texto-suave">Entrenamiento</p>
+          <p class="calificacion texto-suave">Sin opiniones todavía</p>
+          <div class="tarjeta-producto__pie">
+            <p class="precio">$209,00</p>
+            <span class="tarjeta-producto__ver" aria-hidden="true">Ver producto →</span>
+          </div>
+        </div>
+      </article>
+    </li>
+    <li>
+      <article class="tarjeta-producto">
+        <div class="tarjeta-producto__imagen"><picture><source type="image/avif" srcset="img/productos/w/en16-1-400.avif 400w, img/productos/w/en16-1-600.avif 600w, img/productos/w/en16-1-800.avif 800w, img/productos/w/en16-1-1000.avif 1000w, img/productos/w/en16-1-1200.avif 1200w, img/productos/w/en16-1-1600.avif 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px"><img src="img/productos/w/en16-1-800.webp" srcset="img/productos/w/en16-1-400.webp 400w, img/productos/w/en16-1-600.webp 600w, img/productos/w/en16-1-800.webp 800w, img/productos/w/en16-1-1000.webp 1000w, img/productos/w/en16-1-1200.webp 1200w, img/productos/w/en16-1-1600.webp 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px" alt="Foto de Set de vallas de entrenamiento ajustables" width="800" height="600" loading="lazy" decoding="async"></picture></div>
+        <button class="boton-favorito tarjeta-producto__favorito" type="button" data-favorito="en16" aria-pressed="false" aria-label="Favorito: Set de vallas de entrenamiento ajustables"><svg class="" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20z"></path></svg></button>
+        <span class="etiqueta tarjeta-producto__etiqueta">Nuevo</span>
+        <div class="tarjeta-producto__cuerpo">
+          <h2 class="tarjeta-producto__nombre"><a href="producto.html?id=en16">Set de vallas de entrenamiento ajustables</a></h2>
+          <p class="texto-suave">Entrenamiento</p>
+          <p class="calificacion texto-suave">Sin opiniones todavía</p>
+          <div class="tarjeta-producto__pie">
+            <p class="precio">$54,20</p>
+            <span class="tarjeta-producto__ver" aria-hidden="true">Ver producto →</span>
+          </div>
+        </div>
+      </article>
+    </li>
+    <li>
+      <article class="tarjeta-producto">
+        <div class="tarjeta-producto__imagen"><picture><source type="image/avif" srcset="img/productos/w/en17-1-400.avif 400w, img/productos/w/en17-1-600.avif 600w, img/productos/w/en17-1-800.avif 800w, img/productos/w/en17-1-1000.avif 1000w, img/productos/w/en17-1-1200.avif 1200w, img/productos/w/en17-1-1600.avif 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px"><img src="img/productos/w/en17-1-800.webp" srcset="img/productos/w/en17-1-400.webp 400w, img/productos/w/en17-1-600.webp 600w, img/productos/w/en17-1-800.webp 800w, img/productos/w/en17-1-1000.webp 1000w, img/productos/w/en17-1-1200.webp 1200w, img/productos/w/en17-1-1600.webp 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px" alt="Foto de Mancuerna ajustable con base" width="800" height="600" loading="lazy" decoding="async"></picture></div>
+        <button class="boton-favorito tarjeta-producto__favorito" type="button" data-favorito="en17" aria-pressed="false" aria-label="Favorito: Mancuerna ajustable con base"><svg class="" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20z"></path></svg></button>
+        <span class="etiqueta tarjeta-producto__etiqueta">Nuevo</span>
+        <div class="tarjeta-producto__cuerpo">
+          <h2 class="tarjeta-producto__nombre"><a href="producto.html?id=en17">Mancuerna ajustable con base</a></h2>
+          <p class="texto-suave">Entrenamiento</p>
+          <p class="calificacion texto-suave">Sin opiniones todavía</p>
+          <div class="tarjeta-producto__pie">
+            <p class="precio">$139,60</p>
+            <span class="tarjeta-producto__ver" aria-hidden="true">Ver producto →</span>
+          </div>
+        </div>
+      </article>
+    </li>
+    <li>
+      <article class="tarjeta-producto">
+        <div class="tarjeta-producto__imagen"><picture><source type="image/avif" srcset="img/productos/w/en18-1-400.avif 400w, img/productos/w/en18-1-600.avif 600w, img/productos/w/en18-1-800.avif 800w, img/productos/w/en18-1-1000.avif 1000w, img/productos/w/en18-1-1200.avif 1200w, img/productos/w/en18-1-1600.avif 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px"><img src="img/productos/w/en18-1-800.webp" srcset="img/productos/w/en18-1-400.webp 400w, img/productos/w/en18-1-600.webp 600w, img/productos/w/en18-1-800.webp 800w, img/productos/w/en18-1-1000.webp 1000w, img/productos/w/en18-1-1200.webp 1200w, img/productos/w/en18-1-1600.webp 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px" alt="Foto de Caminadora curva sin motor" width="800" height="600" loading="lazy" decoding="async"></picture></div>
+        <button class="boton-favorito tarjeta-producto__favorito" type="button" data-favorito="en18" aria-pressed="false" aria-label="Favorito: Caminadora curva sin motor"><svg class="" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20z"></path></svg></button>
+        <span class="etiqueta tarjeta-producto__etiqueta">Nuevo</span>
+        <div class="tarjeta-producto__cuerpo">
+          <h2 class="tarjeta-producto__nombre"><a href="producto.html?id=en18">Caminadora curva sin motor</a></h2>
+          <p class="texto-suave">Entrenamiento</p>
+          <p class="calificacion texto-suave">Sin opiniones todavía</p>
+          <div class="tarjeta-producto__pie">
+            <p class="precio">$1.890,00</p>
+            <span class="tarjeta-producto__ver" aria-hidden="true">Ver producto →</span>
+          </div>
+        </div>
+      </article>
+    </li>
+    <li>
+      <article class="tarjeta-producto">
+        <div class="tarjeta-producto__imagen"><picture><source type="image/avif" srcset="img/productos/w/en19-1-400.avif 400w, img/productos/w/en19-1-600.avif 600w, img/productos/w/en19-1-800.avif 800w, img/productos/w/en19-1-1000.avif 1000w, img/productos/w/en19-1-1200.avif 1200w, img/productos/w/en19-1-1600.avif 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px"><img src="img/productos/w/en19-1-800.webp" srcset="img/productos/w/en19-1-400.webp 400w, img/productos/w/en19-1-600.webp 600w, img/productos/w/en19-1-800.webp 800w, img/productos/w/en19-1-1000.webp 1000w, img/productos/w/en19-1-1200.webp 1200w, img/productos/w/en19-1-1600.webp 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px" alt="Foto de Cinturón de lastre con cadena" width="800" height="600" loading="lazy" decoding="async"></picture></div>
+        <button class="boton-favorito tarjeta-producto__favorito" type="button" data-favorito="en19" aria-pressed="false" aria-label="Favorito: Cinturón de lastre con cadena"><svg class="" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20z"></path></svg></button>
+        <span class="etiqueta tarjeta-producto__etiqueta">Nuevo</span>
+        <div class="tarjeta-producto__cuerpo">
+          <h2 class="tarjeta-producto__nombre"><a href="producto.html?id=en19">Cinturón de lastre con cadena</a></h2>
+          <p class="texto-suave">Entrenamiento</p>
+          <p class="calificacion texto-suave">Sin opiniones todavía</p>
+          <div class="tarjeta-producto__pie">
+            <p class="precio">$42,30</p>
+            <span class="tarjeta-producto__ver" aria-hidden="true">Ver producto →</span>
+          </div>
+        </div>
+      </article>
+    </li>
+    <li>
+      <article class="tarjeta-producto">
+        <div class="tarjeta-producto__imagen"><picture><source type="image/avif" srcset="img/productos/w/en20-1-400.avif 400w, img/productos/w/en20-1-600.avif 600w, img/productos/w/en20-1-800.avif 800w, img/productos/w/en20-1-1000.avif 1000w, img/productos/w/en20-1-1200.avif 1200w, img/productos/w/en20-1-1600.avif 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px"><img src="img/productos/w/en20-1-800.webp" srcset="img/productos/w/en20-1-400.webp 400w, img/productos/w/en20-1-600.webp 600w, img/productos/w/en20-1-800.webp 800w, img/productos/w/en20-1-1000.webp 1000w, img/productos/w/en20-1-1200.webp 1200w, img/productos/w/en20-1-1600.webp 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px" alt="Foto de Rueda abdominal Estabilidad Core" width="800" height="600" loading="lazy" decoding="async"></picture></div>
+        <button class="boton-favorito tarjeta-producto__favorito" type="button" data-favorito="en20" aria-pressed="false" aria-label="Favorito: Rueda abdominal Estabilidad Core"><svg class="" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20z"></path></svg></button>
+        <span class="etiqueta tarjeta-producto__etiqueta">Nuevo</span>
+        <div class="tarjeta-producto__cuerpo">
+          <h2 class="tarjeta-producto__nombre"><a href="producto.html?id=en20">Rueda abdominal Estabilidad Core</a></h2>
+          <p class="texto-suave">Entrenamiento</p>
+          <p class="calificacion texto-suave">Sin opiniones todavía</p>
+          <div class="tarjeta-producto__pie">
+            <p class="precio">$18,90</p>
+            <span class="tarjeta-producto__ver" aria-hidden="true">Ver producto →</span>
+          </div>
+        </div>
+      </article>
+    </li>
+    <li>
+      <article class="tarjeta-producto">
+        <div class="tarjeta-producto__imagen"><picture><source type="image/avif" srcset="img/productos/w/en21-1-400.avif 400w, img/productos/w/en21-1-600.avif 600w, img/productos/w/en21-1-800.avif 800w, img/productos/w/en21-1-1000.avif 1000w, img/productos/w/en21-1-1200.avif 1200w, img/productos/w/en21-1-1600.avif 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px"><img src="img/productos/w/en21-1-800.webp" srcset="img/productos/w/en21-1-400.webp 400w, img/productos/w/en21-1-600.webp 600w, img/productos/w/en21-1-800.webp 800w, img/productos/w/en21-1-1000.webp 1000w, img/productos/w/en21-1-1200.webp 1200w, img/productos/w/en21-1-1600.webp 1600w" sizes="(max-width: 40rem) 42vw, (max-width: 80rem) 30vw, 272px" alt="Foto de Bandas de restricción de flujo BFR" width="800" height="600" loading="lazy" decoding="async"></picture></div>
+        <button class="boton-favorito tarjeta-producto__favorito" type="button" data-favorito="en21" aria-pressed="false" aria-label="Favorito: Bandas de restricción de flujo BFR"><svg class="" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20z"></path></svg></button>
+        <span class="etiqueta tarjeta-producto__etiqueta">Nuevo</span>
+        <div class="tarjeta-producto__cuerpo">
+          <h2 class="tarjeta-producto__nombre"><a href="producto.html?id=en21">Bandas de restricción de flujo BFR</a></h2>
+          <p class="texto-suave">Entrenamiento</p>
+          <p class="calificacion texto-suave">Sin opiniones todavía</p>
+          <div class="tarjeta-producto__pie">
+            <p class="precio">$64,50</p>
+            <span class="tarjeta-producto__ver" aria-hidden="true">Ver producto →</span>
+          </div>
+        </div>
+      </article>
+    </li></ul></section>
+      </div>
+    </div>
+  </main>
 
   <footer class="pie">
     <div class="contenedor pie__grilla">
@@ -117,5 +1593,6 @@
     <p class="noscript">Para comprar en ATHLETIX necesitas activar JavaScript en tu navegador.</p>
   </noscript>
 
+  <script>(function(){var s=["js/version.js?v=c75ce9ee","js/vendor/supabase.min.js?v=34035ac7","js/min/base.min.js?v=7d5b5876","js/min/tienda.min.js?v=98a13768"];function c(){if(window.athletixScripts||window.athletixEsperaFragmento)return;window.athletixScripts=1;s.forEach(function(u){var e=document.createElement('script');e.src=u;e.async=false;document.head.appendChild(e)})}window.athletixCargarScripts=c;if(document.documentElement.className.indexOf('sin-previo')>-1)c();else requestAnimationFrame(function(){setTimeout(c,0)})})();</script>
 </body>
 </html>

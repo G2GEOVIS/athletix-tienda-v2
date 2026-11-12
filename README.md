@@ -137,7 +137,16 @@ Lo que se cambió para que la tienda cargue más rápido en celular y en PC, sin
   base y solo las vistas que usa (por ejemplo, el inicio ya no baja el panel de administrador). Todos con `defer`.
   EmailJS (respaldo del correo) se descarga solo si hace falta.
 - **Fuentes**: alojadas en `fuentes/` en WOFF2, solo los 5 pesos que se usan, con `font-display: swap` y precarga
-  de las dos principales (antes 7 pesos desde Google Fonts, que bloqueaban la primera pintura).
+  de las cuatro que se ven al abrir (antes 7 pesos desde Google Fonts, que bloqueaban la primera pintura). Recortadas
+  a los caracteres del español (unos 19 KB cada una en vez de 23 KB):
+  `pyftsubset <fuente> --unicodes="U+0020-007E,U+00A0-00FF,U+0152-0153,U+2000-206F,U+20AC,U+2122,U+2191-2193,U+2212" --layout-features="kern,liga" --flavor=woff2`
+- **Renderizado previo**: inicio, catálogo, carrito, favoritos, ingreso, registro, recuperar, ayuda y quiénes somos
+  traen su contenido ya armado en el HTML, y el detalle de cada producto en `previo/producto/<código>.html`
+  (`herramientas/prerenderizar.mjs`). La página se ve apenas llegan el HTML y el CSS, y los scripts se piden justo
+  después; el JavaScript vuelve a dibujar lo mismo con los botones funcionando. Ese contenido se oculta si no le
+  corresponde a quien entra (sesión iniciada, filtros en la dirección, carrito o favoritos con productos).
+  **Si se cambia el catálogo desde el administrador, hay que volver a ejecutar `npm run construir` y publicar**; mientras
+  tanto la página muestra un instante lo anterior y se corrige sola con los datos de la base.
 - **Datos**: el catálogo de la base se guarda en el navegador; la página se muestra al instante y se actualiza si la
   base responde algo distinto. Las páginas que no muestran productos no piden el catálogo.
 - **Flujo de compra**: se adelanta (prefetch) la página y el código del paso siguiente.
@@ -148,7 +157,9 @@ Lo que se cambió para que la tienda cargue más rápido en celular y en PC, sin
 ## Herramientas
 
 ```
-npm run construir                 Minifica y separa el JS y el CSS (herramientas/construir.mjs) y genera las páginas
+npm run construir                 Minifica y separa el JS y el CSS (herramientas/construir.mjs), genera las páginas
+                                  y les agrega el contenido previo (herramientas/prerenderizar.mjs, usa Playwright)
+herramientas/prerenderizar.mjs    Abre cada página pública en Chromium y guarda su contenido dentro del HTML
 herramientas/construir.mjs        Junta y minifica el JS por grupo (base, tienda, cuenta, compra, admin) y el CSS
 herramientas/fotos_web.py         Genera las fotos AVIF y WebP (400-1600 px) y las miniaturas para correos
 herramientas/generar_paginas.py   Crea cada página desde plantilla.html, agrega ?v=<huella> a cada JS/CSS y escribe

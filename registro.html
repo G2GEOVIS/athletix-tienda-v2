@@ -6,20 +6,19 @@
   <meta name="theme-color" content="#0B1F3A">
   <meta name="description" content="Crea tu cuenta de ATHLETIX con tu cédula y tu correo.">
   <title>Crear cuenta | ATHLETIX</title>
-  <meta name="version-sitio" content="84f1f8d5c0">
+  <meta name="version-sitio" content="8b6585be05">
   <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
   <!-- Conexión anticipada con la base de datos (catálogo, sesión) -->
   <link rel="preconnect" href="https://umujfngetzifneqerirl.supabase.co" crossorigin>
-  <!-- Fuentes propias: se piden de inmediato las dos que se ven primero -->
+  <!-- Fuentes propias: se piden de inmediato las que se ven primero (texto, negrita de los botones, títulos y la cursiva
+       del logo y del título principal). Si llegaran tarde, el texto cambiaría de ancho y movería la página (CLS). -->
   <link rel="preload" href="fuentes/barlow-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fuentes/barlow-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fuentes/barlow-condensed-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="css/estilos.min.css?v=9b034bb5">
+  <link rel="preload" href="fuentes/barlow-condensed-latin-800-italic.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="css/estilos.min.css?v=c3adde39">
   <!-- defer: los scripts se descargan en paralelo y se ejecutan después de leer la página (no la bloquean) -->
-  <script src="js/version.js?v=5fdf0f18" defer></script>
-  <script src="js/vendor/supabase.min.js?v=34035ac7" defer></script>
-  <script src="js/min/base.min.js?v=49d2087e" defer></script>
-  <script src="js/min/tienda.min.js?v=98a13768" defer></script>
-  <script src="js/min/cuenta.min.js?v=d30faef5" defer></script>
+  <script>(function(){var ok=!location.hash&&!location.search;try{for(var i=0;i<sessionStorage.length;i++)if(/^sb-.*-auth-token$/.test(sessionStorage.key(i)))ok=false}catch(e){ok=false}if(!ok)document.documentElement.className+=' sin-previo';})();</script>
 </head>
 <!-- Página generada desde plantilla.html (herramientas/generar_paginas.py) -->
 <body data-pagina="registro">
@@ -73,7 +72,112 @@
     </div>
   </header>
 
-  <main id="contenido" tabindex="-1"></main>
+  <main id="contenido" tabindex="-1" data-previo data-google="1">
+<div class="contenedor pagina">
+      <div class="panel formulario-centro" style="max-width:46rem">
+        <h1 class="titulo-pagina">Crea tu cuenta</h1>
+        <p class="subtitulo cabecera-pagina">Los campos con <span class="requerido">*</span> son obligatorios. Te enviaremos un correo para confirmar que es tuyo.</p>
+        
+  <button class="boton boton--google boton--bloque" type="button" id="con-google"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" style="stroke:none"><path fill="#4285F4" d="M23.5 12.3c0-.8-.1-1.6-.2-2.3H12v4.5h6.5a5.6 5.6 0 0 1-2.4 3.6v3h3.9c2.2-2.1 3.5-5.1 3.5-8.8z"></path><path fill="#34A853" d="M12 24c3.2 0 6-1.1 7.9-2.9l-3.9-3c-1 .7-2.4 1.1-4 1.1-3.1 0-5.7-2.1-6.6-4.9H1.4v3.1A12 12 0 0 0 12 24z"></path><path fill="#FBBC05" d="M5.4 14.3a7.2 7.2 0 0 1 0-4.6V6.6H1.4a12 12 0 0 0 0 10.8z"></path><path fill="#EA4335" d="M12 4.8c1.7 0 3.3.6 4.5 1.8l3.4-3.4A12 12 0 0 0 1.4 6.6l4 3.1C6.3 6.9 8.9 4.8 12 4.8z"></path></svg>Continuar con Google</button>
+  <p class="separador-texto" style="margin-block:1.25rem">o con tu correo</p>
+        <form class="formulario" id="form-registro" novalidate="">
+          <div class="alerta alerta-errores" tabindex="-1" role="alert" hidden=""></div>
+          
+    <div class="formulario__fila formulario__fila--doble">
+      
+    <div class="campo">
+      <label for="nombres">Nombres <span class="requerido" aria-hidden="true">*</span></label>
+      <p class="campo__ayuda" id="nombres-ayuda">Solo letras, por ejemplo: Ana</p>
+      <input id="nombres" name="nombres" type="text" value="" maxlength="60" required="" aria-required="true" aria-describedby="nombres-ayuda nombres-error" autocomplete="given-name" autocapitalize="words">
+      <p class="campo__error" id="nombres-error" hidden=""><svg class="" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3 2 20h20z"></path><path d="M12 10v4M12 17v.01"></path></svg><span></span></p>
+    </div>
+      
+    <div class="campo">
+      <label for="apellidos">Apellidos <span class="requerido" aria-hidden="true">*</span></label>
+      <p class="campo__ayuda" id="apellidos-ayuda">Solo letras, por ejemplo: Pérez</p>
+      <input id="apellidos" name="apellidos" type="text" value="" maxlength="60" required="" aria-required="true" aria-describedby="apellidos-ayuda apellidos-error" autocomplete="family-name" autocapitalize="words">
+      <p class="campo__error" id="apellidos-error" hidden=""><svg class="" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3 2 20h20z"></path><path d="M12 10v4M12 17v.01"></path></svg><span></span></p>
+    </div>
+    </div>
+    
+    <fieldset class="donde-vives">
+      <legend>¿Dónde vives?</legend>
+      <div class="donde-vives__opciones">
+        <label class="opcion opcion--caja"><input type="radio" name="residencia" value="ecuador" checked=""> <span>Ecuador</span></label>
+        <label class="opcion opcion--caja"><input type="radio" name="residencia" value="otro"> <span>Otro país</span></label>
+      </div>
+    </fieldset>
+    <div class="campo" id="campo-pais" hidden="">
+      <label for="pais">País <span class="requerido" aria-hidden="true">*</span></label>
+      <select id="pais" autocomplete="country-name" aria-describedby="pais-error"><option value="">Elige tu país</option><option value="Alemania">Alemania (+49)</option><option value="Argentina">Argentina (+54)</option><option value="Bolivia">Bolivia (+591)</option><option value="Brasil">Brasil (+55)</option><option value="Canadá">Canadá (+1)</option><option value="Chile">Chile (+56)</option><option value="China">China (+86)</option><option value="Colombia">Colombia (+57)</option><option value="Costa Rica">Costa Rica (+506)</option><option value="Cuba">Cuba (+53)</option><option value="El Salvador">El Salvador (+503)</option><option value="España">España (+34)</option><option value="Estados Unidos">Estados Unidos (+1)</option><option value="Francia">Francia (+33)</option><option value="Guatemala">Guatemala (+502)</option><option value="Honduras">Honduras (+504)</option><option value="Italia">Italia (+39)</option><option value="Japón">Japón (+81)</option><option value="México">México (+52)</option><option value="Nicaragua">Nicaragua (+505)</option><option value="Panamá">Panamá (+507)</option><option value="Paraguay">Paraguay (+595)</option><option value="Perú">Perú (+51)</option><option value="Portugal">Portugal (+351)</option><option value="Reino Unido">Reino Unido (+44)</option><option value="República Dominicana">República Dominicana (+1)</option><option value="Uruguay">Uruguay (+598)</option><option value="Venezuela">Venezuela (+58)</option></select>
+      <p class="campo__error" id="pais-error" hidden=""><svg class="" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3 2 20h20z"></path><path d="M12 10v4M12 17v.01"></path></svg><span></span></p>
+    </div>
+    <div class="formulario__fila formulario__fila--doble">
+      
+    <div class="campo">
+      <label for="cedula">Cédula <span class="requerido" aria-hidden="true">*</span></label>
+      <p class="campo__ayuda" id="cedula-ayuda">10 números, sin guion</p>
+      <input id="cedula" name="cedula" type="text" value="" maxlength="20" required="" aria-required="true" aria-describedby="cedula-ayuda cedula-error" autocomplete="off" autocapitalize="characters" spellcheck="false" inputmode="numeric">
+      <p class="campo__error" id="cedula-error" hidden=""><svg class="" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3 2 20h20z"></path><path d="M12 10v4M12 17v.01"></path></svg><span></span></p>
+    </div>
+      <div class="campo">
+        <label for="telefono">Celular <span class="requerido" aria-hidden="true">*</span></label>
+        <p class="campo__ayuda" id="telefono-ayuda">10 números, empieza con 09</p>
+        <div class="campo-telefono"><span class="campo-telefono__codigo" id="codigo-pais" hidden="" aria-hidden="true"></span>
+          <input id="telefono" name="telefono" type="tel" value="" maxlength="15" required="" aria-required="true" aria-describedby="telefono-ayuda telefono-error" autocomplete="tel-national" inputmode="numeric" data-extranjero="" data-pais="Ecuador"></div>
+        <p class="campo__error" id="telefono-error" hidden=""><svg class="" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3 2 20h20z"></path><path d="M12 10v4M12 17v.01"></path></svg><span></span></p>
+      </div>
+    </div>
+    
+    <div class="campo">
+      <label for="direccion">Dirección de domicilio <span class="requerido" aria-hidden="true">*</span></label>
+      <p class="campo__ayuda" id="direccion-ayuda">Calle principal, número y calle secundaria, ciudad. Aparece en tu factura.</p>
+      <input id="direccion" name="direccion" type="text" value="" maxlength="150" required="" aria-required="true" aria-describedby="direccion-ayuda direccion-error" autocomplete="street-address">
+      <p class="campo__error" id="direccion-error" hidden=""><svg class="" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3 2 20h20z"></path><path d="M12 10v4M12 17v.01"></path></svg><span></span></p>
+    </div>
+          <div>
+    <div class="campo">
+      <label for="correo-r">Correo electrónico <span class="requerido" aria-hidden="true">*</span></label>
+      <p class="campo__ayuda" id="correo-r-ayuda">Usa un correo al que tengas acceso: ahí te llegará la confirmación y el aviso de tus pedidos.</p>
+      <input id="correo-r" name="correo-r" type="email" value="" maxlength="120" required="" aria-required="true" aria-describedby="correo-r-ayuda correo-r-error" autocomplete="email" inputmode="email" autocapitalize="off" spellcheck="false">
+      <p class="campo__error" id="correo-r-error" hidden=""><svg class="" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3 2 20h20z"></path><path d="M12 10v4M12 17v.01"></path></svg><span></span></p>
+    </div><div style="margin-top:.5rem"><div class="atajos" role="group" aria-label="Completar el correo">
+    <button class="chip" type="button" data-correo="correo-r" data-dominio="@gmail.com">@gmail.com</button>
+    <button class="chip" type="button" data-correo="correo-r" data-dominio="@hotmail.com">@hotmail.com</button>
+    <button class="chip" type="button" data-correo="correo-r" data-dominio="@outlook.com">@outlook.com</button>
+    <button class="chip" type="button" data-correo="correo-r" data-dominio="@yahoo.com">@yahoo.com</button>
+  </div></div></div>
+          <div class="formulario__fila formulario__fila--doble">
+            
+    <div class="campo">
+      <label for="clave-r">Contraseña <span class="requerido" aria-hidden="true">*</span></label>
+      <p class="campo__ayuda" id="clave-r-ayuda">Mínimo 8 caracteres, con letras, números y un carácter especial (! @ # $ % * ?)</p>
+      <div class="campo-clave">
+        <input id="clave-r" name="clave-r" type="password" maxlength="72" required="" aria-required="true" autocomplete="new-password" aria-describedby="clave-r-ayuda clave-r-error" autocapitalize="off" spellcheck="false">
+        <button class="campo-clave__boton" type="button" data-ver-clave="clave-r" aria-pressed="false" aria-controls="clave-r"><svg class="" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"></path><circle cx="12" cy="12" r="3"></circle></svg><span>Mostrar</span><span class="solo-lector"> contraseña</span></button>
+      </div>
+      <p class="campo__mayus" id="clave-r-mayus" role="status" hidden=""><svg class="" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3 2 20h20z"></path><path d="M12 10v4M12 17v.01"></path></svg><span>Bloq Mayús está activado: la contraseña distingue mayúsculas y minúsculas.</span></p>
+      <p class="campo__error" id="clave-r-error" hidden=""><svg class="" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3 2 20h20z"></path><path d="M12 10v4M12 17v.01"></path></svg><span></span></p>
+    </div>
+            
+    <div class="campo">
+      <label for="clave-r2">Confirmar contraseña <span class="requerido" aria-hidden="true">*</span></label>
+      <p class="campo__ayuda" id="clave-r2-ayuda">Escríbela otra vez</p>
+      <div class="campo-clave">
+        <input id="clave-r2" name="clave-r2" type="password" maxlength="72" required="" aria-required="true" autocomplete="new-password" aria-describedby="clave-r2-ayuda clave-r2-error" autocapitalize="off" spellcheck="false">
+        <button class="campo-clave__boton" type="button" data-ver-clave="clave-r2" aria-pressed="false" aria-controls="clave-r2"><svg class="" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"></path><circle cx="12" cy="12" r="3"></circle></svg><span>Mostrar</span><span class="solo-lector"> contraseña</span></button>
+      </div>
+      <p class="campo__mayus" id="clave-r2-mayus" role="status" hidden=""><svg class="" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3 2 20h20z"></path><path d="M12 10v4M12 17v.01"></path></svg><span>Bloq Mayús está activado: la contraseña distingue mayúsculas y minúsculas.</span></p>
+      <p class="campo__error" id="clave-r2-error" hidden=""><svg class="" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3 2 20h20z"></path><path d="M12 10v4M12 17v.01"></path></svg><span></span></p>
+    </div>
+          </div>
+          <button class="boton boton--principal boton--bloque" type="submit">Crear cuenta</button>
+        </form>
+        <p class="separador-texto" style="margin-block:1.25rem">¿Ya tienes cuenta?</p>
+        <a class="boton boton--secundario boton--bloque" href="login.html">Iniciar sesión</a>
+      </div>
+    </div>
+  </main>
 
   <footer class="pie">
     <div class="contenedor pie__grilla">
@@ -118,5 +222,6 @@
     <p class="noscript">Para comprar en ATHLETIX necesitas activar JavaScript en tu navegador.</p>
   </noscript>
 
+  <script>(function(){var s=["js/version.js?v=c75ce9ee","js/vendor/supabase.min.js?v=34035ac7","js/min/base.min.js?v=7d5b5876","js/min/tienda.min.js?v=98a13768","js/min/cuenta.min.js?v=d30faef5"];function c(){if(window.athletixScripts||window.athletixEsperaFragmento)return;window.athletixScripts=1;s.forEach(function(u){var e=document.createElement('script');e.src=u;e.async=false;document.head.appendChild(e)})}window.athletixCargarScripts=c;if(document.documentElement.className.indexOf('sin-previo')>-1)c();else requestAnimationFrame(function(){setTimeout(c,0)})})();</script>
 </body>
 </html>

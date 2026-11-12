@@ -6,18 +6,19 @@
   <meta name="theme-color" content="#0B1F3A">
   <meta name="description" content="Preguntas frecuentes sobre compras, pagos, retiro y reseñas.">
   <title>Centro de ayuda | ATHLETIX</title>
-  <meta name="version-sitio" content="84f1f8d5c0">
+  <meta name="version-sitio" content="8b6585be05">
   <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
   <!-- Conexión anticipada con la base de datos (catálogo, sesión) -->
   <link rel="preconnect" href="https://umujfngetzifneqerirl.supabase.co" crossorigin>
-  <!-- Fuentes propias: se piden de inmediato las dos que se ven primero -->
+  <!-- Fuentes propias: se piden de inmediato las que se ven primero (texto, negrita de los botones, títulos y la cursiva
+       del logo y del título principal). Si llegaran tarde, el texto cambiaría de ancho y movería la página (CLS). -->
   <link rel="preload" href="fuentes/barlow-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fuentes/barlow-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fuentes/barlow-condensed-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="css/estilos.min.css?v=9b034bb5">
+  <link rel="preload" href="fuentes/barlow-condensed-latin-800-italic.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="css/estilos.min.css?v=c3adde39">
   <!-- defer: los scripts se descargan en paralelo y se ejecutan después de leer la página (no la bloquean) -->
-  <script src="js/version.js?v=5fdf0f18" defer></script>
-  <script src="js/vendor/supabase.min.js?v=34035ac7" defer></script>
-  <script src="js/min/base.min.js?v=49d2087e" defer></script>
+  <script>(function(){var ok=!location.hash&&!location.search;try{for(var i=0;i<sessionStorage.length;i++)if(/^sb-.*-auth-token$/.test(sessionStorage.key(i)))ok=false}catch(e){ok=false}if(!ok)document.documentElement.className+=' sin-previo';})();</script>
 </head>
 <!-- Página generada desde plantilla.html (herramientas/generar_paginas.py) -->
 <body data-pagina="ayuda">
@@ -71,7 +72,19 @@
     </div>
   </header>
 
-  <main id="contenido" tabindex="-1"></main>
+  <main id="contenido" tabindex="-1" data-previo data-google="1">
+<div class="contenedor pagina">
+      <h1 class="titulo-pagina">Centro de ayuda</h1>
+      <p class="subtitulo cabecera-pagina">Respuestas a las preguntas más frecuentes.</p>
+      <div class="preguntas">
+        <details class="pregunta" open=""><summary>¿Cómo compro?</summary><p>Elige un producto (y tu talla si es calzado), agrégalo al carrito, inicia sesión, elige la tienda donde lo retiras y paga con tarjeta o en efectivo al retirar.</p></details><details class="pregunta"><summary>¿Puedo repetir una compra anterior?</summary><p>Sí. Entra a «Mis pedidos» y presiona «Volver a comprar» en el pedido que quieras: los mismos productos, con su talla y cantidad, pasan a tu carrito. Si de alguno queda menos stock, agregamos lo que hay y te lo indicamos; si se agotó, te avisamos.</p></details><details class="pregunta"><summary>¿Cómo busco un producto?</summary><p>Escribe en el buscador lo que necesitas como lo dirías normalmente: «tenis para mujer», «cascos», «reloj gps», «pesas» o la marca. No importan las tildes, las mayúsculas ni un error pequeño de escritura. Si no hay coincidencias exactas te mostramos los productos más parecidos.</p></details><details class="pregunta"><summary>¿Qué necesito para crear mi cuenta?</summary><p>Tu nombre, apellido, cédula ecuatoriana (o pasaporte si vives en otro país), celular y un correo al que tengas acceso. Te enviaremos un enlace para confirmar el correo antes de tu primera compra. También puedes entrar con tu cuenta de Google y completar tu cédula y celular.</p></details><details class="pregunta"><summary>No me llega el correo de confirmación</summary><p>Revisa la carpeta de spam o promociones. Si no aparece en unos minutos, en «Iniciar sesión» puedes pedir que te lo enviemos otra vez.</p></details><details class="pregunta"><summary>¿Cómo puedo pagar?</summary><p>Como prefieras: 1) con cualquier tarjeta de crédito o débito: aceptamos todas y validamos el número, la fecha de vencimiento y el CVV; o 2) en efectivo en la tienda al retirar: reservamos tus productos y pagas en la caja cuando los recoges. Los pagos con tarjeta en línea son simulados: no se cobra dinero real.</p></details><details class="pregunta"><summary>¿Entregan factura?</summary><p>Sí. Al comprar te llega un correo con el detalle de tu pedido y la factura en PDF con tus datos (nombre, cédula, dirección y celular). Es un documento sin validez tributaria.</p></details><details class="pregunta"><summary>¿Cómo recibo mi pedido?</summary><p>Lo retiras gratis en la tienda que elijas. Está listo de 1 a 3 horas, según cuántos y qué productos pidas (por ejemplo, el calzado se busca por talla en bodega y la tecnología se revisa y se carga antes de entregarla); al comprar te mostramos la hora aproximada. Te enviamos la orden de pedido con tu número de pedido y un código de retiro de 6 caracteres. En la tienda presenta tu cédula y tu número de pedido (o el código) para verificar tu compra. No hacemos envíos a domicilio.</p></details><details class="pregunta"><summary>Privacidad: ¿qué datos guardan?</summary><p>Solo los necesarios para tu cuenta y tus pedidos: nombre, cédula, dirección, celular, correo, tus pedidos y la marca y últimos 4 dígitos de tus tarjetas. Tu contraseña se guarda cifrada (bcrypt) y nadie puede verla. Si entras con Google, solo recibimos tu nombre y tu correo. Si inicias sesión, tu carrito y tus favoritos se guardan en tu cuenta para que los veas en cualquier dispositivo; sin sesión quedan solo en este navegador. No vendemos ni compartimos tus datos.</p></details><details class="pregunta"><summary>Condiciones de uso</summary><p>Los pagos con tarjeta son simulados: no se cobra dinero real. Los pedidos se retiran en la tienda elegida presentando la cédula y el número de pedido o el código de retiro. Una vez pagado, el pedido no se puede modificar.</p></details><details class="pregunta"><summary>¿Me avisan cuando cambia mi pedido?</summary><p>Sí. Te llega un correo cuando recibimos tu compra y cada vez que tu pedido cambia: en preparación, listo para retirar, retirado o cancelado. También puedes verlo en «Mis pedidos».</p></details><details class="pregunta"><summary>¿Cómo dejo una reseña?</summary><p>Inicia sesión y entra a «Mis pedidos»: junto a cada producto que compraste está el botón «Escribir reseña». También puedes hacerlo desde la página del producto, en «Opiniones de clientes». La tienda verifica en tu cuenta que compraste ese producto: solo pueden opinar quienes lo compraron, y cada cliente deja una reseña por producto (puede editarla después).</p></details><details class="pregunta"><summary>¿Qué pasa si un producto se agota mientras compro?</summary><p>El stock se revisa en el momento de confirmar la compra. Si otra persona compró las últimas unidades antes que tú, te avisamos y ajustamos o quitamos ese producto del carrito; nunca se cobra un producto que no tenemos.</p></details><details class="pregunta"><summary>¿Por qué solo el calzado tiene género?</summary><p>Porque las tallas cambian entre hombre y mujer. Los relojes, sensores, audífonos y el equipo de entrenamiento sirven para todos, así que en esas categorías solo filtras por precio.</p></details><details class="pregunta"><summary>¿Puedo cambiar mi pedido después de pagar?</summary><p>No. Antes de pagar puedes cambiar la talla, la cantidad o quitar productos del carrito. Una vez pagado, el pedido no se puede modificar.</p></details>
+      </div>
+      <div class="panel panel--gris" style="margin-top:2rem;max-width:48rem">
+        <h2>¿Necesitas más ayuda?</h2>
+        <p>Escríbenos a <a href="mailto:geovannymorocho621@gmail.com?subject=Consulta%20ATHLETIX">geovannymorocho621@gmail.com</a> y te respondemos de lunes a sábado, de 09:00 a 18:00.</p>
+      </div>
+    </div>
+  </main>
 
   <footer class="pie">
     <div class="contenedor pie__grilla">
@@ -116,5 +129,6 @@
     <p class="noscript">Para comprar en ATHLETIX necesitas activar JavaScript en tu navegador.</p>
   </noscript>
 
+  <script>(function(){var s=["js/version.js?v=c75ce9ee","js/vendor/supabase.min.js?v=34035ac7","js/min/base.min.js?v=7d5b5876"];function c(){if(window.athletixScripts||window.athletixEsperaFragmento)return;window.athletixScripts=1;s.forEach(function(u){var e=document.createElement('script');e.src=u;e.async=false;document.head.appendChild(e)})}window.athletixCargarScripts=c;if(document.documentElement.className.indexOf('sin-previo')>-1)c();else requestAnimationFrame(function(){setTimeout(c,0)})})();</script>
 </body>
 </html>

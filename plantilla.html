@@ -10,9 +10,12 @@
   <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
   <!-- Conexión anticipada con la base de datos (catálogo, sesión) -->
   <link rel="preconnect" href="https://umujfngetzifneqerirl.supabase.co" crossorigin>
-  <!-- Fuentes propias: se piden de inmediato las dos que se ven primero -->
+  <!-- Fuentes propias: se piden de inmediato las que se ven primero (texto, negrita de los botones, títulos y la cursiva
+       del logo y del título principal). Si llegaran tarde, el texto cambiaría de ancho y movería la página (CLS). -->
   <link rel="preload" href="fuentes/barlow-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fuentes/barlow-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fuentes/barlow-condensed-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fuentes/barlow-condensed-latin-800-italic.woff2" as="font" type="font/woff2" crossorigin>
 {{PRECARGA}}  <link rel="stylesheet" href="css/estilos.min.css">
   <!-- defer: los scripts se descargan en paralelo y se ejecutan después de leer la página (no la bloquean) -->
   <script src="js/version.js" defer></script>

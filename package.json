@@ -3,7 +3,7 @@
   "private": true,
   "description": "Herramientas de construcción de ATHLETIX v2 (solo para desarrollo; la tienda publicada no usa Node).",
   "scripts": {
-    "construir": "node herramientas/construir.mjs && python3 herramientas/generar_paginas.py"
+    "construir": "node herramientas/construir.mjs && python3 herramientas/generar_paginas.py && node herramientas/prerenderizar.mjs"
   },
   "devDependencies": {
     "esbuild": "0.24.2"

@@ -56,6 +56,8 @@ body {
 main { flex: 1; outline: none; min-width: 0; width: 100%; min-height: calc(100vh - var(--alto-encabezado, 4.5rem)); min-height: calc(100svh - var(--alto-encabezado, 4.5rem)); }
 img { max-width: 100%; height: auto; display: block; }
 h1[tabindex="-1"]:focus, main:focus { outline: none; }
+/* Contenido previo (herramientas/prerenderizar.mjs) que no corresponde a quien entra: se oculta hasta que el JavaScript dibuje la página */
+.sin-previo #contenido[data-previo] > * { display: none; }
 a { color: var(--verde); }
 button, input, select { font: inherit; color: inherit; }
 h1, h2, h3 { line-height: 1.15; margin: 0; overflow-wrap: anywhere; }

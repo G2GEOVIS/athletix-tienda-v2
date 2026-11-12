@@ -6,18 +6,19 @@
   <meta name="theme-color" content="#0B1F3A">
   <meta name="description" content="Conoce ATHLETIX: nuestra historia, misión, visión, valores y las tiendas donde retiras tus pedidos.">
   <title>Quiénes somos | ATHLETIX</title>
-  <meta name="version-sitio" content="84f1f8d5c0">
+  <meta name="version-sitio" content="8b6585be05">
   <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
   <!-- Conexión anticipada con la base de datos (catálogo, sesión) -->
   <link rel="preconnect" href="https://umujfngetzifneqerirl.supabase.co" crossorigin>
-  <!-- Fuentes propias: se piden de inmediato las dos que se ven primero -->
+  <!-- Fuentes propias: se piden de inmediato las que se ven primero (texto, negrita de los botones, títulos y la cursiva
+       del logo y del título principal). Si llegaran tarde, el texto cambiaría de ancho y movería la página (CLS). -->
   <link rel="preload" href="fuentes/barlow-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fuentes/barlow-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fuentes/barlow-condensed-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="css/estilos.min.css?v=9b034bb5">
+  <link rel="preload" href="fuentes/barlow-condensed-latin-800-italic.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="css/estilos.min.css?v=c3adde39">
   <!-- defer: los scripts se descargan en paralelo y se ejecutan después de leer la página (no la bloquean) -->
-  <script src="js/version.js?v=5fdf0f18" defer></script>
-  <script src="js/vendor/supabase.min.js?v=34035ac7" defer></script>
-  <script src="js/min/base.min.js?v=49d2087e" defer></script>
+  <script>(function(){var ok=!location.hash&&!location.search;try{for(var i=0;i<sessionStorage.length;i++)if(/^sb-.*-auth-token$/.test(sessionStorage.key(i)))ok=false}catch(e){ok=false}if(!ok)document.documentElement.className+=' sin-previo';})();</script>
 </head>
 <!-- Página generada desde plantilla.html (herramientas/generar_paginas.py) -->
 <body data-pagina="quienes-somos">
@@ -71,7 +72,69 @@
     </div>
   </header>
 
-  <main id="contenido" tabindex="-1"></main>
+  <main id="contenido" tabindex="-1" data-previo data-google="1">
+<div class="contenedor pagina quienes">
+      <h1 class="titulo-pagina">Quiénes somos</h1>
+      <p class="subtitulo cabecera-pagina">ATHLETIX es una tienda deportiva ecuatoriana. Vendemos en línea y entregamos en nuestras tiendas de Quito y Guayaquil, sin costo de envío.</p>
+
+      <section class="quienes__bloque" aria-labelledby="q-historia">
+        <h2 class="titulo-seccion" id="q-historia">Nuestra historia</h2>
+        <p>ATHLETIX nació de una queja que escuchábamos seguido entre amigos que corren y entrenan: para conseguir unas buenas zapatillas o un reloj deportivo había que recorrer varios locales, preguntar si quedaba la talla y muchas veces volver con las manos vacías.</p>
+        <p>Por eso juntamos en un solo lugar el calzado, la tecnología y el equipo de entrenamiento que usamos nosotros mismos, y mostramos en la web el stock real de cada talla. Antes de salir de casa ya sabes si lo que buscas está disponible.</p>
+        <p>Elegimos el retiro en tienda porque es más rápido que esperar un envío: compras en la web y en una a tres horas tu pedido está listo, sin costo extra. Hoy atendemos en Quito y Guayaquil, y seguimos escogiendo cada producto con el mismo criterio con el que empezamos: que de verdad sirva para entrenar.</p>
+      </section>
+
+      <div class="quienes__grilla">
+        <section class="panel" aria-labelledby="q-mision">
+          <span class="quienes__icono"><svg class="" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3 5 6v6c0 4.5 3 7.5 7 9 4-1.5 7-4.5 7-9V6z"></path><path d="m9 12 2 2 4-4"></path></svg></span>
+          <h2 id="q-mision">Misión</h2>
+          <p>Acercar a cada deportista el calzado, la tecnología y el equipo que necesita, con precios claros, compra fácil y retiro rápido en tienda.</p>
+        </section>
+        <section class="panel" aria-labelledby="q-vision">
+          <span class="quienes__icono"><svg class="" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"></path></svg></span>
+          <h2 id="q-vision">Visión</h2>
+          <p>Ser la tienda deportiva en línea de referencia en Ecuador, reconocida por una experiencia de compra accesible para todas las personas.</p>
+        </section>
+        <section class="panel" aria-labelledby="q-valores">
+          <span class="quienes__icono"><svg class="" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2.8l2.8 5.9 6.4.8-4.7 4.4 1.2 6.4L12 17.2l-5.7 3.1 1.2-6.4L2.8 9.5l6.4-.8z"></path></svg></span>
+          <h2 id="q-valores">Valores</h2>
+          <ul class="quienes__lista">
+            <li><strong>Honestidad:</strong> el precio que ves es el que pagas, con el IVA indicado.</li>
+            <li><strong>Opiniones reales:</strong> solo opina quien compró el producto.</li>
+            <li><strong>Accesibilidad:</strong> la tienda se usa con teclado, lector de pantalla y celular.</li>
+          </ul>
+        </section>
+      </div>
+
+      <section class="quienes__bloque" aria-labelledby="q-ofrecemos">
+        <h2 class="titulo-seccion" id="q-ofrecemos">Qué vendemos</h2>
+        <ul class="quienes__categorias">
+          <li><a class="panel panel--gris" href="productos.html?cat=calzado"><strong>Calzado</strong><span>41 productos</span></a></li><li><a class="panel panel--gris" href="productos.html?cat=tecnologia"><strong>Tecnología e implementos</strong><span>29 productos</span></a></li><li><a class="panel panel--gris" href="productos.html?cat=entrenamiento"><strong>Entrenamiento</strong><span>20 productos</span></a></li>
+        </ul>
+      </section>
+
+      
+      <section class="quienes__bloque" aria-labelledby="q-tiendas">
+        <h2 class="titulo-seccion" id="q-tiendas">Nuestras tiendas</h2>
+        <p class="texto-suave">Aquí retiras tus pedidos. Lleva tu cédula o pasaporte y tu número de pedido.</p>
+        <ul class="quienes__tiendas">
+          <li class="panel">
+            <h3><svg class="" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 9h16l-1.5-5h-13zM5 9v11h14V9M9 20v-6h6v6"></path></svg>ATHLETIX Quicentro</h3>
+            <p>Av. Naciones Unidas y Av. 6 de Diciembre, C.C. Quicentro Shopping, Quito</p>
+            <p class="texto-suave">Lunes a domingo, 10:00 a 21:00</p>
+          </li><li class="panel">
+            <h3><svg class="" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 9h16l-1.5-5h-13zM5 9v11h14V9M9 20v-6h6v6"></path></svg>ATHLETIX El Recreo</h3>
+            <p>Av. Pedro Vicente Maldonado S11-122, C.C. El Recreo, Quito</p>
+            <p class="texto-suave">Lunes a domingo, 10:00 a 20:00</p>
+          </li><li class="panel">
+            <h3><svg class="" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 9h16l-1.5-5h-13zM5 9v11h14V9M9 20v-6h6v6"></path></svg>ATHLETIX Mall del Sol</h3>
+            <p>Av. Juan Tanca Marengo y Av. Joaquín Orrantia, C.C. Mall del Sol, Guayaquil</p>
+            <p class="texto-suave">Lunes a domingo, 10:00 a 21:00</p>
+          </li>
+        </ul>
+      </section>
+    </div>
+  </main>
 
   <footer class="pie">
     <div class="contenedor pie__grilla">
@@ -116,5 +179,6 @@
     <p class="noscript">Para comprar en ATHLETIX necesitas activar JavaScript en tu navegador.</p>
   </noscript>
 
+  <script>(function(){var s=["js/version.js?v=c75ce9ee","js/vendor/supabase.min.js?v=34035ac7","js/min/base.min.js?v=7d5b5876"];function c(){if(window.athletixScripts||window.athletixEsperaFragmento)return;window.athletixScripts=1;s.forEach(function(u){var e=document.createElement('script');e.src=u;e.async=false;document.head.appendChild(e)})}window.athletixCargarScripts=c;if(document.documentElement.className.indexOf('sin-previo')>-1)c();else requestAnimationFrame(function(){setTimeout(c,0)})})();</script>
 </body>
 </html>

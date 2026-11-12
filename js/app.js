@@ -346,8 +346,13 @@ function adelantarSiguientePaso(ruta) {
 
 let primeraCarga = true;
 let turnoRender = 0;
+/* Renderizado previo (herramientas/prerenderizar.mjs): algunas páginas ya traen su contenido en el HTML para que
+   se vea antes de que llegue el JavaScript. Es válido si no tiene la clase sin-previo (sesión, filtros o lista con datos). */
+const hayPrevio = () => $('#contenido').hasAttribute('data-previo') && !document.documentElement.classList.contains('sin-previo');
+
 async function render() {
   const turno = ++turnoRender;
+  window.athletixPintado = true;
   cerrarDialogo();
   cerrarMenuCuenta();
   $('.boton-menu').setAttribute('aria-expanded', 'false');
@@ -360,7 +365,8 @@ async function render() {
   try {
     const salida = vista(partes, params);
     if (salida && typeof salida.then === 'function') {
-      main.innerHTML = cargandoHtml();
+      // Con contenido previo visible no se muestra "Cargando": se deja lo que ya se ve hasta tener la vista
+      if (!hayPrevio()) { main.innerHTML = cargandoHtml(); main.removeAttribute('data-previo'); }
       main.setAttribute('aria-busy', 'true');
       resultado = await salida;
       main.removeAttribute('aria-busy');
@@ -375,6 +381,7 @@ async function render() {
   if (!resultado) return; // la vista redirigió
 
   main.innerHTML = resultado.html;
+  main.removeAttribute('data-previo');
   document.title = `${resultado.titulo} | ATHLETIX`;
 
   const seccion = resultado.seccion ?? partes[0] ?? 'inicio';
@@ -467,6 +474,10 @@ async function iniciar() {
   let googleGuardado = null;
   try { googleGuardado = localStorage.getItem(CLAVE_GOOGLE); } catch (e) { /* sin almacenamiento */ }
   if (googleGuardado !== null) estado.googleActivo = googleGuardado === '1';
+  // Primera visita con contenido previo: se asume lo mismo que tenía la página al construirse (botón de Google)
+  const previo = hayPrevio();
+  if (googleGuardado === null && previo) estado.googleActivo = $('#contenido').dataset.google === '1';
+  const googleAntes = estado.googleActivo;
   const preguntaGoogle = ruta === 'ingresar' || ruta === 'registro';
   const google = preguntaGoogle || googleGuardado === null
     ? Api.auth.googleActivo().then((g) => { estado.googleActivo = g; try { localStorage.setItem(CLAVE_GOOGLE, g ? '1' : '0'); } catch (e) { /* nada */ } })
@@ -505,10 +516,12 @@ async function iniciar() {
   /* La página se muestra de inmediato con el catálogo guardado (o el de respaldo de datos.js) y se actualiza
      sola si la base responde con algo distinto. Solo esperan a la base (máximo 5 s):
      el carrito y la compra con sesión (precios y stock al día) y el ingreso o registro si aún no se sabe si Google está activo. */
-  const esperaCatalogo = pedirCatalogo && RUTAS_CATALOGO_AL_DIA.has(ruta) && (ruta === 'carrito' || estado.sesion);
-  const esperaGoogle = preguntaGoogle && googleGuardado === null;
+  // Con contenido previo visible (sin sesión y carrito vacío) no hace falta esperar: se dibuja lo mismo de inmediato
+  const esperaCatalogo = !previo && pedirCatalogo && RUTAS_CATALOGO_AL_DIA.has(ruta) && (ruta === 'carrito' || estado.sesion);
+  const esperaGoogle = !previo && preguntaGoogle && googleGuardado === null;
   if (esperaCatalogo || esperaGoogle) {
     $('#contenido').innerHTML = cargandoHtml();
+    $('#contenido').removeAttribute('data-previo');
     await Promise.race([Promise.all([esperaCatalogo ? catalogo : null, esperaGoogle ? google : null]), new Promise((ok) => setTimeout(ok, 5000))]);
   }
   render();
@@ -516,14 +529,16 @@ async function iniciar() {
   const cambio = await catalogo;
   const ahora = leerRuta().partes[0] || '';
   if (cambio && ['', 'productos', 'producto', 'carrito', 'favoritos'].includes(ahora) && !$('#dialogo').open) render();
-  if (preguntaGoogle && !esperaGoogle) { await google; if (String(estado.googleActivo) !== String(googleGuardado === '1') && !$('#dialogo').open) render(); }
+  if (preguntaGoogle && !esperaGoogle) { await google; if (estado.googleActivo !== googleAntes && !$('#dialogo').open) render(); }
 }
 
 // Enlaces antiguos con # (por ejemplo index.html#/carrito) se llevan a su página nueva
 // Service Worker (sw.js): guarda en el navegador JS, CSS, fuentes y fotos para las siguientes visitas.
 // Se registra cuando la página ya terminó de cargar, para no competir con lo que el cliente está viendo.
 if ('serviceWorker' in navigator && location.protocol === 'https:') {
-  window.addEventListener('load', () => { navigator.serviceWorker.register('sw.js').catch(() => { /* sin Service Worker la tienda funciona igual */ }); });
+  const registrarSw = () => navigator.serviceWorker.register('sw.js').catch(() => { /* sin Service Worker la tienda funciona igual */ });
+  // En las páginas con contenido previo los scripts llegan después del pintado: la página pudo terminar de cargar antes
+  if (document.readyState === 'complete') registrarSw(); else window.addEventListener('load', registrarSw);
 }
 // Los scripts se cargan con defer: el arranque espera a que estén todos (también las vistas de la página)
 function redirigirEnlaceAntiguo() {
