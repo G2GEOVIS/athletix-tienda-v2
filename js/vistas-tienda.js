@@ -167,6 +167,8 @@ function vocesProducto(p) {
    productos por una coincidencia casual (por ejemplo "drop database" encontraba zapatillas por el "drop" de la suela). */
 const RE_CODIGO = /[;=*<>{}\[\]\\|`'"]|--|\b(select|insert|update|delete|drop|alter|create|truncate|union|exec|grant)\b[\s\S]*\b(from|into|table|database|schema|set|select|where|user|all)\b|\b(or|and)\s+\d+\s*$/i;
 const pareceCodigo = (t) => RE_CODIGO.test(String(t));
+const PALABRAS_DE_BASE = new Set(['select', 'insert', 'update', 'delete', 'drop', 'alter', 'create', 'truncate', 'union', 'exec', 'execute', 'grant', 'revoke',
+  'shutdown', 'commit', 'rollback', 'table', 'tables', 'database', 'tablespace', 'schema', 'from', 'where', 'into', 'values', 'null', 'sql', 'script']);
 
 function buscar(lista, consulta) {
   if (pareceCodigo(consulta)) return [];
@@ -188,6 +190,10 @@ function buscar(lista, consulta) {
   // al menos la mitad de las palabras y con alguna coincidencia fuerte; un número suelto o una palabra de la
   // descripción ya no bastan (así "iphone 15" o una frase sin relación con la tienda no muestran productos).
   let elegidos = puntuados.filter((x) => x.todas);
+  // Órdenes de base de datos escritas en el buscador ("drop tablespace", "alter user", "truncate pedido"…): alguna palabra
+  // puede coincidir por casualidad con un producto ("drop" es también una medida de la suela). Si ningún producto tiene
+  // TODAS las palabras, no se muestra nada. "drop 8 mm" sí funciona, porque hay zapatillas con las tres palabras.
+  if (!elegidos.length && palabras.some((w) => PALABRAS_DE_BASE.has(w))) return [];
   if (!elegidos.length) elegidos = puntuados.filter((x) => x.fuertes > 0 && x.aciertos * 2 >= palabras.length);
   return elegidos.sort((a, b) => b.total - a.total).map((x) => x.p);
 }

@@ -1,7 +1,7 @@
 /* ATHLETIX · Versión publicada (la escribe herramientas/generar_paginas.py; no editar a mano) */
-window.VERSION_SITIO = 'b80e1d832a';
+window.VERSION_SITIO = 'd1b883736f';
 // Grupos de vistas con su versión: se usan para adelantar (prefetch) el siguiente paso de la compra
-window.GRUPOS_SITIO = {"tienda": "js/min/tienda.min.js?v=a4ef7b23", "cuenta": "js/min/cuenta.min.js?v=26abbdf6", "compra": "js/min/compra.min.js?v=9aa2ee58", "admin": "js/min/admin.min.js?v=9302412e"};
+window.GRUPOS_SITIO = {"tienda": "js/min/tienda.min.js?v=401016c1", "cuenta": "js/min/cuenta.min.js?v=26abbdf6", "compra": "js/min/compra.min.js?v=9aa2ee58", "admin": "js/min/admin.min.js?v=9302412e"};
 (function () {
   var meta = document.querySelector('meta[name="version-sitio"]');
   var pagina = meta && meta.content;
