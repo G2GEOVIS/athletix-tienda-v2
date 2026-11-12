@@ -359,7 +359,8 @@ function vistaProducto(partes) {
   const p = producto(partes[1]);
   if (!p || p.activo === false) return vistaNoEncontrada();
   const tieneTallas = p.tallas.length > 0;
-  const sinStock = !tieneTallas && stockDe(p, null) <= 0;
+  // Agotado: sin tallas y sin unidades, o con tallas y ninguna con unidades (antes este segundo caso dejaba el botón activo)
+  const sinStock = tieneTallas ? p.tallas.every((t) => stockDe(p, t) <= 0) : stockDe(p, null) <= 0;
   return {
     titulo: p.nombre,
     seccion: 'productos',

@@ -171,6 +171,25 @@ herramientas/fotos_catalogo.py    Prepara las fotos: vista completa y acercamien
 herramientas/aplicar_catalogo.py  Pasa el catálogo a js/datos.js y genera bd/23_catalogo_nuevo.sql
 ```
 
+## Pruebas automáticas
+
+En `pruebas/` hay guiones de Playwright que abren la tienda en Chromium y revisan casos límite. Ninguno escribe en la
+base ni envía correos: cuando hace falta, la respuesta de la base se cambia dentro del navegador de prueba.
+Uso: `node pruebas/stock.js [dirección]` (sin dirección prueba la tienda publicada).
+
+```
+humo.js           Las 29 páginas en celular y PC: sin errores, con su título y sus redirecciones
+stock.js          Agotado, última unidad, llevar todo el stock, stock que baja con el producto en el carrito, carrito manipulado
+compra.js         Pago con sesión simulada: sin stock al pagar, doble clic, base lenta, sesión vencida, errores del servidor
+formularios.js    Registro, ingreso, búsqueda con código malicioso, direcciones raras, dos pestañas, pantallas de 280 a 2560 px
+admin.js          Panel del administrador: stock negativo, precios inválidos, código repetido, acceso de un cliente normal
+suave.js          La actualización que llega de la base no mueve la página ni borra lo que el cliente escribe o eligió
+carrera.js        Archivos que llegan tarde (1,5 s de retraso): la página igual dibuja su pantalla
+previo.js         Contenido previo: cuándo se muestra, cuándo se oculta y que el JavaScript dibuje lo mismo
+teclas.js         Alt + 64, Alt Gr, acentos y ñ en los formularios
+interaccion.js    Galería, carrito, búsqueda, favoritos y prefetch
+```
+
 Las librerías externas están copiadas en `js/vendor/` con su versión fija (supabase-js 2, EmailJS, jsPDF),
 así el sitio no depende de que un CDN cambie de versión.
 

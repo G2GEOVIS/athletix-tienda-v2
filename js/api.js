@@ -86,6 +86,9 @@ const Api = (() => {
     if (m.includes('ckc_cli_celular')) return 'El número de celular no es válido.';
     // Mensajes propios de la base de datos (ya vienen en español)
     const propio = String((error && error.message) || '');
+    // P0001 = mensaje escrito por las funciones de la tienda (raise exception): siempre es un texto para el cliente.
+    // Antes dependía de las palabras del mensaje y, por ejemplo, "Hiciste demasiados pedidos seguidos" salía como error genérico
+    if (error && error.code === 'P0001' && propio) return propio;
     if (/^[A-ZÁÉÍÓÚ¿¡]/.test(propio) && /[áéíóúñ]|\b(el|la|de|para|debes|no)\b/i.test(propio)) return propio;
     return 'No pudimos completar la acción. Inténtalo de nuevo en unos segundos.';
   }

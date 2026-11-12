@@ -132,6 +132,8 @@ function vistaRegistro(partes, params) {
       activarDatosPersonales(form);
       validarAlSalir(form, 'correo-r', (v) => Validar.correo(v));
       validarAlSalir(form, 'clave-r', (v) => Validar.clave(v));
+      // La confirmación también se revisa al salir del campo (antes solo al enviar: el aviso viejo se quedaba aunque ya estuviera bien)
+      validarAlSalir(form, 'clave-r2', (v) => (!v ? 'Confirma tu contraseña.' : v !== $('#clave-r', form).value ? 'Las contraseñas no coinciden.' : ''));
       form.addEventListener('submit', async (e) => {
         e.preventDefault();
         const datos = leerDatosPersonales(form);
@@ -438,6 +440,8 @@ function formularioNuevaClave(idForm) {
 }
 function activarNuevaClave(form, alTerminar) {
   activarEnlacesError(form); activarVerClave(form);
+  validarAlSalir(form, 'nueva', (v) => Validar.clave(v));
+  validarAlSalir(form, 'nueva2', (v) => (!v ? 'Confirma la contraseña.' : v !== $('#nueva', form).value ? 'Las contraseñas no coinciden.' : ''));
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     const c1 = $('#nueva', form).value; const c2 = $('#nueva2', form).value;

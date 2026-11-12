@@ -350,13 +350,19 @@ let turnoRender = 0;
    se vea antes de que llegue el JavaScript. Es válido si no tiene la clase sin-previo (sesión, filtros o lista con datos). */
 const hayPrevio = () => $('#contenido').hasAttribute('data-previo') && !document.documentElement.classList.contains('sin-previo');
 
-async function render() {
+/* render({ suave: true }) es la actualización que llega sola cuando la base responde con datos distintos después de
+   haber dibujado: se actualiza sin mover la página al inicio, sin llevar el foco al título, sin borrar lo que el cliente
+   escribe en el buscador y manteniendo lo que ya eligió (por ejemplo la talla). */
+async function render(op) {
+  const suave = !!(op && op.suave === true);
   const turno = ++turnoRender;
   window.athletixPintado = true;
-  cerrarDialogo();
-  cerrarMenuCuenta();
-  $('.boton-menu').setAttribute('aria-expanded', 'false');
-  $('#menu-principal').classList.remove('abierta');
+  if (!suave) {
+    cerrarDialogo();
+    cerrarMenuCuenta();
+    $('.boton-menu').setAttribute('aria-expanded', 'false');
+    $('#menu-principal').classList.remove('abierta');
+  }
 
   const { partes, params } = leerRuta();
   const vista = window[VISTAS[partes[0] || '']] || vistaNoEncontrada;
@@ -379,6 +385,9 @@ async function render() {
   }
   if (turno !== turnoRender) return; // el usuario ya fue a otra página
   if (!resultado) return; // la vista redirigió
+  const alturaAntes = window.scrollY;
+  const escribiendo = suave && document.activeElement === $('#buscar-texto');
+  const elegidos = suave ? $$('input[type="radio"]:checked', main).map((i) => [i.name, i.value]) : [];
 
   main.innerHTML = resultado.html;
   main.removeAttribute('data-previo');
@@ -389,14 +398,19 @@ async function render() {
     if (a.dataset.ruta === (seccion || 'inicio')) a.setAttribute('aria-current', 'page');
     else a.removeAttribute('aria-current');
   });
-  $('#buscar-texto').value = partes[0] === 'productos' ? (params.get('q') || '') : '';
+  if (!escribiendo) $('#buscar-texto').value = partes[0] === 'productos' ? (params.get('q') || '') : '';
 
   try { if (resultado.montar) resultado.montar(main, params); } catch (error) { console.error(error); }
-  window.scrollTo(0, 0);
-  if (partes[0] === 'productos') { recordarCatalogo(); restaurarCatalogo(); }
+  // Lo que el cliente ya había elegido se vuelve a marcar (si sigue disponible) y se avisa a la vista con "change"
+  elegidos.forEach(([nombre, valor]) => {
+    const i = $$(`input[type="radio"][name="${nombre}"]`, main).find((x) => x.value === valor && !x.disabled);
+    if (i && !i.checked) { i.checked = true; i.dispatchEvent(new Event('change', { bubbles: true })); }
+  });
+  window.scrollTo(0, suave ? alturaAntes : 0);
+  if (partes[0] === 'productos') { recordarCatalogo(); if (!suave) restaurarCatalogo(); }
   recordarPagina();
   adelantarSiguientePaso(partes[0] || '');
-  if (!primeraCarga) {
+  if (!primeraCarga && !suave) {
     const titulo = $('h1', main);
     if (titulo) { titulo.setAttribute('tabindex', '-1'); titulo.focus({ preventScroll: true }); }
   }
@@ -471,6 +485,8 @@ async function iniciar() {
   if (guardado && guardado.edad < CATALOGO_FRESCO_MS) estado.catalogoConectado = true;
   const pedirCatalogo = usaCatalogo && (!guardado || guardado.edad >= CATALOGO_FRESCO_MS || RUTAS_CATALOGO_AL_DIA.has(ruta));
   const catalogo = pedirCatalogo ? cargarCatalogo() : Promise.resolve(false);
+  let catalogoRespondio = false;
+  catalogo.then(() => { catalogoRespondio = true; });
   let googleGuardado = null;
   try { googleGuardado = localStorage.getItem(CLAVE_GOOGLE); } catch (e) { /* sin almacenamiento */ }
   if (googleGuardado !== null) estado.googleActivo = googleGuardado === '1';
@@ -524,11 +540,14 @@ async function iniciar() {
     $('#contenido').removeAttribute('data-previo');
     await Promise.race([Promise.all([esperaCatalogo ? catalogo : null, esperaGoogle ? google : null]), new Promise((ok) => setTimeout(ok, 5000))]);
   }
+  // Si la base ya respondió antes de dibujar (carrito y compra la esperan), ese dibujo ya está al día: volver a dibujar
+  // borraría los avisos del carrito ("se agotó", "ajustamos la cantidad"), que solo salen la primera vez
+  const alDia = catalogoRespondio;
   render();
   mostrarAvisoPendiente();
   const cambio = await catalogo;
   const ahora = leerRuta().partes[0] || '';
-  if (cambio && ['', 'productos', 'producto', 'carrito', 'favoritos'].includes(ahora) && !$('#dialogo').open) render();
+  if (cambio && !alDia && ['', 'productos', 'producto', 'carrito', 'favoritos'].includes(ahora) && !$('#dialogo').open) render({ suave: true });
   if (preguntaGoogle && !esperaGoogle) { await google; if (estado.googleActivo !== googleAntes && !$('#dialogo').open) render(); }
 }
 
