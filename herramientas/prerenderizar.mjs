@@ -52,13 +52,15 @@ const PEDIR_FRAGMENTO = 'window.athletixPrevio=ok;if(ok){window.athletixEsperaFr
   'if(document.getElementById("contenido")&&document.readyState!=="loading")poner();else document.addEventListener("readystatechange",function f(){if(document.readyState!=="loading"){document.removeEventListener("readystatechange",f);poner()}})}).catch(listo)}';
 
 /* Carga de scripts al final del <body>: con contenido previo, después del primer pintado (requestAnimationFrame);
-   sin él, de inmediato. async=false mantiene el orden (version, supabase, base, vistas) igual que con defer. */
+   sin él, de inmediato. async=false mantiene el orden (version, supabase, base, vistas) igual que con defer.
+   athletixScriptsListos avisa cuando ya se ejecutó el último: app.js espera ese aviso para arrancar, porque la base
+   termina antes que las vistas de la página y sin esperar podía dibujar "Página no encontrada". */
 const SCRIPT_DEFER = /  <script src="([^"]+)" defer><\/script>\n/g;
 function cargarDespues(html) {
   const srcs = [...html.matchAll(SCRIPT_DEFER)].map((m) => m[1]);
   if (!srcs.length) throw new Error('No se encontraron los scripts con defer');
   const cargador = `  <script>(function(){var s=${JSON.stringify(srcs)};function c(){if(window.athletixScripts||window.athletixEsperaFragmento)return;window.athletixScripts=1;` +
-    `s.forEach(function(u){var e=document.createElement('script');e.src=u;e.async=false;document.head.appendChild(e)})}window.athletixCargarScripts=c;` +
+    `window.athletixScriptsListos=new Promise(function(ok){s.forEach(function(u,i){var e=document.createElement('script');e.src=u;e.async=false;if(i===s.length-1)e.onload=e.onerror=ok;document.head.appendChild(e)})})}window.athletixCargarScripts=c;` +
     `if(document.documentElement.className.indexOf('sin-previo')>-1)c();else requestAnimationFrame(function(){setTimeout(c,0)})})();</script>\n`;
   return html.replace(SCRIPT_DEFER, '').replace('</body>', cargador + '</body>');
 }

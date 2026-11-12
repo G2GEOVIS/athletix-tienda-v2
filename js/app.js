@@ -552,5 +552,11 @@ function redirigirEnlaceAntiguo() {
   if (consulta) destino += (destino.includes('?') ? '&' : '?') + consulta;
   location.replace(destino);
 }
-if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', redirigirEnlaceAntiguo);
+/* El arranque espera a que se hayan ejecutado TODOS los scripts de la página (también sus vistas); si arrancara antes,
+   el enrutador no encontraría la vista y mostraría "Página no encontrada" cuando un archivo llega tarde.
+   - Páginas con contenido previo: los scripts se agregan después del pintado y athletixScriptsListos avisa del último.
+   - Resto (scripts con defer): DOMContentLoaded se dispara después del último script con defer. No sirve mirar
+     readyState === 'loading', porque mientras se ejecutan los scripts con defer ya vale 'interactive'. */
+if (window.athletixScriptsListos) window.athletixScriptsListos.then(redirigirEnlaceAntiguo);
+else if (document.readyState !== 'complete') document.addEventListener('DOMContentLoaded', redirigirEnlaceAntiguo);
 else redirigirEnlaceAntiguo();
