@@ -309,11 +309,25 @@ function leerPendiente() {
   return null;
 }
 
-function terminarCompra(fila) {
+/* El carrito también está guardado en la cuenta (base de datos). Antes se mandaba a vaciar con una espera de 0,4 s y la
+   página cambiaba enseguida a la confirmación: muchas veces el borrado no alcanzaba a salir y los productos ya comprados
+   volvían a aparecer en el carrito. Ahora se espera (máximo 4 s) a que la base lo borre antes de cambiar de página;
+   si aun así no se pudo, queda una marca para borrarlo en la siguiente página. */
+async function terminarCompra(fila) {
   guardarTemporal('ultimo-pedido', { numero: fila.numero, id: fila.id });
   guardarTemporal('entrega', null);
   estado.carrito = [];
-  guardarCarrito(); actualizarContador(); borrarPendiente();
+  clearTimeout(esperasCuenta.carrito);
+  guardarLocal(claveCuenta(CLAVE_CARRITO), []);
+  actualizarContador(); borrarPendiente();
+  if (estado.cliente) {
+    const marca = claveCuenta(CLAVE_CARRITO_COMPRADO);
+    guardarLocal(marca, true);
+    try {
+      const r = await Promise.race([Api.cuenta.vaciarCarrito(estado.cliente.cedula), new Promise((ok) => setTimeout(() => ok({ error: 'tiempo' }), 4000))]);
+      if (r && !r.error) guardarLocal(marca, null);
+    } catch (e) { /* queda la marca: se borra en la siguiente página */ }
+  }
   location.replace('confirmacion.html');
 }
 

@@ -183,6 +183,7 @@ stock.js          Agotado, última unidad, llevar todo el stock, stock que baja 
 compra.js         Pago con sesión simulada: sin stock al pagar, doble clic, base lenta, sesión vencida, errores del servidor
 formularios.js    Registro, ingreso, búsqueda con código malicioso, direcciones raras, dos pestañas, pantallas de 280 a 2560 px
 admin.js          Panel del administrador: stock negativo, precios inválidos, código repetido, acceso de un cliente normal
+carrito-despues.js  Después de comprar, el carrito de la cuenta queda vacío (antes los productos comprados reaparecían)
 suave.js          La actualización que llega de la base no mueve la página ni borra lo que el cliente escribe o eligió
 carrera.js        Archivos que llegan tarde (1,5 s de retraso): la página igual dibuja su pantalla
 previo.js         Contenido previo: cuándo se muestra, cuándo se oculta y que el JavaScript dibuje lo mismo

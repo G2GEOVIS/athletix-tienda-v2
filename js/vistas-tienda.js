@@ -105,9 +105,14 @@ function grupoDe(w) {
   if (GRUPO_DE.has(s)) return GRUPO_DE.get(s);
   if (w.length < 5) return undefined;
   const tope = w.length >= 8 ? 2 : 1;
-  for (const [x, g] of GRUPO_DE) if (x.length >= 4 && distancia(w, x, tope) <= tope) return g;
+  for (const [x, g] of GRUPO_DE) if (x.length >= 4 && mismaInicial(w, x) && distancia(w, x, tope) <= tope) return g;
   return undefined;
 }
+/* Los errores de escritura casi nunca caen en la primera letra, salvo las que suenan igual (s/z/c, b/v, g/j, y/i).
+   Sin esta regla, palabras reales que no tienen que ver con la tienda se tomaban como un error de otra:
+   "perro" se leía como "cerro" y mostraba zapatillas de montaña. */
+const SUENAN_IGUAL = ['szckq', 'bv', 'gj', 'yi'];
+const mismaInicial = (a, b) => a[0] === b[0] || SUENAN_IGUAL.some((g) => g.includes(a[0]) && g.includes(b[0]));
 const singular = (w) => (w.length > 4 && w.endsWith('es') ? w.slice(0, -2) : w.length > 3 && w.endsWith('s') ? w.slice(0, -1) : w);
 
 /* Distancia de edición con tope (para tolerar errores de escritura sin hacer lenta la búsqueda) */
@@ -136,7 +141,7 @@ function coincidencia(w, { voces, desc }, conErrores) {
     if (voz === w || voz === s) return 3;
     if (s.length >= 3 && voz.startsWith(s)) mejor = Math.max(mejor, 2.5);
     else if (voz.length >= 4 && w.startsWith(voz)) mejor = Math.max(mejor, 2);
-    else if (conErrores && w.length >= 5 && voz.length >= 4) {
+    else if (conErrores && w.length >= 5 && voz.length >= 4 && mismaInicial(w, voz)) {
       const tope = w.length >= 8 ? 2 : 1;
       if (Math.min(distancia(w, voz, tope), distancia(s, voz, tope)) <= tope) mejor = Math.max(mejor, 1.5);
     }
@@ -157,7 +162,14 @@ function vocesProducto(p) {
   return vocesDe.get(p);
 }
 
+/* Texto que no es una búsqueda de productos sino un intento de escribir código (SQL, etiquetas, símbolos de programación).
+   La búsqueda se hace en el navegador y nunca llega a la base, así que no hay riesgo, pero no tiene sentido mostrar
+   productos por una coincidencia casual (por ejemplo "drop database" encontraba zapatillas por el "drop" de la suela). */
+const RE_CODIGO = /[;=*<>{}\[\]\\|`'"]|--|\b(select|insert|update|delete|drop|alter|create|truncate|union|exec|grant)\b[\s\S]*\b(from|into|table|database|schema|set|select|where|user|all)\b|\b(or|and)\s+\d+\s*$/i;
+const pareceCodigo = (t) => RE_CODIGO.test(String(t));
+
 function buscar(lista, consulta) {
+  if (pareceCodigo(consulta)) return [];
   // "10kg" se lee como "10 kg"
   const palabras = normalizar(consulta).replace(/(\d)([a-zñ])/g, '$1 $2').replace(/([a-zñ])(\d)/g, '$1 $2')
     .split(/[^a-z0-9ñ]+/).filter((w) => w && !PALABRAS_VACIAS.has(w)).slice(0, 8);
@@ -168,11 +180,15 @@ function buscar(lista, consulta) {
   const puntuados = lista.map((p) => {
     const voces = vocesProducto(p);
     const notas = palabras.map((w, i) => coincidencia(w, voces, conErrores[i]));
-    return { p, todas: notas.every((n) => n > 0), total: notas.reduce((a, b) => a + b, 0) };
+    // "Fuertes": palabras (no números sueltos) que están en el nombre, la marca o las características del producto
+    const fuertes = notas.filter((n, i) => n >= 2 && !/^\d+$/.test(palabras[i])).length;
+    return { p, todas: notas.every((n) => n > 0), total: notas.reduce((a, b) => a + b, 0), aciertos: notas.filter((n) => n > 0).length, fuertes };
   });
-  // Primero los productos que tienen todas las palabras; si ninguno, los que tienen alguna
+  // Primero los productos que tienen todas las palabras. Si ninguno las tiene todas, se aceptan los que coinciden en
+  // al menos la mitad de las palabras y con alguna coincidencia fuerte; un número suelto o una palabra de la
+  // descripción ya no bastan (así "iphone 15" o una frase sin relación con la tienda no muestran productos).
   let elegidos = puntuados.filter((x) => x.todas);
-  if (!elegidos.length) elegidos = puntuados.filter((x) => x.total > 0);
+  if (!elegidos.length) elegidos = puntuados.filter((x) => x.fuertes > 0 && x.aciertos * 2 >= palabras.length);
   return elegidos.sort((a, b) => b.total - a.total).map((x) => x.p);
 }
 

@@ -379,6 +379,8 @@ const Api = (() => {
       if (ids.length) q = q.not('prd_codigo', 'in', `(${ids.map((x) => `"${x}"`).join(',')})`);
       return ejecutar(q);
     },
+    // Después de comprar: borra de una sola vez todo el carrito guardado en la cuenta
+    async vaciarCarrito(cedula) { return ejecutar(sb.from('carrito').delete().eq('cli_cedula', cedula)); },
     async guardarCarrito(cedula, lineas) {
       const filas = lineas.map((l) => ({ cli_cedula: cedula, prd_codigo: l.id, car_talla: l.talla || 'U', car_cantidad: l.cantidad }));
       if (filas.length) {

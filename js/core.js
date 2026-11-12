@@ -48,6 +48,7 @@ function guardarFavoritos() { guardarLocal(claveCuenta(CLAVE_FAVORITOS), estado.
 /* Con sesión, el carrito y los favoritos también se guardan en la base (tablas CARRITO y FAVORITO).
    Se espera un momento para juntar varios cambios seguidos en un solo envío. */
 const esperasCuenta = {};
+const CLAVE_CARRITO_COMPRADO = 'athletix-carrito-comprado';
 function sincronizarCuenta(que) {
   if (!estado.cliente || !estado.cuentaCargada || typeof Api === 'undefined') return;
   clearTimeout(esperasCuenta[que]);
@@ -63,6 +64,13 @@ async function cargarCuentaDesdeBase() {
   if (!estado.cliente) return;
   const [rc, rf] = await Promise.all([Api.cuenta.carrito(), Api.cuenta.favoritos()]);
   if (rc.error || rf.error) return; // sin las tablas o sin conexión: se sigue con lo guardado en el navegador
+  // Si la última compra no alcanzó a vaciar el carrito de la cuenta (se cerró la página o se cortó la conexión),
+  // lo que quedó en la base ya fue comprado: no se vuelve a mostrar y se borra ahora
+  if (leerLocal(claveCuenta(CLAVE_CARRITO_COMPRADO))) {
+    rc.datos = [];
+    const clave = claveCuenta(CLAVE_CARRITO_COMPRADO);
+    Api.cuenta.vaciarCarrito(estado.cliente.cedula).then((r) => { if (!r.error) guardarLocal(clave, null); });
+  }
   // Si la cuenta todavía no tiene nada en la base, se sube lo que ya había en este navegador
   const primeraVez = !rc.datos.length && !rf.datos.length && (estado.carrito.length || estado.favoritos.length);
   if (primeraVez) estado.invitado = { carrito: estado.carrito.slice(), favoritos: estado.favoritos.slice() };
