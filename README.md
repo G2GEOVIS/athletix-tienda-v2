@@ -138,8 +138,9 @@ Lo que se cambió para que la tienda cargue más rápido en celular y en PC, sin
   EmailJS (respaldo del correo) se descarga solo si hace falta.
 - **Fuentes**: alojadas en `fuentes/` en WOFF2, solo los 5 pesos que se usan, con `font-display: swap` y precarga
   de las cuatro que se ven al abrir (antes 7 pesos desde Google Fonts, que bloqueaban la primera pintura). Recortadas
-  a los caracteres del español (unos 19 KB cada una en vez de 23 KB):
-  `pyftsubset <fuente> --unicodes="U+0020-007E,U+00A0-00FF,U+0152-0153,U+2000-206F,U+20AC,U+2122,U+2191-2193,U+2212" --layout-features="kern,liga" --flavor=woff2`
+  a los caracteres del español y sin *hinting* (unos 12 KB cada una en vez de 23 KB):
+  `pyftsubset <fuente> --unicodes="U+0020-007E,U+00A0-00FF,U+0152-0153,U+2000-206F,U+20AC,U+2122,U+2191-2193,U+2212" --layout-features="kern,liga" --no-hinting --desubroutinize --flavor=woff2`
+  (sin las instrucciones de ajuste para pantallas antiguas, *hinting*: de 19 a 12 KB cada una)
 - **Renderizado previo**: inicio, catálogo, carrito, favoritos, ingreso, registro, recuperar, ayuda y quiénes somos
   traen su contenido ya armado en el HTML, y el detalle de cada producto en `previo/producto/<código>.html`
   (`herramientas/prerenderizar.mjs`). La página se ve apenas llegan el HTML y el CSS, y los scripts se piden justo
