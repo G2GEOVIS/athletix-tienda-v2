@@ -1,17 +1,29 @@
-# Mantiene activa la base de datos gratuita de Supabase (se pausa tras 7 días sin uso)
-# y comprueba que la tienda publicada responda. Corre todos los días y se puede lanzar a mano.
+# Mantiene activa la base de datos gratuita de Supabase (se pausa tras 7 días sin actividad)
+# y comprueba que la tienda publicada responda. Corre dos veces al día y se puede lanzar a mano.
+# Solo hace lecturas: no cambia ningún dato de la tienda.
 name: Mantener la tienda v2 activa
 on:
   schedule:
     - cron: '17 11 * * *'
+    - cron: '43 23 * * *'
   workflow_dispatch:
 jobs:
   ping:
     runs-on: ubuntu-latest
+    env:
+      URL: https://umujfngetzifneqerirl.supabase.co
+      KEY: sb_publishable_tdCRRgSHKJO6ADcmyeuFeQ_xuGIuhXd
     steps:
       - name: Consultar la base de datos
         run: |
-          curl -fsS "https://umujfngetzifneqerirl.supabase.co/rest/v1/producto?select=prd_codigo&limit=1" \
-            -H "apikey: sb_publishable_tdCRRgSHKJO6ADcmyeuFeQ_xuGIuhXd" > /dev/null && echo "Base de datos activa"
+          for t in "producto?select=prd_codigo&limit=1" "producto_talla?select=*&limit=1" "tienda?select=*&limit=1" "vista_calificaciones?select=*&limit=1"; do
+            curl -fsS "$URL/rest/v1/$t" -H "apikey: $KEY" > /dev/null
+          done
+          curl -fsS -X POST "$URL/rest/v1/rpc/es_admin" -H "apikey: $KEY" -H "Content-Type: application/json" -d '{}' > /dev/null
+          echo "Base de datos activa"
+      - name: Comprobar el inicio de sesión
+        run: |
+          curl -fsS "$URL/auth/v1/health" -H "apikey: $KEY" > /dev/null && echo "Autenticación activa"
       - name: Comprobar la página publicada
-        run: curl -fsS -o /dev/null "https://g2geovis.github.io/athletix-tienda-v2/" && echo "Tienda en línea"
+        run: |
+          curl -fsS -o /dev/null "https://g2geovis.github.io/athletix-tienda-v2/" && echo "Tienda en línea"
