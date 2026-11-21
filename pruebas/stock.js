@@ -92,13 +92,7 @@ let fallas = 0; const ver = (ok, t, extra = '') => { if (!ok) fallas++; console.
   p = await abrir('carrito.html', { pt: { U: 29 } }, { carrito: [{ id: 'pt', talla: null, cantidad: 9999 }] });
   ver((await carritoLS(p))[0]?.cantidad === 29, '8b. 9999 unidades escritas a mano: se ajusta al stock (29)', JSON.stringify(await carritoLS(p)));
   await cerrar(p);
-  // 9. Favoritos: agregar todos con uno agotado
-  p = await abrir('favoritos.html', { pt: { U: 0 } }, { favoritos: ['pt', 'fl'] });
-  t = await txt(p, 'main');
-  ver(/Agotado/i.test(t), '9a. Favoritos muestra cuál está agotado');
-  const todos = await p.$('#agregar-todos, [data-accion="agregar-todos"], button:has-text("Agregar todo")');
-  if (todos) { await todos.click(); await p.waitForTimeout(500); const cf = await carritoLS(p); ver(cf.length === 1 && cf[0].id === 'fl', '9b. "Agregar todo": entra solo el que tiene stock', (await txt(p, '#dialogo') || '').slice(0, 120)); } else ver(false, '9b. no encontré el botón de agregar todos');
-  ver(!(await cerrar(p)).length, '   sin errores');
+  // 9. Favoritos con un producto agotado: ahora son de la cuenta y se prueban con sesión en pruebas/favoritos.js
   // 10. Cambiar cantidad en el carrito con poco stock
   p = await abrir('carrito.html', { pt: { U: 3 } }, { carrito: [{ id: 'pt', talla: null, cantidad: 1 }] });
   for (let i = 0; i < 6; i++) { const m = await p.$('[data-accion="mas"]:not([disabled])'); if (m) await m.click(); await p.waitForTimeout(120); }

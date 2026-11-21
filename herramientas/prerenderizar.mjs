@@ -9,7 +9,7 @@
    - Detalle del producto (producto.html?id=…): un fragmento por producto en previo/producto/<id>.html, que un
      script mínimo del <head> pide apenas abre la página.
    El contenido previo solo se muestra cuando le sirve a quien entra: sin sesión iniciada, sin filtros en la dirección
-   y, en carrito y favoritos, con la lista vacía. En los demás casos se oculta y la página se dibuja como antes.
+   y, en el carrito, con la lista vacía. Favoritos no se prerenderiza: es de la cuenta y sin sesión lleva a iniciar sesión. En los demás casos se oculta y la página se dibuja como antes.
    En estas páginas los scripts se piden justo después de pintar el contenido previo (no compiten con él por la red);
    si el contenido previo no aplica, se piden de inmediato.
    Uso (después de generar_paginas.py):  node herramientas/prerenderizar.mjs   (se ejecuta con npm run construir) */
@@ -29,7 +29,6 @@ const PAGINAS = {
   'index.html': '',
   'productos.html': '',
   'carrito.html': LISTA_VACIA('athletix-carrito-v2'),
-  'favoritos.html': LISTA_VACIA('athletix-favoritos'),
   'login.html': '',
   'registro.html': '',
   'recuperar.html': '',

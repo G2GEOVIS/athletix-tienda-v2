@@ -445,12 +445,13 @@ medirEncabezado();
 
 window.addEventListener('storage', (e) => {
   if (e.key === claveCuenta(CLAVE_CARRITO)) { estado.carrito = leerCarrito(e.key); actualizarContador(); }
-  if (e.key === claveCuenta(CLAVE_FAVORITOS)) { estado.favoritos = leerFavoritos(e.key); actualizarContador(); }
+  if (estado.sesion && e.key === claveCuenta(CLAVE_FAVORITOS)) { estado.favoritos = leerFavoritos(e.key); actualizarContador(); }
 });
 // Botón de favorito (corazón) en tarjetas y en el detalle del producto
 document.addEventListener('click', (e) => {
   const b = e.target.closest('[data-favorito]');
   if (!b) return;
+  if (!estado.cliente) { pedirCuentaParaFavorito(b.dataset.favorito); return; } // los favoritos se guardan en la cuenta
   const p = producto(b.dataset.favorito);
   const si = alternarFavorito(b.dataset.favorito);
   $$(`[data-favorito="${b.dataset.favorito}"]`).forEach((x) => x.setAttribute('aria-pressed', si));

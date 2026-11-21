@@ -19,10 +19,9 @@ const B = process.argv[2] || 'https://g2geovis.github.io/athletix-tienda-v2/';
   };
   const sesion = () => sessionStorage.setItem('sb-umujfngetzifneqerirl-auth-token', '{"falso":1}');
   const carrito = () => localStorage.setItem('athletix-carrito-v2', JSON.stringify([{ id: 'vx', talla: '42', cantidad: 1 }]));
-  const favs = () => localStorage.setItem('athletix-favoritos', JSON.stringify(['vx']));
   const casos = [
     ['index.html', {}, 'se ve'], ['index.html', { antes: sesion }, 'oculto'], ['productos.html', {}, 'se ve'], ['productos.html?cat=calzado', {}, 'oculto'],
-    ['carrito.html', {}, 'se ve'], ['carrito.html', { antes: carrito }, 'oculto'], ['favoritos.html', {}, 'se ve'], ['favoritos.html', { antes: favs }, 'oculto'],
+    ['carrito.html', {}, 'se ve'], ['carrito.html', { antes: carrito }, 'oculto'], 
     ['login.html', {}, 'se ve'], ['login.html?volver=pedidos.html', {}, 'oculto'], ['producto.html?id=vx', {}, 'se ve'], ['producto.html?id=zz', {}, 'oculto'],
     ['index.html#/carrito', {}, 'oculto'], ['ayuda.html', {}, 'se ve'], ['quienes-somos.html', {}, 'se ve'], ['registro.html', {}, 'se ve'], ['recuperar.html', {}, 'se ve']
   ];

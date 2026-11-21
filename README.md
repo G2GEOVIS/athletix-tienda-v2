@@ -27,7 +27,8 @@ Proyecto de la asignatura **Interacción Humano Computador** (Ingeniería en Sis
 - Cada factura tiene su propio número secuencial (001-001-000000001, …) que nunca se repite.
 - Fotos de productos en alta resolución (1600 × 1200, formato 4:3, tres vistas por producto) con imágenes responsivas: cada pantalla descarga el WebP justo (600, 1000 o 1600 px) según su tamaño y densidad.
 - Compras seguras ante concurrencia: el stock se descuenta con bloqueo por fila en una sola transacción y cada intento de pago tiene una clave única para no duplicar pedidos.
-- Carrito y favoritos guardados en la base (tablas CARRITO y FAVORITO): con la cuenta se ven iguales en la computadora y en el celular. Sin sesión se guardan en el navegador (localStorage) y se suman a la cuenta al ingresar.
+- Carrito y favoritos guardados en la base (tablas CARRITO y FAVORITO): con la cuenta se ven iguales en la computadora y en el celular. El carrito sin sesión se guarda en el navegador y se suma a la cuenta al ingresar.
+- Los favoritos son siempre de una cuenta: sin sesión, el corazón lleva a iniciar sesión (o a crear la cuenta) y, al volver, ese producto queda guardado. Así no se pierden si se borra el historial del navegador o se entra desde otro dispositivo.
 - Mis pedidos y el panel del administrador muestran la foto de cada producto pedido. Favoritos tiene un botón para agregar todos al carrito (pide la talla si hace falta).
 - Contraseñas de al menos 8 caracteres con letras, números y un carácter especial.
 - El administrador recibe el aviso de pedido nuevo con el mismo diseño que el cliente: detalle con fotos, datos del cliente, pago y retiro.
@@ -66,7 +67,7 @@ admin.html               Panel de pedidos (administrador)
 admin-productos.html     Lista de productos (administrador)
 admin-producto.html      Crear o editar un producto (?id=código)
 admin-pagos.html         Pagos recibidos (administrador)
-favoritos.html           Mis favoritos (guardados en el navegador)
+favoritos.html           Mis favoritos (guardados en la cuenta; sin sesión pide iniciar sesión)
 ayuda.html               Centro de ayuda
 quienes-somos.html       Quiénes somos: historia, misión, visión, valores y tiendas
 404.html                 Página no encontrada
@@ -141,11 +142,11 @@ Lo que se cambió para que la tienda cargue más rápido en celular y en PC, sin
   a los caracteres del español y sin *hinting* (unos 12 KB cada una en vez de 23 KB):
   `pyftsubset <fuente> --unicodes="U+0020-007E,U+00A0-00FF,U+0152-0153,U+2000-206F,U+20AC,U+2122,U+2191-2193,U+2212" --layout-features="kern,liga" --no-hinting --desubroutinize --flavor=woff2`
   (sin las instrucciones de ajuste para pantallas antiguas, *hinting*: de 19 a 12 KB cada una)
-- **Renderizado previo**: inicio, catálogo, carrito, favoritos, ingreso, registro, recuperar, ayuda y quiénes somos
+- **Renderizado previo**: inicio, catálogo, carrito, ingreso, registro, recuperar, ayuda y quiénes somos
   traen su contenido ya armado en el HTML, y el detalle de cada producto en `previo/producto/<código>.html`
   (`herramientas/prerenderizar.mjs`). La página se ve apenas llegan el HTML y el CSS, y los scripts se piden justo
   después; el JavaScript vuelve a dibujar lo mismo con los botones funcionando. Ese contenido se oculta si no le
-  corresponde a quien entra (sesión iniciada, filtros en la dirección, carrito o favoritos con productos).
+  corresponde a quien entra (sesión iniciada, filtros en la dirección o carrito con productos).
   **Si se cambia el catálogo desde el administrador, hay que volver a ejecutar `npm run construir` y publicar**; mientras
   tanto la página muestra un instante lo anterior y se corrige sola con los datos de la base.
 - **Datos**: el catálogo de la base se guarda en el navegador; la página se muestra al instante y se actualiza si la
@@ -184,6 +185,7 @@ stock.js          Agotado, última unidad, llevar todo el stock, stock que baja 
 compra.js         Pago con sesión simulada: sin stock al pagar, doble clic, base lenta, sesión vencida, errores del servidor
 formularios.js    Registro, ingreso, búsqueda con código malicioso, direcciones raras, dos pestañas, pantallas de 280 a 2560 px
 admin.js          Panel del administrador: stock negativo, precios inválidos, código repetido, acceso de un cliente normal
+favoritos.js        Favoritos de la cuenta: sin sesión pide ingresar, el producto queda guardado al volver y no se pierde al borrar el historial
 carrito-despues.js  Después de comprar, el carrito de la cuenta queda vacío (antes los productos comprados reaparecían)
 suave.js          La actualización que llega de la base no mueve la página ni borra lo que el cliente escribe o eligió
 carrera.js        Archivos que llegan tarde (1,5 s de retraso): la página igual dibuja su pantalla

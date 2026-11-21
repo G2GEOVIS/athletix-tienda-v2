@@ -21,8 +21,10 @@ const B = process.argv[2] || 'https://g2geovis.github.io/athletix-tienda-v2/';
   await p.goto(B + 'productos.html', { waitUntil: 'networkidle' });
   await p.fill('#buscar-texto', 'reloj'); await p.press('#buscar-texto', 'Enter'); await p.waitForURL(/q=reloj/); await p.waitForTimeout(800);
   const n = await p.$$eval('.tarjeta-producto', (l) => l.length); ok(n > 0, 'búsqueda "reloj": ' + n + ' productos');
-  await p.click('.tarjeta-producto [data-favorito]'); await p.waitForTimeout(300);
-  const fav = await p.$eval('#contador-favoritos', (e) => e.textContent); ok(fav === '1', 'favorito guardado: ' + fav);
+  // Los favoritos son de la cuenta: sin sesión, el corazón lleva a iniciar sesión (el detalle está en pruebas/favoritos.js)
+  await p.click('.tarjeta-producto [data-favorito]'); await p.waitForURL(/login\.html/, { timeout: 10000 }).catch(() => {});
+  ok(/login\.html\?volver=productos\.html/.test(p.url()), 'favorito sin sesión -> iniciar sesión: ' + p.url().split('/').pop());
+  await p.goto(B + 'productos.html?q=reloj', { waitUntil: 'networkidle' }); await p.waitForTimeout(500);
   const lazy = await p.$$eval('.tarjeta-producto img', (l) => l.slice(0, 8).map((i) => (i.getAttribute('fetchpriority') || '-') + '/' + (i.getAttribute('loading') || 'eager')));
   console.log('      prioridad/carga de las primeras 8 tarjetas:', lazy.join(' '));
   ok(!err.length, 'sin errores en consola ' + err.join(' | '));

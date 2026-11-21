@@ -2,14 +2,16 @@
 'use strict';
 
 /* ======================= Estado ======================= */
-// En el navegador (localStorage) se guardan el carrito, los favoritos y la última tienda de retiro. Las cuentas, pedidos, pagos y reseñas viven en la base de datos.
+// En el navegador (localStorage) se guardan el carrito y la última tienda de retiro. Las cuentas, pedidos, pagos, reseñas y favoritos
+// viven en la base de datos: los favoritos son siempre de una cuenta (sin sesión no se pueden guardar) para que no se pierdan
+// si la persona borra el historial o entra desde otro dispositivo.
 // Cada cuenta tiene sus propias claves (clave base + id del usuario); sin sesión se usa la clave base.
 const CLAVE_CARRITO = 'athletix-carrito-v2';
 const CLAVE_FAVORITOS = 'athletix-favoritos';
 const CLAVE_ENTREGA = 'athletix-ultima-entrega';
 const estado = {
   carrito: leerCarrito(CLAVE_CARRITO),
-  favoritos: leerFavoritos(CLAVE_FAVORITOS),
+  favoritos: [],       // los de la cuenta; se cargan al saber si hay sesión
   sesion: null,        // sesión de Supabase (usuario autenticado)
   cliente: null,       // fila de la tabla clientes
   esAdmin: false,
@@ -43,7 +45,27 @@ function leerFavoritos(clave) {
   const f = leerLocal(clave);
   return Array.isArray(f) ? [...new Set(f.filter((id) => typeof id === 'string' && id.length <= 10))] : [];
 }
-function guardarFavoritos() { guardarLocal(claveCuenta(CLAVE_FAVORITOS), estado.favoritos); sincronizarCuenta('favoritos'); }
+function guardarFavoritos() {
+  if (!estado.sesion) return; // sin cuenta no hay favoritos
+  guardarLocal(claveCuenta(CLAVE_FAVORITOS), estado.favoritos); sincronizarCuenta('favoritos');
+}
+/* Favoritos sin sesión: el producto que la persona quiso guardar se recuerda un momento (2 horas) y la tienda la lleva
+   a iniciar sesión o crear su cuenta. Cuando la cuenta termina de cargar, ese producto queda guardado en sus favoritos. */
+const CLAVE_FAVORITO_PENDIENTE = 'athletix-favorito-pendiente';
+function favoritoPendiente() {
+  const x = leerLocal(CLAVE_FAVORITO_PENDIENTE);
+  return x && typeof x.id === 'string' && x.id.length <= 10 && Date.now() - x.t < 2 * 3600 * 1000 ? x.id : '';
+}
+function pedirCuentaParaFavorito(id) {
+  guardarLocal(CLAVE_FAVORITO_PENDIENTE, { id, t: Date.now() });
+  exigirCuenta();
+}
+// Lleva a iniciar sesión (o a completar el perfil) y vuelve a la página indicada; devuelve false si tuvo que salir
+function exigirCuenta(volver = paginaActual()) {
+  if (!estado.sesion) { ir(conVolver('login.html', volver)); return false; }
+  if (!estado.cliente) { ir(conVolver('completar-perfil.html', volver)); return false; }
+  return true;
+}
 
 /* Con sesión, el carrito y los favoritos también se guardan en la base (tablas CARRITO y FAVORITO).
    Se espera un momento para juntar varios cambios seguidos en un solo envío. */
@@ -84,9 +106,16 @@ async function cargarCuentaDesdeBase() {
   const hayInvitado = (estado.invitado.carrito || []).length || (estado.invitado.favoritos || []).length;
   estado.invitado = { carrito: [], favoritos: [] };
   estado.carrito = carrito; estado.favoritos = favoritos;
+  // El producto que quiso guardar antes de iniciar sesión
+  const pendiente = favoritoPendiente();
+  guardarLocal(CLAVE_FAVORITO_PENDIENTE, null);
+  const nuevoFavorito = pendiente && !favoritos.includes(pendiente);
+  if (nuevoFavorito) favoritos.push(pendiente);
   estado.cuentaCargada = true;
   guardarLocal(claveCuenta(CLAVE_CARRITO), carrito); guardarLocal(claveCuenta(CLAVE_FAVORITOS), favoritos);
-  if (hayInvitado) { sincronizarCuenta('carrito'); sincronizarCuenta('favoritos'); }
+  if (hayInvitado) sincronizarCuenta('carrito');
+  if (hayInvitado || nuevoFavorito) sincronizarCuenta('favoritos');
+  if (nuevoFavorito) setTimeout(() => { const p = producto(pendiente); aviso(`${p ? p.nombre : 'El producto'} se guardó en tus favoritos.`); }, 800);
 }
 const esFavorito = (id) => estado.favoritos.includes(id);
 function alternarFavorito(id) {
@@ -102,7 +131,8 @@ function botonFavorito(p, clase = '', conTexto = false) {
    Lo que se agregó sin sesión se suma a la cuenta que ingresa. */
 function cargarDatosDeCuenta() {
   const carrito = leerCarrito(claveCuenta(CLAVE_CARRITO));
-  const favoritos = leerFavoritos(claveCuenta(CLAVE_FAVORITOS));
+  // Sin sesión no hay favoritos; los que hubieran quedado de antes en este navegador se suman a la cuenta al ingresar
+  const favoritos = estado.sesion ? leerFavoritos(claveCuenta(CLAVE_FAVORITOS)) : [];
   if (estado.sesion) {
     // Lo agregado sin sesión se recuerda para sumarlo también a lo que la cuenta tiene en la base
     estado.invitado = { carrito: leerCarrito(CLAVE_CARRITO), favoritos: leerFavoritos(CLAVE_FAVORITOS) };
@@ -117,7 +147,8 @@ function cargarDatosDeCuenta() {
   estado.carrito = carrito;
   estado.favoritos = favoritos;
   estado.cuentaCargada = false;
-  guardarLocal(claveCuenta(CLAVE_CARRITO), carrito); guardarLocal(claveCuenta(CLAVE_FAVORITOS), favoritos);
+  guardarLocal(claveCuenta(CLAVE_CARRITO), carrito);
+  if (estado.sesion) guardarLocal(claveCuenta(CLAVE_FAVORITOS), favoritos);
 }
 function guardarTemporal(clave, valor) {
   try { if (valor === null) sessionStorage.removeItem(clave); else sessionStorage.setItem(clave, JSON.stringify(valor)); } catch (e) { /* sin almacenamiento */ }

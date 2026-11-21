@@ -982,8 +982,9 @@ function abrirCambioTalla(i) {
   });
 }
 
-/* ======================= Mis favoritos (guardados en el navegador) ======================= */
+/* ======================= Mis favoritos (guardados en la cuenta) ======================= */
 function vistaFavoritos() {
+  if (!exigirCuenta()) return null;
   const lista = estado.favoritos.map(producto).filter((p) => p && p.activo !== false);
   return {
     titulo: 'Mis favoritos',

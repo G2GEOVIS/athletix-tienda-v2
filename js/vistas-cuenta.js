@@ -27,7 +27,7 @@ function vistaIngresar(partes, params) {
     <div class="contenedor pagina">
       <div class="panel formulario-centro">
         <h1 class="titulo-pagina">Inicia sesión</h1>
-        <p class="subtitulo cabecera-pagina">${volver === 'retiro.html' ? 'Ingresa con tu cuenta para finalizar tu compra.' : 'Ingresa para comprar y ver tus pedidos.'}</p>
+        <p class="subtitulo cabecera-pagina">${volver === 'retiro.html' ? 'Ingresa con tu cuenta para finalizar tu compra.' : favoritoPendiente() || /^favoritos\.html/.test(volver) ? 'Ingresa con tu cuenta para guardar tus favoritos. Así no se pierden aunque borres el historial o cambies de dispositivo.' : 'Ingresa para comprar y ver tus pedidos.'}</p>
         ${botonGoogle()}
         <form class="formulario" id="form-ingresar" novalidate>
           <div class="alerta alerta-errores" tabindex="-1" role="alert" hidden></div>
